@@ -1,0 +1,187 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  locale        String    @default("en")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  sessions  Session[]
+  accounts  Account[]
+  analyses  Analysis[]
+
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@map("accounts")
+}
+
+model Verification {
+  id         String    @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+
+  @@map("verifications")
+}
+
+model Analysis {
+  id                  String   @id @default(cuid())
+  userId              String
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  query               String
+  topic               String
+  audience            String?
+  summary             String   @db.Text
+  opportunityScore    Int      @default(0)
+  demandScore         Int      @default(0)
+  urgencyScore        Int      @default(0)
+  competitionScore    Int      @default(0)
+  monetizationScore   Int      @default(0)
+  recommendedMvp      String?  @db.Text
+  pricingSuggestion   String?  @db.Text
+  seoSummary          String?  @db.Text
+  saved               Boolean  @default(false)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  painPoints          PainPoint[]
+  productIdeas        ProductIdea[]
+  keywordIdeas        KeywordIdea[]
+  objections          Objection[]
+  acquisitionChannels AcquisitionChannel[]
+  recurringPhrases    RecurringPhrase[]
+
+  @@index([userId])
+  @@map("analyses")
+}
+
+model PainPoint {
+  id              String   @id @default(cuid())
+  analysisId      String
+  analysis        Analysis @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+  text            String   @db.Text
+  sourceName      String?
+  sourceType      String?
+  sourceUrl       String?
+  authorHandle    String?
+  sentiment       String?
+  frequency       Int      @default(1)
+  tags            String[] @default([])
+  audience        String?
+  problemCategory String?
+  severityScore   Int      @default(0)
+  createdAt       DateTime @default(now())
+
+  @@index([analysisId])
+  @@map("pain_points")
+}
+
+model ProductIdea {
+  id                 String   @id @default(cuid())
+  analysisId         String
+  analysis           Analysis @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+  title              String
+  description        String   @db.Text
+  targetAudience     String?
+  monetizationModel  String?
+  differentiation    String?  @db.Text
+  mvpScope           String?  @db.Text
+  createdAt          DateTime @default(now())
+
+  @@index([analysisId])
+  @@map("product_ideas")
+}
+
+model KeywordIdea {
+  id         String   @id @default(cuid())
+  analysisId String
+  analysis   Analysis @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+  keyword    String
+  intent     String?
+  priority   String?
+  createdAt  DateTime @default(now())
+
+  @@index([analysisId])
+  @@map("keyword_ideas")
+}
+
+model Objection {
+  id         String   @id @default(cuid())
+  analysisId String
+  analysis   Analysis @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+  text       String   @db.Text
+  createdAt  DateTime @default(now())
+
+  @@index([analysisId])
+  @@map("objections")
+}
+
+model AcquisitionChannel {
+  id         String   @id @default(cuid())
+  analysisId String
+  analysis   Analysis @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+  name       String
+  rationale  String?  @db.Text
+  createdAt  DateTime @default(now())
+
+  @@index([analysisId])
+  @@map("acquisition_channels")
+}
+
+model RecurringPhrase {
+  id         String   @id @default(cuid())
+  analysisId String
+  analysis   Analysis @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+  phrase     String
+  frequency  Int      @default(1)
+  createdAt  DateTime @default(now())
+
+  @@index([analysisId])
+  @@map("recurring_phrases")
+}
