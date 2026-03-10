@@ -3,6 +3,7 @@ import { getSession } from "@/lib/auth-server";
 import { db } from "@/lib/db";
 import { analysisSchema } from "@/lib/validations";
 import { generateMockAnalysis } from "@/lib/mock-analysis";
+import { checkAnalysisLimit, getPlanLimitError, type PlanLimitErrorType } from "@/lib/plan-guard";
 
 export const dynamic = "force-dynamic";
 
@@ -50,13 +51,27 @@ export async function POST(request: Request) {
   }
 
   const { query, topic, audience } = parsed.data;
-  
+
+  const limitCheck = await checkAnalysisLimit(session.user.id);
+  if (!limitCheck.allowed) {
+    const user = await db.user.findUnique({
+      where: { id: session.user.id },
+      select: { locale: true },
+    });
+    const locale = (user?.locale as string) || "en";
+    const message = getPlanLimitError(limitCheck.error as PlanLimitErrorType, locale);
+    return NextResponse.json(
+      { error: message, code: "plan_limit_exceeded" },
+      { status: 403 }
+    );
+  }
+
   const user = await db.user.findUnique({
     where: { id: session.user.id },
     select: { locale: true },
   });
   const locale = (user?.locale as "en" | "fr") || "en";
-  
+
   const mock = generateMockAnalysis(query, topic, audience, locale);
 
   const analysis = await db.analysis.create({

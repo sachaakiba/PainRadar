@@ -195,7 +195,9 @@
     "audience": "Audience (optionnel)",
     "audiencePlaceholder": "ex. fondateurs solo",
     "analyze": "Analyser",
-    "analyzing": "Analyse en cours..."
+    "analyzing": "Analyse en cours...",
+    "planLimitAnalysis": "Vous avez atteint votre limite d'analyses mensuelles. Passez à une offre supérieure pour continuer.",
+    "planLimitSave": "Vous avez atteint la limite d'analyses enregistrées. Passez à une offre supérieure ou désenregistrez une analyse."
   },
   "analysis": {
     "score": "Score",

@@ -195,7 +195,9 @@
     "audience": "Audience (optional)",
     "audiencePlaceholder": "e.g., solo founders",
     "analyze": "Analyze",
-    "analyzing": "Analyzing..."
+    "analyzing": "Analyzing...",
+    "planLimitAnalysis": "You've reached your monthly analysis limit. Upgrade to continue.",
+    "planLimitSave": "You've reached your saved analyses limit. Upgrade or unsave an analysis."
   },
   "analysis": {
     "score": "Score",

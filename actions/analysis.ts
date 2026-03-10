@@ -4,6 +4,12 @@ import { db } from "@/lib/db";
 import { requireSession } from "@/lib/auth-server";
 import { analysisSchema } from "@/lib/validations";
 import { generateMockAnalysis } from "@/lib/mock-analysis";
+import {
+  checkAnalysisLimit,
+  checkSaveLimit,
+  getPlanLimitError,
+  type PlanLimitErrorType,
+} from "@/lib/plan-guard";
 import { revalidatePath } from "next/cache";
 
 type Locale = "en" | "fr";
@@ -37,13 +43,26 @@ export async function createAnalysis(formData: {
 
     const { query, topic, audience } = parsed.data;
     const session = await requireSession();
-    
+
+    const limitCheck = await checkAnalysisLimit(session.user.id);
+    if (!limitCheck.allowed) {
+      const user = await db.user.findUnique({
+        where: { id: session.user.id },
+        select: { locale: true },
+      });
+      const locale = (user?.locale as Locale) || "en";
+      return {
+        success: false,
+        error: getPlanLimitError(limitCheck.error as PlanLimitErrorType, locale),
+      };
+    }
+
     const user = await db.user.findUnique({
       where: { id: session.user.id },
       select: { locale: true },
     });
     const locale = (user?.locale as Locale) || "en";
-    
+
     const mock = generateMockAnalysis(query, topic, audience, locale);
 
     const analysis = await db.analysis.create({
@@ -153,13 +172,29 @@ export async function getSavedAnalyses(): Promise<AnalysisWithRelations[]> {
   return analyses;
 }
 
-export async function toggleSaveAnalysis(id: string): Promise<AnalysisWithRelations> {
+export async function toggleSaveAnalysis(
+  id: string
+): Promise<AnalysisWithRelations | { success: false; error: string }> {
   const session = await requireSession();
   const analysis = await db.analysis.findUnique({
     where: { id },
   });
   if (!analysis || analysis.userId !== session.user.id) {
     throw new Error("Analysis not found");
+  }
+  if (!analysis.saved) {
+    const saveCheck = await checkSaveLimit(session.user.id);
+    if (!saveCheck.allowed) {
+      const user = await db.user.findUnique({
+        where: { id: session.user.id },
+        select: { locale: true },
+      });
+      const locale = (user?.locale as Locale) || "en";
+      return {
+        success: false,
+        error: getPlanLimitError("save_limit", locale),
+      };
+    }
   }
   const updated = await db.analysis.update({
     where: { id },

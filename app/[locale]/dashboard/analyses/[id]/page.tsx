@@ -116,6 +116,9 @@ export default function AnalysisDetailPage() {
         const { analysis: updated } = await res.json();
         setAnalysis((prev) => (prev ? { ...prev, saved: updated.saved } : null));
         toast.success(updated.saved ? "Saved" : "Removed from saved");
+      } else {
+        const data = await res.json().catch(() => ({}));
+        toast.error(data?.error ?? "Failed to update");
       }
     } catch {
       toast.error("Failed to update");
