@@ -28,12 +28,30 @@
   "benefits": {
     "title": "Everything you need to validate your next idea",
     "subtitle": "From pain point discovery to product positioning",
-    "painDetection": { "title": "Pain Point Detection", "description": "Surface recurring complaints and frustrations from real discussions" },
-    "opportunityScoring": { "title": "Opportunity Scoring", "description": "Get a data-driven score on market demand, urgency, and monetization potential" },
-    "productIdeas": { "title": "Product Ideas", "description": "AI-generated product concepts with MVP scope and differentiation angles" },
-    "seoKeywords": { "title": "SEO Keywords", "description": "Discover high-intent keywords your audience is already searching for" },
-    "acquisitionChannels": { "title": "Acquisition Channels", "description": "Know where your future customers hang out and how to reach them" },
-    "competitiveAnalysis": { "title": "Competitive Analysis", "description": "Understand objections and competitive landscape before you build" }
+    "painDetection": {
+      "title": "Pain Point Detection",
+      "description": "Surface recurring complaints and frustrations from real discussions"
+    },
+    "opportunityScoring": {
+      "title": "Opportunity Scoring",
+      "description": "Get a data-driven score on market demand, urgency, and monetization potential"
+    },
+    "productIdeas": {
+      "title": "Product Ideas",
+      "description": "AI-generated product concepts with MVP scope and differentiation angles"
+    },
+    "seoKeywords": {
+      "title": "SEO Keywords",
+      "description": "Discover high-intent keywords your audience is already searching for"
+    },
+    "acquisitionChannels": {
+      "title": "Acquisition Channels",
+      "description": "Know where your future customers hang out and how to reach them"
+    },
+    "competitiveAnalysis": {
+      "title": "Competitive Analysis",
+      "description": "Understand objections and competitive landscape before you build"
+    }
   },
   "howItWorks": {
     "title": "How it works",
@@ -86,7 +104,12 @@
       "price": "$0",
       "period": "forever",
       "description": "Get started with basic pain point discovery.",
-      "features": ["3 analyses per month", "Basic pain point detection", "Opportunity scoring", "Product idea generation"],
+      "features": [
+        "3 analyses per month",
+        "Basic pain point detection",
+        "Opportunity scoring",
+        "Product idea generation"
+      ],
       "cta": "Start for free"
     },
     "starter": {
@@ -94,7 +117,14 @@
       "price": "$19",
       "period": "/month",
       "description": "For serious founders validating ideas.",
-      "features": ["50 analyses per month", "Save unlimited analyses", "Advanced scoring breakdown", "SEO keyword suggestions", "Export to PDF & JSON", "Priority support"],
+      "features": [
+        "50 analyses per month",
+        "Save unlimited analyses",
+        "Advanced scoring breakdown",
+        "SEO keyword suggestions",
+        "Export to PDF & JSON",
+        "Priority support"
+      ],
       "cta": "Get Starter"
     },
     "pro": {
@@ -102,26 +132,64 @@
       "price": "$39",
       "period": "/month",
       "description": "For teams and power users.",
-      "features": ["Unlimited analyses", "Advanced scoring engine", "Competitor insights (coming soon)", "Custom audience targeting", "API access (coming soon)", "White-label exports", "Dedicated support"],
+      "features": [
+        "Unlimited analyses",
+        "Advanced scoring engine",
+        "Competitor insights (coming soon)",
+        "Custom audience targeting",
+        "API access (coming soon)",
+        "White-label exports",
+        "Dedicated support"
+      ],
       "cta": "Get Pro"
     },
     "faqTitle": "Pricing FAQ",
     "faq": [
-      { "q": "Can I cancel anytime?", "a": "Yes. No long-term contracts. Cancel whenever you want." },
-      { "q": "Is there a free trial for paid plans?", "a": "The Free plan lets you try PainRadar with 3 analyses per month, no credit card needed." },
-      { "q": "Do you offer annual billing?", "a": "Not yet, but annual plans with discounts are coming soon." }
+      {
+        "q": "Can I cancel anytime?",
+        "a": "Yes. No long-term contracts. Cancel whenever you want."
+      },
+      {
+        "q": "Is there a free trial for paid plans?",
+        "a": "The Free plan lets you try PainRadar with 3 analyses per month, no credit card needed."
+      },
+      {
+        "q": "Do you offer annual billing?",
+        "a": "Not yet, but annual plans with discounts are coming soon."
+      }
     ]
   },
   "faq": {
     "title": "Frequently asked questions",
     "items": [
-      { "q": "What is PainRadar?", "a": "PainRadar is a SaaS idea discovery platform that analyzes online discussions to find recurring pain points, product opportunities, and SEO angles." },
-      { "q": "Where does the data come from?", "a": "We analyze discussions from forums, review sites, and community platforms to extract real complaints and frustrations people are expressing." },
-      { "q": "How accurate is the opportunity scoring?", "a": "Our scoring combines demand signals, urgency indicators, competition analysis, and monetization potential into a composite score. It's a directional guide, not a guarantee." },
-      { "q": "Can I export my analyses?", "a": "Yes. You can export analyses as JSON files or copy them to your clipboard. PDF export is coming soon." },
-      { "q": "Is there a free plan?", "a": "Yes! The free plan gives you 3 analyses per month. No credit card required." },
-      { "q": "How is this different from regular market research?", "a": "PainRadar automates what would take hours of manual research. Instead of browsing Reddit threads, we surface patterns and quantify opportunities for you." },
-      { "q": "Will you add more data sources?", "a": "Yes. We're actively working on integrating more sources including Reddit API, G2, Capterra, and niche forums." }
+      {
+        "q": "What is PainRadar?",
+        "a": "PainRadar is a SaaS idea discovery platform that analyzes online discussions to find recurring pain points, product opportunities, and SEO angles."
+      },
+      {
+        "q": "Where does the data come from?",
+        "a": "We analyze discussions from forums, review sites, and community platforms to extract real complaints and frustrations people are expressing."
+      },
+      {
+        "q": "How accurate is the opportunity scoring?",
+        "a": "Our scoring combines demand signals, urgency indicators, competition analysis, and monetization potential into a composite score. It's a directional guide, not a guarantee."
+      },
+      {
+        "q": "Can I export my analyses?",
+        "a": "Yes. You can export analyses as JSON files or copy them to your clipboard. PDF export is coming soon."
+      },
+      {
+        "q": "Is there a free plan?",
+        "a": "Yes! The free plan gives you 3 analyses per month. No credit card required."
+      },
+      {
+        "q": "How is this different from regular market research?",
+        "a": "PainRadar automates what would take hours of manual research. Instead of browsing Reddit threads, we surface patterns and quantify opportunities for you."
+      },
+      {
+        "q": "Will you add more data sources?",
+        "a": "Yes. We're actively working on integrating more sources including Reddit API, G2, Capterra, and niche forums."
+      }
     ]
   },
   "cta": {
@@ -241,22 +309,42 @@
     "painPointDetection": {
       "title": "Pain Point Detection",
       "description": "Surface recurring complaints and frustrations from real online discussions and reviews.",
-      "details": ["Analyze Reddit threads, forums, and review sites", "Identify recurring themes and frustrations", "Categorize pain points by severity and frequency", "Track sentiment across sources"]
+      "details": [
+        "Analyze Reddit threads, forums, and review sites",
+        "Identify recurring themes and frustrations",
+        "Categorize pain points by severity and frequency",
+        "Track sentiment across sources"
+      ]
     },
     "ideaValidation": {
       "title": "Idea Validation",
       "description": "Get AI-generated product concepts with MVP scope, differentiation, and monetization angles.",
-      "details": ["Generate product ideas from discovered pain points", "Get MVP scope recommendations", "Understand differentiation opportunities", "Receive monetization model suggestions"]
+      "details": [
+        "Generate product ideas from discovered pain points",
+        "Get MVP scope recommendations",
+        "Understand differentiation opportunities",
+        "Receive monetization model suggestions"
+      ]
     },
     "seoInsights": {
       "title": "SEO Insights",
       "description": "Discover high-intent keywords and content angles your audience is already searching for.",
-      "details": ["Find high-intent keywords in your niche", "Understand search intent behind queries", "Get content strategy recommendations", "Identify ranking opportunities"]
+      "details": [
+        "Find high-intent keywords in your niche",
+        "Understand search intent behind queries",
+        "Get content strategy recommendations",
+        "Identify ranking opportunities"
+      ]
     },
     "opportunityScoring": {
       "title": "Opportunity Scoring",
       "description": "Get a data-driven score combining demand, urgency, competition, and monetization signals.",
-      "details": ["Composite score from multiple signals", "Demand and urgency indicators", "Competition landscape analysis", "Monetization potential assessment"]
+      "details": [
+        "Composite score from multiple signals",
+        "Demand and urgency indicators",
+        "Competition landscape analysis",
+        "Monetization potential assessment"
+      ]
     },
     "learnMore": "Learn more",
     "getStarted": "Get started with PainRadar",

@@ -42,14 +42,19 @@ export default async function UseCasePage({
   const { slug } = await params;
   const useCase = useCases.find((u) => u.slug === slug);
   if (!useCase) notFound();
-  
+
   const t = await getTranslations("common");
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: absoluteUrl("/"),
+      },
       {
         "@type": "ListItem",
         position: 2,
@@ -146,9 +151,7 @@ export default async function UseCasePage({
             <h2 className="text-xl font-semibold text-foreground">
               {t("ctaTitle")}
             </h2>
-            <p className="mt-2 text-muted-foreground">
-              {t("ctaDesc")}
-            </p>
+            <p className="mt-2 text-muted-foreground">{t("ctaDesc")}</p>
             <Button asChild size="lg" className="mt-6">
               <Link href="/signup">{t("signUpFree")}</Link>
             </Button>

@@ -3,10 +3,13 @@
 import { db } from "@/lib/db";
 import { requireSession } from "@/lib/auth-server";
 import { analysisSchema } from "@/lib/validations";
+import { runAnalysis } from "@/lib/services/analysis-engine";
 import { generateMockAnalysis } from "@/lib/mock-analysis";
 import { revalidatePath } from "next/cache";
 
 type Locale = "en" | "fr";
+
+const USE_REAL_ANALYSIS = process.env.OPENAI_API_KEY ? true : false;
 
 const analysisInclude = {
   painPoints: true,
@@ -44,7 +47,15 @@ export async function createAnalysis(formData: {
     });
     const locale = (user?.locale as Locale) || "en";
     
-    const mock = generateMockAnalysis(query, topic, audience, locale);
+    let analysisData;
+    
+    if (USE_REAL_ANALYSIS) {
+      console.log("[createAnalysis] Using real analysis engine");
+      analysisData = await runAnalysis(query, topic, locale, audience);
+    } else {
+      console.log("[createAnalysis] Using mock analysis (no OPENAI_API_KEY)");
+      analysisData = generateMockAnalysis(query, topic, audience, locale);
+    }
 
     const analysis = await db.analysis.create({
       data: {
@@ -52,17 +63,17 @@ export async function createAnalysis(formData: {
         query,
         topic,
         audience: audience ?? null,
-        summary: mock.summary,
-        opportunityScore: mock.opportunityScore,
-        demandScore: mock.demandScore,
-        urgencyScore: mock.urgencyScore,
-        competitionScore: mock.competitionScore,
-        monetizationScore: mock.monetizationScore,
-        recommendedMvp: mock.recommendedMvp,
-        pricingSuggestion: mock.pricingSuggestion,
-        seoSummary: mock.seoSummary,
+        summary: analysisData.summary,
+        opportunityScore: analysisData.opportunityScore,
+        demandScore: analysisData.demandScore,
+        urgencyScore: analysisData.urgencyScore,
+        competitionScore: analysisData.competitionScore,
+        monetizationScore: analysisData.monetizationScore,
+        recommendedMvp: analysisData.recommendedMvp,
+        pricingSuggestion: analysisData.pricingSuggestion,
+        seoSummary: analysisData.seoSummary,
         painPoints: {
-          create: mock.painPoints.map((p) => ({
+          create: analysisData.painPoints.map((p) => ({
             text: p.text,
             sourceName: p.sourceName,
             sourceType: p.sourceType,
@@ -77,7 +88,7 @@ export async function createAnalysis(formData: {
           })),
         },
         productIdeas: {
-          create: mock.productIdeas.map((p) => ({
+          create: analysisData.productIdeas.map((p) => ({
             title: p.title,
             description: p.description,
             targetAudience: p.targetAudience,
@@ -87,23 +98,23 @@ export async function createAnalysis(formData: {
           })),
         },
         keywordIdeas: {
-          create: mock.keywordIdeas.map((k) => ({
+          create: analysisData.keywordIdeas.map((k) => ({
             keyword: k.keyword,
             intent: k.intent,
             priority: k.priority,
           })),
         },
         objections: {
-          create: mock.objections.map((o) => ({ text: o.text })),
+          create: analysisData.objections.map((o) => ({ text: o.text })),
         },
         acquisitionChannels: {
-          create: mock.acquisitionChannels.map((c) => ({
+          create: analysisData.acquisitionChannels.map((c) => ({
             name: c.name,
             rationale: c.rationale,
           })),
         },
         recurringPhrases: {
-          create: mock.recurringPhrases.map((p) => ({
+          create: analysisData.recurringPhrases.map((p) => ({
             phrase: p.phrase,
             frequency: p.frequency,
           })),

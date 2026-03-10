@@ -77,7 +77,7 @@ export function LocaleSwitcher({ className }: { className?: string }) {
             onClick={() => switchLocale(key)}
             className={cn(
               "flex items-center gap-2",
-              locale === key && "font-semibold"
+              locale === key && "font-semibold",
             )}
           >
             <span className="text-xs font-bold text-muted-foreground w-5">

@@ -78,13 +78,23 @@ export default async function ExamplePage({
 
   const t = await getTranslations("common");
   const tAnalysis = await getTranslations("analysis");
-  const analysis = generateMockAnalysis(example.query, example.topic, undefined, locale as "en" | "fr");
+  const analysis = generateMockAnalysis(
+    example.query,
+    example.topic,
+    undefined,
+    locale as "en" | "fr",
+  );
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: absoluteUrl("/"),
+      },
       {
         "@type": "ListItem",
         position: 2,
@@ -146,7 +156,10 @@ export default async function ExamplePage({
                   </h2>
                   <Badge
                     variant="secondary"
-                    className={cn("text-base", getScoreBg(analysis.opportunityScore))}
+                    className={cn(
+                      "text-base",
+                      getScoreBg(analysis.opportunityScore),
+                    )}
                   >
                     {analysis.opportunityScore}
                   </Badge>
@@ -173,14 +186,17 @@ export default async function ExamplePage({
                           <span
                             className={cn(
                               "font-semibold tabular-nums",
-                              getScoreTextColor(value)
+                              getScoreTextColor(value),
                             )}
                           >
                             {value}
                           </span>
                         </div>
                         <div className={getScoreIndicatorClass(value)}>
-                          <Progress value={Math.min(100, value)} className="h-2" />
+                          <Progress
+                            value={Math.min(100, value)}
+                            className="h-2"
+                          />
                         </div>
                       </div>
                     );
@@ -201,7 +217,9 @@ export default async function ExamplePage({
                   {analysis.painPoints.map((point, i) => (
                     <div
                       key={i}
-                      className={i > 0 ? "border-t border-border/50 py-4" : "py-4"}
+                      className={
+                        i > 0 ? "border-t border-border/50 py-4" : "py-4"
+                      }
                     >
                       <p className="text-sm leading-relaxed text-foreground">
                         {point.text}
@@ -211,7 +229,7 @@ export default async function ExamplePage({
                           variant="secondary"
                           className={cn(
                             "font-medium",
-                            getScoreBg(point.severityScore)
+                            getScoreBg(point.severityScore),
                           )}
                         >
                           Severity: {point.severityScore}
@@ -294,9 +312,7 @@ export default async function ExamplePage({
             <h2 className="text-2xl font-bold text-foreground">
               {t("ctaTitle")}
             </h2>
-            <p className="mt-2 text-muted-foreground">
-              {t("ctaDesc")}
-            </p>
+            <p className="mt-2 text-muted-foreground">{t("ctaDesc")}</p>
             <Button asChild size="lg" className="mt-6">
               <Link href="/signup">{t("signUpFree")}</Link>
             </Button>

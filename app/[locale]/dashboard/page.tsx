@@ -33,7 +33,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     fetch("/api/analyses")
-      .then((res) => res.ok ? res.json() : { analyses: [] })
+      .then((res) => (res.ok ? res.json() : { analyses: [] }))
       .then((data) => {
         setAnalyses(data.analyses ?? []);
       })
@@ -46,7 +46,8 @@ export default function DashboardPage() {
   const avgScore =
     analyses.length > 0
       ? Math.round(
-          analyses.reduce((s, a) => s + a.opportunityScore, 0) / analyses.length
+          analyses.reduce((s, a) => s + a.opportunityScore, 0) /
+            analyses.length,
         )
       : 0;
 
@@ -54,11 +55,10 @@ export default function DashboardPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">
-          {t("welcome")}{session?.user?.name ? `, ${session.user.name.split(" ")[0]}` : ""}
+          {t("welcome")}
+          {session?.user?.name ? `, ${session.user.name.split(" ")[0]}` : ""}
         </h1>
-        <p className="mt-1 text-muted-foreground">
-          {t("overviewDesc")}
-        </p>
+        <p className="mt-1 text-muted-foreground">{t("overviewDesc")}</p>
       </div>
 
       {loading ? (
