@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { Loader2, Sparkles } from "lucide-react";
 import { analysisSchema, type AnalysisInput } from "@/lib/validations";
 import {
   Form,
@@ -62,57 +62,62 @@ export function SearchForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-4 sm:flex-row sm:items-end"
+        className="rounded-2xl border-2 border-border/60 bg-card p-5 shadow-card-sm"
       >
-        <FormField
-          control={form.control}
-          name="topic"
-          render={({ field }) => (
-            <FormItem className="flex-1">
-              <FormLabel>{t("topic")}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t("topicPlaceholder")}
-                  disabled={isSubmitting}
-                  {...field}
-                  onChange={(e) => {
-                    const v = e.target.value;
-                    field.onChange(v);
-                    form.setValue("query", v, { shouldValidate: true });
-                  }}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="audience"
-          render={({ field }) => (
-            <FormItem className="sm:w-48">
-              <FormLabel>{t("audience")}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t("audiencePlaceholder")}
-                  disabled={isSubmitting}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? (
-            <>
-              <Loader2 className="h-4 w-4 animate-spin" />
-              {t("analyzing")}
-            </>
-          ) : (
-            t("analyze")
-          )}
-        </Button>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
+          <FormField
+            control={form.control}
+            name="topic"
+            render={({ field }) => (
+              <FormItem className="flex-1">
+                <FormLabel className="label-sm">{t("topic")}</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder={t("topicPlaceholder")}
+                    disabled={isSubmitting}
+                    {...field}
+                    onChange={(e) => {
+                      const v = e.target.value;
+                      field.onChange(v);
+                      form.setValue("query", v, { shouldValidate: true });
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="audience"
+            render={({ field }) => (
+              <FormItem className="sm:w-52">
+                <FormLabel className="label-sm">{t("audience")}</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder={t("audiencePlaceholder")}
+                    disabled={isSubmitting}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" disabled={isSubmitting} size="lg">
+            {isSubmitting ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                {t("analyzing")}
+              </>
+            ) : (
+              <>
+                <Sparkles className="h-4 w-4" />
+                {t("analyze")}
+              </>
+            )}
+          </Button>
+        </div>
       </form>
     </Form>
   );

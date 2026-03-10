@@ -41,7 +41,7 @@ export function GoogleSignInButton() {
         provider: "google",
         callbackURL: "/dashboard",
       });
-    } catch (error) {
+    } catch {
       toast.error(t("googleError"));
       setIsLoading(false);
     }
@@ -51,14 +51,14 @@ export function GoogleSignInButton() {
     <Button
       type="button"
       variant="outline"
-      className="w-full"
+      className="w-full h-12 text-base"
       onClick={handleGoogleSignIn}
       disabled={isLoading}
     >
       {isLoading ? (
         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
       ) : (
-        <GoogleIcon className="mr-2 h-4 w-4" />
+        <GoogleIcon className="mr-2 h-5 w-5" />
       )}
       {t("continueWithGoogle")}
     </Button>

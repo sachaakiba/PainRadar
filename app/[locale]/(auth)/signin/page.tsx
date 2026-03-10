@@ -21,7 +21,6 @@ import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -63,24 +62,24 @@ export default function SignInPage() {
   }
 
   return (
-    <Card className="w-full max-w-md border-border/50 shadow-xl shadow-primary/5">
-      <CardHeader className="space-y-1 text-center sm:text-left">
-        <CardTitle className="text-2xl font-bold tracking-tight">
+    <Card className="w-full max-w-md border-2 border-border/50 shadow-card-lg">
+      <CardHeader className="space-y-2 text-center pb-2">
+        <CardTitle className="font-display text-2xl font-bold tracking-tight">
           {t("welcomeBack")}
         </CardTitle>
-        <CardDescription>{t("signInDesc")}</CardDescription>
+        <p className="text-sm text-muted-foreground">{t("signInDesc")}</p>
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-5 pt-4">
             <GoogleSignInButton />
 
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-border" />
+                <span className="w-full border-t-2 border-border/60" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-card px-2 text-muted-foreground">
+                <span className="bg-card px-3 font-medium text-muted-foreground tracking-wider">
                   {t("orContinueWith")}
                 </span>
               </div>
@@ -91,7 +90,7 @@ export default function SignInPage() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("email")}</FormLabel>
+                  <FormLabel className="label-sm">{t("email")}</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
@@ -110,7 +109,7 @@ export default function SignInPage() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("password")}</FormLabel>
+                  <FormLabel className="label-sm">{t("password")}</FormLabel>
                   <FormControl>
                     <Input
                       type="password"
@@ -125,7 +124,7 @@ export default function SignInPage() {
               )}
             />
           </CardContent>
-          <CardFooter className="flex flex-col gap-4">
+          <CardFooter className="flex flex-col gap-4 pt-2">
             <Button
               type="submit"
               className="w-full"
@@ -145,7 +144,7 @@ export default function SignInPage() {
               {t("noAccount")}{" "}
               <Link
                 href="/signup"
-                className="font-medium text-primary underline-offset-4 hover:underline"
+                className="font-semibold text-coral-500 underline-offset-4 hover:underline"
               >
                 {t("signUpLink")}
               </Link>

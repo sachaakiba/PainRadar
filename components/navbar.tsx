@@ -46,26 +46,27 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300",
         scrolled
-          ? "border-border/50 bg-background/80 backdrop-blur-xl"
+          ? "backdrop-blur-xl border-border/40 bg-background/90"
           : "border-transparent bg-transparent"
       )}
     >
       <nav className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2">
-          <Radar className="h-5 w-5 text-primary" aria-hidden />
-          <span className="text-lg font-semibold tracking-tight">
+        <Link href="/" className="flex items-center gap-2.5">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-coral-500/15">
+            <Radar className="h-4 w-4 text-coral-500" aria-hidden />
+          </div>
+          <span className="font-display text-lg font-bold tracking-tight">
             PainRadar
           </span>
         </Link>
 
-        {/* Desktop nav */}
         <div className="hidden items-center gap-8 md:flex">
           {links.map(({ href, label }) => (
             <Link
               key={href}
               href={href}
               className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
+                "text-sm font-semibold transition-colors hover:text-coral-500",
                 pathname === href ? "text-foreground" : "text-muted-foreground"
               )}
             >
@@ -95,7 +96,6 @@ export function Navbar() {
           </Button>
         </div>
 
-        {/* Mobile menu */}
         <Dialog open={mobileOpen} onOpenChange={setMobileOpen}>
           <DialogTrigger asChild>
             <Button variant="ghost" size="icon" className="md:hidden">
@@ -103,32 +103,34 @@ export function Navbar() {
             </Button>
           </DialogTrigger>
           <DialogContent
-            className="max-w-[calc(100vw-2rem)] border-border/50 bg-background/95 backdrop-blur-xl sm:max-w-md"
+            className="max-w-[calc(100vw-2rem)] border-2 border-border/50 bg-card/98 backdrop-blur-xl sm:max-w-md rounded-2xl"
             showClose={true}
           >
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
-                <Radar className="h-5 w-5" />
-                PainRadar
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-coral-500/15">
+                  <Radar className="h-4 w-4 text-coral-500" />
+                </div>
+                <span className="font-display font-bold">PainRadar</span>
               </DialogTitle>
             </DialogHeader>
-            <div className="flex flex-col gap-2 pt-4">
+            <div className="flex flex-col gap-1 pt-4">
               {links.map(({ href, label }) => (
                 <Link
                   key={href}
                   href={href}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
-                    "rounded-lg px-4 py-3 text-base font-medium transition-colors",
+                    "rounded-xl px-4 py-3 text-base font-semibold transition-colors",
                     pathname === href
-                      ? "bg-accent text-foreground"
-                      : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
+                      ? "bg-coral-500/10 text-coral-500"
+                      : "text-muted-foreground hover:bg-secondary hover:text-foreground"
                   )}
                 >
                   {label}
                 </Link>
               ))}
-              <div className="my-2 h-px bg-border" />
+              <div className="my-3 h-px bg-border/60" />
               <div className="flex flex-col gap-2">
                 <LocaleSwitcherButton />
                 {mounted && (

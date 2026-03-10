@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Syne, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
-const fontSans = Inter({
+const fontSans = Plus_Jakarta_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+const fontDisplay = Syne({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const fontMono = JetBrains_Mono({
@@ -70,7 +77,7 @@ export default async function RootLayout({
 }) {
   return (
     <html suppressHydrationWarning>
-      <body className={`${fontSans.variable} ${fontMono.variable} font-sans`}>
+      <body className={`${fontSans.variable} ${fontDisplay.variable} ${fontMono.variable} font-sans`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

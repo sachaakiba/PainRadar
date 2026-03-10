@@ -47,46 +47,46 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">{t("settingsTitle")}</h1>
-        <p className="mt-1 text-muted-foreground">
-          {t("settingsDesc")}
-        </p>
+    <div className="space-y-10">
+      <div className="fade-up fade-up-1">
+        <h1 className="font-display text-3xl font-bold tracking-tight">
+          {t("settingsTitle")}
+        </h1>
+        <p className="mt-2 text-muted-foreground">{t("settingsDesc")}</p>
       </div>
 
-      <div className="space-y-6">
-        <Card>
+      <div className="space-y-6 max-w-2xl">
+        <Card className="fade-up fade-up-2">
           <CardHeader>
-            <CardTitle>{t("profile")}</CardTitle>
+            <CardTitle className="text-base">{t("profile")}</CardTitle>
             <CardDescription>{t("profileDesc")}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name">{t("name")}</Label>
+              <Label htmlFor="name" className="label-sm">{t("name")}</Label>
               <Input
                 id="name"
                 value={session?.user?.name ?? ""}
                 readOnly
-                className="bg-muted"
+                className="bg-secondary/40"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email">{t("email")}</Label>
+              <Label htmlFor="email" className="label-sm">{t("email")}</Label>
               <Input
                 id="email"
                 type="email"
                 value={session?.user?.email ?? ""}
                 readOnly
-                className="bg-muted"
+                className="bg-secondary/40"
               />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="fade-up fade-up-3">
           <CardHeader>
-            <CardTitle>{t("language")}</CardTitle>
+            <CardTitle className="text-base">{t("language")}</CardTitle>
             <CardDescription>{t("languageDesc")}</CardDescription>
           </CardHeader>
           <CardContent>
@@ -107,19 +107,21 @@ export default function SettingsPage() {
                   ))}
                 </SelectContent>
               </Select>
-              {isPending && <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />}
+              {isPending && (
+                <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+              )}
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="fade-up fade-up-4 border-l-4 border-l-coral-500">
           <CardHeader>
-            <CardTitle>{t("currentPlan")}</CardTitle>
+            <CardTitle className="text-base">{t("currentPlan")}</CardTitle>
             <CardDescription>{t("currentPlanDesc")}</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-2">
-              <Badge variant="secondary">{t("freePlan")}</Badge>
+            <div className="flex items-center gap-3">
+              <Badge variant="coral">{t("freePlan")}</Badge>
               <span className="text-sm text-muted-foreground">
                 {t("freePlanDesc")}
               </span>

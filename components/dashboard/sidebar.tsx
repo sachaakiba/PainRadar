@@ -15,7 +15,6 @@ import {
 import { signOut, useSession } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
@@ -51,7 +50,6 @@ export function DashboardSidebar() {
 
   return (
     <>
-      {/* Mobile toggle */}
       <Button
         variant="ghost"
         size="icon"
@@ -61,66 +59,65 @@ export function DashboardSidebar() {
         {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
       </Button>
 
-      {/* Overlay for mobile */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
           onClick={() => setMobileOpen(false)}
         />
       )}
 
       <aside
         className={cn(
-          "fixed left-0 top-0 z-40 flex h-screen w-64 flex-col border-r border-border bg-zinc-950/95 backdrop-blur supports-[backdrop-filter]:bg-zinc-950/80",
+          "fixed left-0 top-0 z-40 flex h-screen w-60 flex-col bg-sidebar",
           "transition-transform duration-200 ease-in-out lg:translate-x-0",
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        <div className="flex flex-1 flex-col gap-6 p-4 pt-16 lg:pt-6">
-          {/* Logo */}
+        <div className="flex flex-1 flex-col px-4 pt-16 pb-4 lg:pt-6">
           <Link
             href="/dashboard"
-            className="flex items-center gap-2 px-2 py-1.5"
+            className="flex items-center gap-3 px-3 py-2 mb-8"
             onClick={() => setMobileOpen(false)}
           >
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-              <Radar className="h-4 w-4 text-primary" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-coral-500/15">
+              <Radar className="h-5 w-5 text-coral-400" />
             </div>
-            <span className="font-semibold text-foreground">PainRadar</span>
+            <span className="font-display text-lg font-bold text-white">
+              PainRadar
+            </span>
           </Link>
 
-          {/* Navigation */}
           <nav className="flex flex-1 flex-col gap-1">
             {links.map((link) => {
               const Icon = iconMap[link.icon as keyof typeof iconMap];
               const isActive = pathname === link.href;
-
               return (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
-                    "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                    "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150",
                     isActive
-                      ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground hover:bg-zinc-800/50 hover:text-foreground"
+                      ? "bg-coral-500/12 text-white"
+                      : "text-sidebar-foreground hover:bg-sidebar-hover hover:text-white"
                   )}
                 >
-                  <Icon className="h-4 w-4 shrink-0" />
+                  {isActive && (
+                    <span className="absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 rounded-r-full bg-coral-500 transition-transform origin-center" />
+                  )}
+                  <Icon className={cn("h-4 w-4 shrink-0", isActive && "text-coral-400")} />
                   {t(link.labelKey)}
                 </Link>
               );
             })}
           </nav>
 
-          {/* User section */}
-          <div className="space-y-4">
-            <Separator className="bg-zinc-800" />
-            <div className="flex items-center gap-3 px-2">
-              <Avatar className="h-9 w-9">
+          <div className="space-y-3 pt-4 border-t border-white/8">
+            <div className="flex items-center gap-3 px-3">
+              <Avatar className="h-9 w-9 ring-2 ring-white/10">
                 <AvatarImage src={session?.user?.image ?? undefined} />
-                <AvatarFallback className="bg-primary/20 text-primary text-sm">
+                <AvatarFallback className="bg-coral-500/20 text-coral-300 text-sm font-bold">
                   {session?.user?.name
                     ?.split(" ")
                     .map((n) => n[0])
@@ -130,23 +127,21 @@ export function DashboardSidebar() {
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1 overflow-hidden">
-                <p className="truncate text-sm font-medium text-foreground">
+                <p className="truncate text-sm font-semibold text-white">
                   {session?.user?.name ?? "User"}
                 </p>
-                <p className="truncate text-xs text-muted-foreground">
+                <p className="truncate text-xs text-sidebar-foreground">
                   {session?.user?.email ?? ""}
                 </p>
               </div>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="w-full justify-start gap-2 text-muted-foreground hover:text-foreground"
+            <button
               onClick={handleSignOut}
+              className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-sidebar-foreground transition-colors hover:bg-sidebar-hover hover:text-white"
             >
               <LogOut className="h-4 w-4" />
               {t("signOut")}
-            </Button>
+            </button>
           </div>
         </div>
       </aside>
