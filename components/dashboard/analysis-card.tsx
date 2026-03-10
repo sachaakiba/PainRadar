@@ -17,7 +17,7 @@ export interface AnalysisCardData {
 
 export function AnalysisCard({ analysis }: { analysis: AnalysisCardData }) {
   return (
-    <Link href={`/dashboard/analyses/${analysis.id}`}>
+    <Link href={`/dashboard/analyses/${analysis.id}`} className="block">
       <Card className="card-hover group border-border/40 hover:border-coral-300/40 dark:hover:border-coral-500/30">
         <CardContent className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="min-w-0 flex-1">
