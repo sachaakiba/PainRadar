@@ -42,24 +42,35 @@ export default async function UseCasePage({
   const { slug } = await params;
   const useCase = useCases.find((u) => u.slug === slug);
   if (!useCase) notFound();
-  
+
+  const slugToKey: Record<string, string> = {
+    "indie-hackers": "indieHackers",
+    agencies: "agencies",
+    startups: "startups",
+  };
+  const key = slugToKey[slug];
   const t = await getTranslations("common");
+  const tUseCases = await getTranslations("useCases");
+
+  const useCaseTitle = key ? tUseCases(`${key}.title`) : useCase.title;
+  const useCaseDesc = key ? tUseCases(`${key}.description`) : useCase.description;
+  const useCaseAudience = key ? tUseCases(`${key}.audience`) : useCase.audience;
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 1, name: t("home"), item: absoluteUrl("/") },
       {
         "@type": "ListItem",
         position: 2,
-        name: "Use Cases",
+        name: tUseCases("pageTitle"),
         item: absoluteUrl("/use-cases"),
       },
       {
         "@type": "ListItem",
         position: 3,
-        name: useCase.title,
+        name: useCaseTitle,
         item: absoluteUrl(`/use-cases/${slug}`),
       },
     ],
@@ -68,8 +79,8 @@ export default async function UseCasePage({
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: useCase.title,
-    description: useCase.description,
+    headline: useCaseTitle,
+    description: useCaseDesc,
     url: absoluteUrl(`/use-cases/${slug}`),
   };
 
@@ -80,22 +91,22 @@ export default async function UseCasePage({
       <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         <Breadcrumb
           items={[
-            { label: "Use Cases", href: "/use-cases" },
-            { label: useCase.title },
+            { label: tUseCases("pageTitle"), href: "/use-cases" },
+            { label: useCaseTitle },
           ]}
-          className="mb-8"
+          className="mt-4 mb-10"
         />
         <article>
           <div className="mb-8">
             <Badge variant="secondary" className="mb-4">
               <Users className="mr-1.5 h-3 w-3" />
-              {useCase.audience}
+              {useCaseAudience}
             </Badge>
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              {useCase.title}
+              {useCaseTitle}
             </h1>
             <p className="mt-4 text-lg text-muted-foreground">
-              {useCase.description}
+              {useCaseDesc}
             </p>
           </div>
           <div className="grid gap-6 sm:grid-cols-2">
@@ -103,7 +114,7 @@ export default async function UseCasePage({
               <CardHeader>
                 <h2 className="flex items-center gap-2 text-lg font-semibold">
                   <AlertCircle className="h-5 w-5 text-amber-500" />
-                  Pain points
+                  {tUseCases("painPoints")}
                 </h2>
               </CardHeader>
               <CardContent>
@@ -124,7 +135,7 @@ export default async function UseCasePage({
               <CardHeader>
                 <h2 className="flex items-center gap-2 text-lg font-semibold">
                   <CheckCircle2 className="h-5 w-5 text-emerald-500" />
-                  Benefits
+                  {tUseCases("benefits")}
                 </h2>
               </CardHeader>
               <CardContent>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { ArrowRight } from "lucide-react";
 import { exampleAnalyses } from "@/config/examples";
@@ -15,7 +16,17 @@ export const metadata: Metadata = {
     "See real PainRadar analyses: invoicing for freelancers, CRM for therapists, scheduling for tutors, and more. Discover how pain point validation works.",
 };
 
+const slugToKey: Record<string, string> = {
+  "invoicing-freelancers": "invoicingFreelancers",
+  "crm-therapists": "crmTherapists",
+  "scheduling-tutors": "schedulingTutors",
+  "recruiting-small-agencies": "recruitingAgencies",
+  "restaurant-waitlist": "restaurantWaitlist",
+};
+
 export default function ExamplesPage() {
+  const t = useTranslations("examples");
+  const tAnalysis = useTranslations("analysis");
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -24,7 +35,7 @@ export default function ExamplesPage() {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Examples",
+        name: t("exampleAnalysis"),
         item: absoluteUrl("/examples"),
       },
     ],
@@ -34,13 +45,13 @@ export default function ExamplesPage() {
     <>
       <JsonLd data={breadcrumbJsonLd} />
       <div className="container mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
-        <Breadcrumb items={[{ label: "Examples" }]} className="mb-8" />
+        <Breadcrumb items={[{ label: t("exampleAnalysis") }]} className="mt-4 mb-10" />
         <div className="mb-12">
           <h1 className="text-4xl font-bold tracking-tight text-foreground">
-            Example Analyses
+            {t("title")}
           </h1>
           <p className="mt-2 text-lg text-muted-foreground">
-            See how PainRadar surfaces pain points and validates ideas
+            {t("subtitle")}
           </p>
         </div>
         <div className="grid gap-6 sm:grid-cols-2">
@@ -50,7 +61,7 @@ export default function ExamplesPage() {
                 <CardHeader>
                   <div className="flex items-start justify-between gap-2">
                     <h2 className="text-lg font-semibold text-foreground">
-                      {example.topic}
+                      {t(`exampleItems.${slugToKey[example.slug]}.topic`)}
                     </h2>
                     <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-primary" />
                   </div>
@@ -58,12 +69,12 @@ export default function ExamplesPage() {
                     variant="secondary"
                     className={cn("w-fit", getScoreBg(example.opportunityScore))}
                   >
-                    Score: {example.opportunityScore}
+                    {tAnalysis("score")}: {example.opportunityScore}
                   </Badge>
                 </CardHeader>
                 <CardContent className="pt-0">
                   <p className="text-sm text-muted-foreground line-clamp-3">
-                    {example.summary}
+                    {t(`exampleItems.${slugToKey[example.slug]}.summary`)}
                   </p>
                 </CardContent>
               </Card>

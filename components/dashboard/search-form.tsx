@@ -47,14 +47,14 @@ export function SearchForm() {
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data.error ?? "Failed to create analysis");
+        throw new Error(data.error ?? t("analysisError"));
       }
 
       const { analysis } = await res.json();
-      toast.success("Analysis started! Redirecting...");
+      toast.success(t("analysisStarted"));
       router.push(`/dashboard/analyses/${analysis.id}`);
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Something went wrong");
+      toast.error(err instanceof Error ? err.message : t("somethingWentWrong"));
     }
   }
 

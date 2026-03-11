@@ -31,7 +31,7 @@ export function CopyButton({
       toast.success(t("copiedToClipboard"));
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      toast.error("Failed to copy");
+      toast.error(t("copyFailed"));
     }
   };
 

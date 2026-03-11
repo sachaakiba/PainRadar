@@ -55,7 +55,29 @@
     "wantToRun": "Want to run your own analysis?",
     "enterAnyTopic": "Enter any topic and get a full pain point analysis in minutes.",
     "signUpFree": "Sign up free",
-    "exampleAnalysis": "Example analysis"
+    "exampleAnalysis": "Example analysis",
+    "exampleItems": {
+      "invoicingFreelancers": {
+        "topic": "Invoicing for freelancers",
+        "summary": "Freelancers struggle with fragmented invoicing workflows. Manual invoice creation, late payment chasing, and lack of professional branding emerge as top complaints."
+      },
+      "crmTherapists": {
+        "topic": "CRM for therapists",
+        "summary": "Mental health practitioners need HIPAA-compliant client management that handles intake forms and session notes without the complexity of enterprise CRMs."
+      },
+      "schedulingTutors": {
+        "topic": "Scheduling for tutors",
+        "summary": "Tutors juggling multiple students and time zones need flexible scheduling with recurring sessions, make-up classes, and payment collection."
+      },
+      "recruitingAgencies": {
+        "topic": "Recruiting for small agencies",
+        "summary": "Small agencies find enterprise ATS tools overkill and spreadsheets unsustainable. They need simple pipeline tracking and client-facing reports."
+      },
+      "restaurantWaitlist": {
+        "topic": "Restaurant waitlist management",
+        "summary": "Independent restaurants struggle with waitlist chaos: paper lists, phone calls, and no visibility into wait times for customers."
+      }
+    }
   },
   "comparison": {
     "title": "Stop guessing. Start discovering.",
@@ -153,7 +175,9 @@
     "welcomeBackToast": "Welcome back!",
     "continueWithGoogle": "Continue with Google",
     "orContinueWith": "or continue with email",
-    "googleError": "Failed to sign in with Google. Please try again."
+    "googleError": "Failed to sign in with Google. Please try again.",
+    "invalidCredentials": "Invalid email or password. Please try again.",
+    "signUpError": "Something went wrong. Please try again."
   },
   "dashboard": {
     "overview": "Overview",
@@ -197,7 +221,16 @@
     "analyze": "Analyze",
     "analyzing": "Analyzing...",
     "planLimitAnalysis": "You've reached your monthly analysis limit. Upgrade to continue.",
-    "planLimitSave": "You've reached your saved analyses limit. Upgrade or unsave an analysis."
+    "planLimitSave": "You've reached your saved analyses limit. Upgrade or unsave an analysis.",
+    "quickStats": "Quick Stats",
+    "bestScore": "Best Score",
+    "thisMonth": "This Month",
+    "user": "User",
+    "savedDesc": "Analyses you've bookmarked for later.",
+    "analysisError": "Failed to create analysis",
+    "analysisStarted": "Analysis started! Redirecting...",
+    "somethingWentWrong": "Something went wrong",
+    "analysisDeleted": "Analysis deleted"
   },
   "analysis": {
     "score": "Score",
@@ -235,7 +268,19 @@
     "monetization": "Monetization",
     "target": "Target",
     "noDataIdentified": "No data identified.",
-    "from": "from"
+    "from": "from",
+    "removedFromSaved": "Removed from saved",
+    "updateFailed": "Failed to update",
+    "copyFailed": "Failed to copy",
+    "copyLinkFailed": "Failed to copy link",
+    "noSummaryAvailable": "No summary available.",
+    "noProductIdeas": "No product ideas identified.",
+    "noKeywords": "No keywords identified.",
+    "noChannels": "No channels identified.",
+    "noObjections": "No objections identified.",
+    "noRecurringPhrases": "No recurring phrases identified.",
+    "opportunityScore": "Opportunity Score",
+    "painPointsTitle": "Pain Points"
   },
   "features": {
     "pageTitle": "Features",
@@ -271,7 +316,22 @@
     "painPoints": "Common pain points",
     "benefits": "Key benefits",
     "getStarted": "Get started with PainRadar",
-    "getStartedDesc": "Start discovering pain points in your niche."
+    "getStartedDesc": "Start discovering pain points in your niche.",
+    "indieHackers": {
+      "title": "PainRadar for Indie Hackers",
+      "description": "Stop guessing what to build. PainRadar surfaces real pain points from Reddit, forums, and reviews so you can validate ideas before writing a single line of code.",
+      "audience": "Solo founders and indie hackers building in public"
+    },
+    "agencies": {
+      "title": "PainRadar for Agencies",
+      "description": "Win more clients by proposing solutions that solve real problems. PainRadar gives your team data-backed insight into prospect pain points.",
+      "audience": "Digital agencies, consultancies, and service businesses"
+    },
+    "startups": {
+      "title": "PainRadar for Startups",
+      "description": "Validate your roadmap with evidence, not intuition. PainRadar analyzes thousands of conversations to surface the pain points that matter most.",
+      "audience": "Early-stage startups and product teams"
+    }
   },
   "blog": {
     "pageTitle": "Blog",
@@ -283,10 +343,112 @@
   },
   "alternatives": {
     "pageTitle": "PainRadar vs Alternatives",
+    "breadcrumb": "Alternatives",
+    "vs": "vs",
     "pageSubtitle": "See how PainRadar compares to other approaches for finding SaaS ideas.",
     "compare": "Compare",
     "readyToTry": "Ready to try PainRadar?",
-    "readyToTryDesc": "Start discovering pain points in minutes."
+    "readyToTryDesc": "Start discovering pain points in minutes.",
+    "manualResearch": {
+      "title": "Manual Reddit Research",
+      "description": "Manually scrolling through Reddit, forums, and review sites to find pain points. Many founders start here — but it's time-consuming and hard to scale."
+    },
+    "googleTrends": {
+      "title": "Google Trends",
+      "description": "Google Trends shows search volume over time. Useful for high-level interest, but it doesn't reveal pain points, complaints, or product opportunities."
+    },
+    "surveyTools": {
+      "title": "Survey Tools",
+      "description": "Survey tools like Typeform or Google Forms let you ask people what they want. But surveys require an audience, leading questions, and often miss unsolicited frustration."
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: March 1, 2026",
+    "tocTitle": "Table of Contents",
+    "dataCollected": "Data We Collect",
+    "dataCollectedContent": "PainRadar collects information you provide when creating an account, including your name, email address, and password. We also automatically collect usage data such as your IP address, browser type, device information, and pages you visit within our service. When you use our analysis features, we store the topics you search for and the results generated. We use cookies and similar technologies to maintain your session and improve our service. Analytics data helps us understand how our product is used and identify areas for improvement.",
+    "howWeUse": "How We Use Your Data",
+    "howWeUseContent": "We use your data to provide, maintain, and improve the PainRadar service. This includes delivering pain point analyses, saving your searches and results, and personalizing your experience. We may use your email to send important service updates, security notifications, and product communications. Analytics data helps us understand usage patterns and develop new features. We also use your information to detect and prevent fraud, enforce our terms, and comply with legal obligations.",
+    "dataSharing": "Data Sharing & Third Parties",
+    "dataSharingContent": "We share data with trusted service providers who help us operate PainRadar, including hosting providers, analytics services, payment processors, and email delivery services. These providers are contractually bound to use your data only for the purposes we specify and to protect it appropriately. We do not sell your personal data to third parties. We may disclose your information when required by law, to protect our rights, or in connection with a merger or acquisition. We do not share your data with advertisers for targeted advertising.",
+    "dataRetention": "Data Retention",
+    "dataRetentionContent": "We retain your account data and saved analyses for as long as your account is active. If you delete your account, we will remove your personal data within 30 days, except where we are required to retain it for legal, regulatory, or legitimate business purposes. Backup copies may persist for a limited period before being permanently deleted. Usage and analytics data may be retained in aggregated or anonymized form for longer periods to improve our service. You may request early deletion of your data by contacting us.",
+    "yourRights": "Your Rights",
+    "yourRightsContent": "If you are in the European Economic Area, you have rights under the GDPR including the right to access your data, request rectification of inaccurate data, request erasure, receive your data in a portable format, restrict processing, and object to processing. You also have the right to lodge a complaint with a supervisory authority. If you are a California resident, you have rights under the CCPA including the right to know what personal information we collect, the right to delete your data, the right to opt out of the sale of your data (we do not sell data), and the right to non-discrimination for exercising your rights. To exercise any of these rights, please contact us at painradar.app@gmail.com.",
+    "cookies": "Cookies",
+    "cookiesContent": "We use essential cookies that are necessary for PainRadar to function, including session management and authentication. We use analytics cookies to understand how visitors use our service and to improve our product. Preference cookies remember your settings such as language and theme. You can control cookies through your browser settings; however, disabling essential cookies may affect the functionality of our service. Third-party services we use, such as analytics providers, may set their own cookies subject to their respective privacy policies.",
+    "contactTitle": "Contact Us",
+    "contactContent": "If you have any questions about this Privacy Policy or our data practices, please contact us at painradar.app@gmail.com.",
+    "scrollToTop": "Scroll to top"
+  },
+  "about": {
+    "pageTitle": "About PainRadar",
+    "pageSubtitle": "We help founders discover real problems worth solving.",
+    "missionTitle": "Our Mission",
+    "missionContent": "PainRadar was born from a simple observation: too many founders build products nobody wants. We believe the best SaaS ideas come from real customer pain — not guesswork, not assumptions, not copying competitors.\n\nOur mission is to make pain point discovery accessible to every founder, indie hacker, and product team. By analyzing real discussions from forums, review sites, and communities, we surface the problems that matter most — so you can build with confidence.",
+    "howTitle": "How It Works",
+    "howContent": "PainRadar scans thousands of online discussions to identify recurring complaints, frustrations, and unmet needs. Our AI extracts structured insights — pain points, product ideas, SEO keywords, and opportunity scores — and delivers them in a format you can act on immediately.\n\nWhether you're validating your next SaaS idea, researching a new market, or looking for content angles, PainRadar gives you the data-driven foundation to make better decisions.",
+    "valuesTitle": "What We Believe",
+    "values": [
+      { "title": "Real problems first", "description": "We start with customer pain, not solutions." },
+      { "title": "Data over intuition", "description": "Every insight is grounded in real conversations." },
+      { "title": "Speed matters", "description": "What used to take weeks of research takes minutes." },
+      { "title": "Accessible to everyone", "description": "From solo founders to product teams, anyone can use PainRadar." }
+    ],
+    "ctaTitle": "Ready to discover real problems?",
+    "ctaDesc": "Start your first analysis for free — no credit card required.",
+    "ctaButton": "Get started"
+  },
+  "contact": {
+    "pageTitle": "Contact Us",
+    "pageSubtitle": "Have a question, feedback, or just want to say hi? We'd love to hear from you.",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "subject": "Subject",
+    "subjectPlaceholder": "What's this about?",
+    "message": "Message",
+    "messagePlaceholder": "Tell us what's on your mind...",
+    "send": "Send message",
+    "sending": "Sending...",
+    "successTitle": "Message sent!",
+    "successDesc": "Thanks for reaching out. We'll get back to you as soon as possible.",
+    "errorTitle": "Something went wrong",
+    "errorDesc": "Failed to send your message. Please try again later.",
+    "feedback": "Feedback",
+    "feedbackDesc": "Help us improve PainRadar by sharing your thoughts.",
+    "general": "General inquiry",
+    "generalDesc": "Questions about PainRadar, pricing, or anything else.",
+    "bug": "Bug report",
+    "bugDesc": "Found something broken? Let us know."
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated: March 1, 2026",
+    "tocTitle": "Table of Contents",
+    "acceptance": "Acceptance of Terms",
+    "acceptanceContent": "By accessing or using PainRadar (\"the Service\") at painradar.com, you agree to be bound by these Terms of Service. If you do not agree to these terms, you may not use the Service. You must be at least 18 years of age to use PainRadar. If you are using the Service on behalf of an organization, you represent that you have the authority to bind that organization to these terms. Your continued use of the Service constitutes your acceptance of any modifications to these terms.",
+    "description": "Description of Service",
+    "descriptionContent": "PainRadar is a B2C SaaS idea discovery platform that analyzes online discussions to identify recurring pain points, product opportunities, and SEO angles. The Service helps founders and entrepreneurs validate SaaS ideas by extracting insights from forums, review sites, and community platforms. PainRadar provides pain point detection, opportunity scoring, AI-generated product ideas, and keyword suggestions. The Service is provided through our website at painradar.com and may be accessed via web browser or other authorized means. We reserve the right to modify, suspend, or discontinue any aspect of the Service at any time.",
+    "accounts": "User Accounts & Responsibilities",
+    "accountsContent": "To access certain features of PainRadar, you must create an account and provide accurate, current, and complete information. You are responsible for maintaining the confidentiality of your password and for all activities that occur under your account. You must promptly notify us at painradar.app@gmail.com of any unauthorized access or use of your account. We are not liable for any loss or damage arising from your failure to protect your account credentials. You may not share your account with others or use the Service for any purpose that violates these terms or applicable law.",
+    "billing": "Subscription & Billing",
+    "billingContent": "PainRadar offers both free and paid subscription plans. Free plan users receive limited analyses per month. Paid plans are billed on a recurring monthly basis unless otherwise stated. By subscribing to a paid plan, you authorize us to charge your payment method on each billing cycle. We may change our pricing with reasonable notice; continued use after a price change constitutes acceptance. Refunds are provided at our discretion; generally, we do not offer refunds for partial billing periods. You may cancel your subscription at any time through your account settings; cancellation will take effect at the end of the current billing period.",
+    "prohibited": "Prohibited Uses",
+    "prohibitedContent": "You may not use PainRadar to: scrape, harvest, or extract data beyond normal use; reverse engineer, decompile, or attempt to derive the source code of the Service; harass, abuse, or harm others; violate any applicable law or regulation; impersonate any person or entity; interfere with or disrupt the Service or servers; use the Service for any illegal or unauthorized purpose; or circumvent any access controls or usage limits. We reserve the right to suspend or terminate accounts that violate these prohibitions. Violations may also result in legal action.",
+    "ip": "Intellectual Property",
+    "ipContent": "PainRadar and its licensors own all right, title, and interest in the Service, including the software, design, content, trademarks, and other intellectual property. You retain ownership of any data or content you submit to the Service. By submitting content, you grant us a limited, non-exclusive license to use, process, and store that content as necessary to provide and improve the Service. You may not copy, modify, distribute, or create derivative works of the Service without our express written permission. The PainRadar name and logo are our trademarks and may not be used without authorization.",
+    "disclaimers": "Disclaimers & Limitation of Liability",
+    "disclaimersContent": "THE SERVICE IS PROVIDED \"AS IS\" AND \"AS AVAILABLE\" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. WE DISCLAIM ALL WARRANTIES INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE DO NOT GUARANTEE THAT THE SERVICE WILL BE UNINTERRUPTED, ERROR-FREE, OR SECURE. TO THE MAXIMUM EXTENT PERMITTED BY LAW, PAINRADAR AND ITS AFFILIATES SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES. OUR TOTAL LIABILITY SHALL NOT EXCEED THE AMOUNT YOU PAID US IN THE TWELVE MONTHS PRECEDING THE CLAIM. We are not liable for events beyond our reasonable control, including force majeure.",
+    "termination": "Termination",
+    "terminationContent": "We may suspend or terminate your access to PainRadar at any time, with or without cause or notice. We may terminate your account immediately if you violate these terms or engage in conduct we deem harmful to the Service or other users. Upon termination, your right to use the Service ceases immediately. We may delete your account data and saved analyses within a reasonable period after termination. Provisions that by their nature should survive termination, including intellectual property, disclaimers, and limitation of liability, shall survive. You may terminate your account at any time through your account settings.",
+    "changes": "Changes to Terms",
+    "changesContent": "We reserve the right to modify these Terms of Service at any time. We will notify you of material changes by posting the updated terms on painradar.com and updating the \"Last updated\" date. For significant changes, we may also notify you by email to the address associated with your account. Your continued use of the Service after the effective date of changes constitutes your acceptance of the revised terms. If you do not agree to the modified terms, you must stop using the Service and may cancel your account. We encourage you to review these terms periodically.",
+    "contactTitle": "Contact",
+    "contactContent": "If you have any questions about these Terms of Service, please contact us at painradar.app@gmail.com.",
+    "scrollToTop": "Scroll to top"
   },
   "footer": {
     "tagline": "Find real problems. Build real products.",
@@ -321,6 +483,9 @@
     "ctaDesc": "Start discovering pain points in minutes.",
     "signUpFree": "Sign up free",
     "painPoints": "Pain Points",
-    "features": "Features"
+    "features": "Features",
+    "notFound": "Not found",
+    "close": "Close",
+    "switchLanguage": "Switch language"
   }
 }

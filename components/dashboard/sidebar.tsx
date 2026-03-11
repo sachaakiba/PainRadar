@@ -128,7 +128,7 @@ export function DashboardSidebar() {
               </Avatar>
               <div className="flex-1 overflow-hidden">
                 <p className="truncate text-sm font-semibold text-white">
-                  {session?.user?.name ?? "User"}
+                  {session?.user?.name ?? t("user")}
                 </p>
                 <p className="truncate text-xs text-sidebar-foreground">
                   {session?.user?.email ?? ""}

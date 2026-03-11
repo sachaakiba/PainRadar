@@ -41,24 +41,34 @@ export default async function AlternativePage({
   const { slug } = await params;
   const alt = alternatives.find((a) => a.slug === slug);
   if (!alt) notFound();
-  
+
+  const slugToKey: Record<string, string> = {
+    "manual-research": "manualResearch",
+    "google-trends": "googleTrends",
+    "survey-tools": "surveyTools",
+  };
+  const key = slugToKey[slug];
   const t = await getTranslations("common");
+  const tAlt = await getTranslations("alternatives");
+
+  const altTitle = key ? tAlt(`${key}.title`) : alt.title;
+  const altDesc = key ? tAlt(`${key}.description`) : alt.description;
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 1, name: t("home"), item: absoluteUrl("/") },
       {
         "@type": "ListItem",
         position: 2,
-        name: "Alternatives",
+        name: tAlt("breadcrumb"),
         item: absoluteUrl("/alternatives"),
       },
       {
         "@type": "ListItem",
         position: 3,
-        name: `vs ${alt.title}`,
+        name: `${tAlt("vs")} ${altTitle}`,
         item: absoluteUrl(`/alternatives/${slug}`),
       },
     ],
@@ -67,8 +77,8 @@ export default async function AlternativePage({
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: `PainRadar vs ${alt.title}`,
-    description: alt.description,
+    headline: `PainRadar ${tAlt("vs")} ${altTitle}`,
+    description: altDesc,
     url: absoluteUrl(`/alternatives/${slug}`),
   };
 
@@ -79,18 +89,18 @@ export default async function AlternativePage({
       <div className="container mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         <Breadcrumb
           items={[
-            { label: "Alternatives", href: "/alternatives" },
-            { label: `vs ${alt.title}` },
+            { label: tAlt("breadcrumb"), href: "/alternatives" },
+            { label: `${tAlt("vs")} ${altTitle}` },
           ]}
-          className="mb-8"
+          className="mt-4 mb-10"
         />
         <article>
           <header className="mb-10">
             <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              PainRadar vs {alt.title}
+              PainRadar {tAlt("vs")} {altTitle}
             </h1>
             <p className="mt-4 text-lg text-muted-foreground">
-              {alt.description}
+              {altDesc}
             </p>
           </header>
           <div className="grid gap-6 sm:grid-cols-2">

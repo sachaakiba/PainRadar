@@ -50,6 +50,7 @@ export default async function BlogPostPage({
   const { slug } = await params;
   const post = blogPosts.find((p) => p.slug === slug);
   const t = await getTranslations("common");
+  const tBlog = await getTranslations("blog");
   if (!post) notFound();
 
   const content = markdownToHtml(post.content);
@@ -59,11 +60,11 @@ export default async function BlogPostPage({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 1, name: t("home"), item: absoluteUrl("/") },
       {
         "@type": "ListItem",
         position: 2,
-        name: "Blog",
+        name: tBlog("pageTitle"),
         item: absoluteUrl("/blog"),
       },
       {
@@ -95,10 +96,10 @@ export default async function BlogPostPage({
       <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         <Breadcrumb
           items={[
-            { label: "Blog", href: "/blog" },
+            { label: tBlog("pageTitle"), href: "/blog" },
             { label: post.title },
           ]}
-          className="mb-8"
+          className="mt-4 mb-10"
         />
         <article>
           <header className="mb-10">
@@ -124,7 +125,7 @@ export default async function BlogPostPage({
           {relatedPosts.length > 0 && (
             <section className="mt-16 border-t border-border/50 pt-12">
               <h2 className="text-xl font-semibold text-foreground">
-                Related posts
+                {tBlog("relatedPosts")}
               </h2>
               <ul className="mt-4 space-y-2">
                 {relatedPosts.map((p) => (

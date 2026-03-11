@@ -55,7 +55,29 @@
     "wantToRun": "Vous voulez lancer votre propre analyse ?",
     "enterAnyTopic": "Saisissez n'importe quel sujet et obtenez une analyse complète des points de douleur en quelques minutes.",
     "signUpFree": "S'inscrire gratuitement",
-    "exampleAnalysis": "Exemple d'analyse"
+    "exampleAnalysis": "Exemple d'analyse",
+    "exampleItems": {
+      "invoicingFreelancers": {
+        "topic": "Facturation pour les freelances",
+        "summary": "Les freelances peinent avec des processus de facturation fragmentés. La création manuelle de factures, les relances de paiement et le manque de branding professionnel sont les principales plaintes."
+      },
+      "crmTherapists": {
+        "topic": "CRM pour les thérapeutes",
+        "summary": "Les praticiens en santé mentale ont besoin d'un outil de gestion client conforme HIPAA qui gère les formulaires d'admission et les notes de séance sans la complexité des CRM d'entreprise."
+      },
+      "schedulingTutors": {
+        "topic": "Planification pour les tuteurs",
+        "summary": "Les tuteurs jonglant entre plusieurs élèves et fuseaux horaires ont besoin d'une planification flexible avec des séances récurrentes, des cours de rattrapage et la collecte de paiements."
+      },
+      "recruitingAgencies": {
+        "topic": "Recrutement pour petites agences",
+        "summary": "Les petites agences trouvent les ATS d'entreprise surdimensionnés et les tableurs insoutenables. Elles ont besoin d'un suivi de pipeline simple et de rapports orientés clients."
+      },
+      "restaurantWaitlist": {
+        "topic": "Gestion de liste d'attente restaurant",
+        "summary": "Les restaurants indépendants peinent avec le chaos des listes d'attente : listes papier, appels téléphoniques et aucune visibilité sur les temps d'attente pour les clients."
+      }
+    }
   },
   "comparison": {
     "title": "Arrêtez de deviner. Commencez à découvrir.",
@@ -153,7 +175,9 @@
     "welcomeBackToast": "Bon retour !",
     "continueWithGoogle": "Continuer avec Google",
     "orContinueWith": "ou continuer avec email",
-    "googleError": "Échec de la connexion avec Google. Veuillez réessayer."
+    "googleError": "Échec de la connexion avec Google. Veuillez réessayer.",
+    "invalidCredentials": "Email ou mot de passe invalide. Veuillez réessayer.",
+    "signUpError": "Une erreur s'est produite. Veuillez réessayer."
   },
   "dashboard": {
     "overview": "Vue d'ensemble",
@@ -197,7 +221,16 @@
     "analyze": "Analyser",
     "analyzing": "Analyse en cours...",
     "planLimitAnalysis": "Vous avez atteint votre limite d'analyses mensuelles. Passez à une offre supérieure pour continuer.",
-    "planLimitSave": "Vous avez atteint la limite d'analyses enregistrées. Passez à une offre supérieure ou désenregistrez une analyse."
+    "planLimitSave": "Vous avez atteint la limite d'analyses enregistrées. Passez à une offre supérieure ou désenregistrez une analyse.",
+    "quickStats": "Statistiques rapides",
+    "bestScore": "Meilleur score",
+    "thisMonth": "Ce mois",
+    "user": "Utilisateur",
+    "savedDesc": "Les analyses que vous avez mises en favoris.",
+    "analysisError": "Échec de la création de l'analyse",
+    "analysisStarted": "Analyse lancée ! Redirection...",
+    "somethingWentWrong": "Une erreur s'est produite",
+    "analysisDeleted": "Analyse supprimée"
   },
   "analysis": {
     "score": "Score",
@@ -235,7 +268,19 @@
     "monetization": "Monétisation",
     "target": "Cible",
     "noDataIdentified": "Aucune donnée identifiée.",
-    "from": "par"
+    "from": "par",
+    "removedFromSaved": "Retiré des favoris",
+    "updateFailed": "Échec de la mise à jour",
+    "copyFailed": "Échec de la copie",
+    "copyLinkFailed": "Échec de la copie du lien",
+    "noSummaryAvailable": "Aucun résumé disponible.",
+    "noProductIdeas": "Aucune idée de produit identifiée.",
+    "noKeywords": "Aucun mot-clé identifié.",
+    "noChannels": "Aucun canal identifié.",
+    "noObjections": "Aucune objection identifiée.",
+    "noRecurringPhrases": "Aucune expression récurrente identifiée.",
+    "opportunityScore": "Score d'opportunité",
+    "painPointsTitle": "Points de douleur"
   },
   "features": {
     "pageTitle": "Fonctionnalités",
@@ -271,7 +316,22 @@
     "painPoints": "Points de douleur courants",
     "benefits": "Avantages clés",
     "getStarted": "Démarrer avec PainRadar",
-    "getStartedDesc": "Commencez à découvrir les points de douleur dans votre créneau."
+    "getStartedDesc": "Commencez à découvrir les points de douleur dans votre créneau.",
+    "indieHackers": {
+      "title": "PainRadar pour les Indie Hackers",
+      "description": "Arrêtez de deviner quoi construire. PainRadar identifie les vrais points de douleur sur Reddit, les forums et les avis pour valider vos idées avant d'écrire une seule ligne de code.",
+      "audience": "Fondateurs solo et indie hackers qui construisent en public"
+    },
+    "agencies": {
+      "title": "PainRadar pour les Agences",
+      "description": "Gagnez plus de clients en proposant des solutions qui résolvent de vrais problèmes. PainRadar donne à votre équipe des insights basés sur les données des points de douleur prospects.",
+      "audience": "Agences digitales, cabinets de conseil et entreprises de services"
+    },
+    "startups": {
+      "title": "PainRadar pour les Startups",
+      "description": "Validez votre roadmap avec des preuves, pas de l'intuition. PainRadar analyse des milliers de conversations pour faire émerger les points de douleur les plus importants.",
+      "audience": "Startups en phase initiale et équipes produit"
+    }
   },
   "blog": {
     "pageTitle": "Blog",
@@ -283,10 +343,112 @@
   },
   "alternatives": {
     "pageTitle": "PainRadar vs alternatives",
+    "breadcrumb": "Alternatives",
+    "vs": "vs",
     "pageSubtitle": "Découvrez comment PainRadar se compare aux autres approches pour trouver des idées SaaS.",
     "compare": "Comparer",
     "readyToTry": "Prêt à essayer PainRadar ?",
-    "readyToTryDesc": "Commencez à découvrir des points de douleur en quelques minutes."
+    "readyToTryDesc": "Commencez à découvrir des points de douleur en quelques minutes.",
+    "manualResearch": {
+      "title": "Recherche manuelle sur Reddit",
+      "description": "Parcourir manuellement Reddit, les forums et les sites d'avis pour trouver des points de douleur. Beaucoup de fondateurs commencent ici — mais c'est chronophage et difficile à mettre à l'échelle."
+    },
+    "googleTrends": {
+      "title": "Google Trends",
+      "description": "Google Trends montre le volume de recherche dans le temps. Utile pour l'intérêt général, mais ne révèle pas les points de douleur, plaintes ou opportunités produit."
+    },
+    "surveyTools": {
+      "title": "Outils de sondage",
+      "description": "Les outils de sondage comme Typeform ou Google Forms permettent de demander aux gens ce qu'ils veulent. Mais les sondages nécessitent une audience, induisent des biais et passent souvent à côté des frustrations spontanées."
+    }
+  },
+  "privacy": {
+    "title": "Politique de confidentialité",
+    "lastUpdated": "Dernière mise à jour : 1er mars 2026",
+    "tocTitle": "Table des matières",
+    "dataCollected": "Données que nous collectons",
+    "dataCollectedContent": "PainRadar collecte les informations que vous fournissez lors de la création d'un compte, notamment votre nom, adresse e-mail et mot de passe. Nous collectons également automatiquement des données d'utilisation telles que votre adresse IP, le type de navigateur, les informations sur votre appareil et les pages que vous consultez dans notre service. Lorsque vous utilisez nos fonctionnalités d'analyse, nous stockons les sujets que vous recherchez et les résultats générés. Nous utilisons des cookies et des technologies similaires pour maintenir votre session et améliorer notre service. Les données analytiques nous aident à comprendre comment notre produit est utilisé et à identifier les axes d'amélioration.",
+    "howWeUse": "Comment nous utilisons vos données",
+    "howWeUseContent": "Nous utilisons vos données pour fournir, maintenir et améliorer le service PainRadar. Cela comprend la fourniture d'analyses de points de douleur, la sauvegarde de vos recherches et résultats, et la personnalisation de votre expérience. Nous pouvons utiliser votre e-mail pour envoyer des mises à jour importantes du service, des notifications de sécurité et des communications produit. Les données analytiques nous aident à comprendre les modèles d'utilisation et à développer de nouvelles fonctionnalités. Nous utilisons également vos informations pour détecter et prévenir la fraude, faire respecter nos conditions et nous conformer aux obligations légales.",
+    "dataSharing": "Partage des données et tiers",
+    "dataSharingContent": "Nous partageons des données avec des prestataires de services de confiance qui nous aident à exploiter PainRadar, notamment des hébergeurs, des services d'analyse, des processeurs de paiement et des services d'envoi d'e-mails. Ces prestataires sont contractuellement tenus d'utiliser vos données uniquement aux fins que nous spécifions et de les protéger de manière appropriée. Nous ne vendons pas vos données personnelles à des tiers. Nous pouvons divulguer vos informations lorsque la loi l'exige, pour protéger nos droits ou dans le cadre d'une fusion ou d'une acquisition. Nous ne partageons pas vos données avec des annonceurs pour la publicité ciblée.",
+    "dataRetention": "Conservation des données",
+    "dataRetentionContent": "Nous conservons les données de votre compte et les analyses enregistrées tant que votre compte est actif. Si vous supprimez votre compte, nous supprimerons vos données personnelles dans un délai de 30 jours, sauf si nous sommes tenus de les conserver pour des raisons légales, réglementaires ou commerciales légitimes. Les copies de sauvegarde peuvent persister pendant une période limitée avant d'être définitivement supprimées. Les données d'utilisation et d'analyse peuvent être conservées sous forme agrégée ou anonymisée pendant des périodes plus longues pour améliorer notre service. Vous pouvez demander la suppression anticipée de vos données en nous contactant.",
+    "yourRights": "Vos droits",
+    "yourRightsContent": "Si vous êtes dans l'Espace économique européen, vous disposez de droits au titre du RGPD, notamment le droit d'accéder à vos données, de demander la rectification des données inexactes, de demander l'effacement, de recevoir vos données dans un format portable, de restreindre le traitement et de vous opposer au traitement. Vous avez également le droit de déposer une plainte auprès d'une autorité de contrôle. Si vous êtes résident californien, vous disposez de droits au titre du CCPA, notamment le droit de savoir quelles informations personnelles nous collectons, le droit de supprimer vos données, le droit de refuser la vente de vos données (nous ne vendons pas de données) et le droit à la non-discrimination pour l'exercice de vos droits. Pour exercer l'un de ces droits, veuillez nous contacter à painradar.app@gmail.com.",
+    "cookies": "Cookies",
+    "cookiesContent": "Nous utilisons des cookies essentiels nécessaires au fonctionnement de PainRadar, notamment pour la gestion des sessions et l'authentification. Nous utilisons des cookies analytiques pour comprendre comment les visiteurs utilisent notre service et améliorer notre produit. Les cookies de préférence mémorisent vos paramètres tels que la langue et le thème. Vous pouvez contrôler les cookies via les paramètres de votre navigateur ; toutefois, la désactivation des cookies essentiels peut affecter le fonctionnement de notre service. Les services tiers que nous utilisons, tels que les fournisseurs d'analyse, peuvent définir leurs propres cookies conformément à leurs politiques de confidentialité respectives.",
+    "contactTitle": "Nous contacter",
+    "contactContent": "Si vous avez des questions concernant cette politique de confidentialité ou nos pratiques en matière de données, veuillez nous contacter à painradar.app@gmail.com.",
+    "scrollToTop": "Retour en haut"
+  },
+  "about": {
+    "pageTitle": "À propos de PainRadar",
+    "pageSubtitle": "Nous aidons les fondateurs à découvrir de vrais problèmes qui méritent d'être résolus.",
+    "missionTitle": "Notre mission",
+    "missionContent": "PainRadar est né d'un constat simple : trop de fondateurs construisent des produits dont personne ne veut. Nous croyons que les meilleures idées SaaS naissent de vraies douleurs clients — pas de suppositions, ni d'hypothèses, ni de copies de concurrents.\n\nNotre mission est de rendre la découverte de points de douleur accessible à chaque fondateur, indie hacker et équipe produit. En analysant de vraies discussions issues de forums, sites d'avis et communautés, nous faisons émerger les problèmes qui comptent le plus — pour que vous puissiez construire en toute confiance.",
+    "howTitle": "Comment ça marche",
+    "howContent": "PainRadar analyse des milliers de discussions en ligne pour identifier les plaintes récurrentes, les frustrations et les besoins non satisfaits. Notre IA extrait des insights structurés — points de douleur, idées de produit, mots-clés SEO et scores d'opportunité — et les présente dans un format immédiatement actionnable.\n\nQue vous validiez votre prochaine idée SaaS, exploriez un nouveau marché ou cherchiez des angles de contenu, PainRadar vous donne les bases data-driven pour prendre de meilleures décisions.",
+    "valuesTitle": "Ce en quoi nous croyons",
+    "values": [
+      { "title": "Les vrais problèmes d'abord", "description": "Nous partons de la douleur client, pas des solutions." },
+      { "title": "Les données plutôt que l'intuition", "description": "Chaque insight est ancré dans de vraies conversations." },
+      { "title": "La vitesse compte", "description": "Ce qui prenait des semaines de recherche prend désormais quelques minutes." },
+      { "title": "Accessible à tous", "description": "Des fondateurs solo aux équipes produit, tout le monde peut utiliser PainRadar." }
+    ],
+    "ctaTitle": "Prêt à découvrir de vrais problèmes ?",
+    "ctaDesc": "Lancez votre première analyse gratuitement — aucune carte bancaire requise.",
+    "ctaButton": "Commencer"
+  },
+  "contact": {
+    "pageTitle": "Contactez-nous",
+    "pageSubtitle": "Une question, un retour, ou simplement envie de dire bonjour ? Nous serions ravis de vous entendre.",
+    "name": "Nom",
+    "namePlaceholder": "Votre nom",
+    "email": "Email",
+    "emailPlaceholder": "vous@exemple.com",
+    "subject": "Objet",
+    "subjectPlaceholder": "De quoi s'agit-il ?",
+    "message": "Message",
+    "messagePlaceholder": "Dites-nous ce que vous avez en tête...",
+    "send": "Envoyer le message",
+    "sending": "Envoi en cours...",
+    "successTitle": "Message envoyé !",
+    "successDesc": "Merci de nous avoir contactés. Nous vous répondrons dès que possible.",
+    "errorTitle": "Une erreur s'est produite",
+    "errorDesc": "Impossible d'envoyer votre message. Veuillez réessayer plus tard.",
+    "feedback": "Retour d'expérience",
+    "feedbackDesc": "Aidez-nous à améliorer PainRadar en partageant vos impressions.",
+    "general": "Demande générale",
+    "generalDesc": "Questions sur PainRadar, les tarifs, ou autre chose.",
+    "bug": "Signaler un bug",
+    "bugDesc": "Quelque chose ne fonctionne pas ? Faites-le nous savoir."
+  },
+  "terms": {
+    "title": "Conditions d'utilisation",
+    "lastUpdated": "Dernière mise à jour : 1er mars 2026",
+    "tocTitle": "Table des matières",
+    "acceptance": "Acceptation des conditions",
+    "acceptanceContent": "En accédant ou en utilisant PainRadar (« le Service ») sur painradar.com, vous acceptez d'être lié par ces Conditions d'utilisation. Si vous n'acceptez pas ces conditions, vous ne pouvez pas utiliser le Service. Vous devez avoir au moins 18 ans pour utiliser PainRadar. Si vous utilisez le Service au nom d'une organisation, vous déclarez avoir l'autorité d'engager cette organisation par ces conditions. Votre utilisation continue du Service constitue votre acceptation de toute modification de ces conditions.",
+    "description": "Description du service",
+    "descriptionContent": "PainRadar est une plateforme B2C de découverte d'idées SaaS qui analyse les discussions en ligne pour identifier les points de douleur récurrents, les opportunités produit et les angles SEO. Le Service aide les fondateurs et entrepreneurs à valider des idées SaaS en extrayant des insights des forums, sites d'avis et plateformes communautaires. PainRadar fournit la détection de points de douleur, le scoring d'opportunités, des idées produit générées par IA et des suggestions de mots-clés. Le Service est fourni via notre site painradar.com et peut être accessible par navigateur web ou autres moyens autorisés. Nous nous réservons le droit de modifier, suspendre ou interrompre tout aspect du Service à tout moment.",
+    "accounts": "Comptes utilisateur et responsabilités",
+    "accountsContent": "Pour accéder à certaines fonctionnalités de PainRadar, vous devez créer un compte et fournir des informations exactes, actuelles et complètes. Vous êtes responsable du maintien de la confidentialité de votre mot de passe et de toutes les activités effectuées sous votre compte. Vous devez nous notifier rapidement à painradar.app@gmail.com de tout accès ou utilisation non autorisé de votre compte. Nous ne sommes pas responsables des pertes ou dommages résultant de votre incapacité à protéger vos identifiants. Vous ne pouvez pas partager votre compte avec d'autres ni utiliser le Service à des fins violant ces conditions ou la loi applicable.",
+    "billing": "Abonnement et facturation",
+    "billingContent": "PainRadar propose des offres gratuites et payantes. Les utilisateurs de l'offre gratuite bénéficient d'un nombre limité d'analyses par mois. Les offres payantes sont facturées mensuellement sauf indication contraire. En souscrivant à une offre payante, vous nous autorisez à débiter votre moyen de paiement à chaque cycle de facturation. Nous pouvons modifier nos tarifs avec un préavis raisonnable ; l'utilisation continue après une modification de prix constitue une acceptation. Les remboursements sont accordés à notre discrétion ; généralement, nous n'offrons pas de remboursements pour les périodes partielles. Vous pouvez annuler votre abonnement à tout moment via les paramètres de votre compte ; l'annulation prendra effet à la fin de la période de facturation en cours.",
+    "prohibited": "Utilisations interdites",
+    "prohibitedContent": "Vous ne pouvez pas utiliser PainRadar pour : extraire, collecter ou récolter des données au-delà d'une utilisation normale ; faire de l'ingénierie inverse, décompiler ou tenter d'obtenir le code source du Service ; harceler, maltraiter ou nuire à autrui ; violer toute loi ou réglementation applicable ; usurper l'identité d'une personne ou entité ; perturber ou interrompre le Service ou les serveurs ; utiliser le Service à des fins illégales ou non autorisées ; ou contourner les contrôles d'accès ou limites d'utilisation. Nous nous réservons le droit de suspendre ou résilier les comptes en violation. Les violations peuvent également entraîner des poursuites judiciaires.",
+    "ip": "Propriété intellectuelle",
+    "ipContent": "PainRadar et ses concédants de licence détiennent tous les droits, titres et intérêts sur le Service, y compris le logiciel, la conception, le contenu, les marques et autres propriétés intellectuelles. Vous conservez la propriété des données ou contenus que vous soumettez au Service. En soumettant du contenu, vous nous accordez une licence limitée, non exclusive pour utiliser, traiter et stocker ce contenu selon les besoins pour fournir et améliorer le Service. Vous ne pouvez pas copier, modifier, distribuer ou créer des œuvres dérivées du Service sans notre autorisation écrite expresse. Le nom et le logo PainRadar sont nos marques et ne peuvent être utilisés sans autorisation.",
+    "disclaimers": "Avertissements et limitation de responsabilité",
+    "disclaimersContent": "LE SERVICE EST FOURNI « EN L'ÉTAT » ET « EN DISPONIBILITÉ » SANS GARANTIES D'AUCUNE SORTE, EXPRESSES OU IMPLICITES. NOUS EXCLUONS TOUTES GARANTIES Y COMPRIS LA QUALITÉ MARCHANDE, L'ADÉQUATION À UN USAGE PARTICULIER ET LA NON-CONTREFAÇON. NOUS NE GARANTISSONS PAS QUE LE SERVICE SERA ININTERROMPU, SANS ERREUR OU SÉCURISÉ. DANS LA MESURE MAXIMALE PERMISE PAR LA LOI, PAINRADAR ET SES FILIALES NE SERONT PAS RESPONSABLES DES DOMMAGES INDIRECTS, ACCESSOIRES, SPÉCIAUX, CONSÉCUTIFS OU PUNITIFS. NOTRE RESPONSABILITÉ TOTALE NE DÉPASSERA PAS LE MONTANT QUE VOUS NOUS AVEZ VERSÉ AU COURS DES DOUZE MOIS PRÉCÉDANT LA RÉCLAMATION. Nous ne sommes pas responsables des événements hors de notre contrôle raisonnable, y compris la force majeure.",
+    "termination": "Résiliation",
+    "terminationContent": "Nous pouvons suspendre ou résilier votre accès à PainRadar à tout moment, avec ou sans motif ni préavis. Nous pouvons résilier votre compte immédiatement si vous violez ces conditions ou si vous adoptez un comportement que nous jugeons préjudiciable au Service ou aux autres utilisateurs. À la résiliation, votre droit d'utiliser le Service cesse immédiatement. Nous pouvons supprimer les données de votre compte et les analyses enregistrées dans un délai raisonnable après la résiliation. Les dispositions qui, par leur nature, doivent survivre à la résiliation, notamment la propriété intellectuelle, les avertissements et la limitation de responsabilité, resteront en vigueur. Vous pouvez résilier votre compte à tout moment via les paramètres de votre compte.",
+    "changes": "Modifications des conditions",
+    "changesContent": "Nous nous réservons le droit de modifier ces Conditions d'utilisation à tout moment. Nous vous informerons des modifications substantielles en publiant les conditions mises à jour sur painradar.com et en mettant à jour la date « Dernière mise à jour ». Pour les modifications importantes, nous pouvons également vous notifier par e-mail à l'adresse associée à votre compte. Votre utilisation continue du Service après la date d'effet des modifications constitue votre acceptation des conditions révisées. Si vous n'acceptez pas les conditions modifiées, vous devez cesser d'utiliser le Service et pouvez résilier votre compte. Nous vous encourageons à consulter ces conditions périodiquement.",
+    "contactTitle": "Contact",
+    "contactContent": "Si vous avez des questions concernant ces Conditions d'utilisation, veuillez nous contacter à painradar.app@gmail.com.",
+    "scrollToTop": "Retour en haut"
   },
   "footer": {
     "tagline": "Trouvez les vrais problèmes. Construisez les vrais produits.",
@@ -321,6 +483,9 @@
     "ctaDesc": "Commencez à découvrir les points de douleur en quelques minutes.",
     "signUpFree": "S'inscrire gratuitement",
     "painPoints": "Points de douleur",
-    "features": "Fonctionnalités"
+    "features": "Fonctionnalités",
+    "notFound": "Introuvable",
+    "close": "Fermer",
+    "switchLanguage": "Changer de langue"
   }
 }

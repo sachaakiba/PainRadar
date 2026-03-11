@@ -1,1 +1,7 @@
-{}
+{
+    "i18n-ally.localesPaths": [
+        "i18n",
+        "messages",
+        "app/api/user/locale"
+    ]
+}

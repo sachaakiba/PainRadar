@@ -40,7 +40,7 @@ export function ExportMenu({
       toast.success(t("jsonCopied"));
       setTimeout(() => setCopied(null), 2000);
     } catch {
-      toast.error("Failed to copy");
+      toast.error(t("copyFailed"));
     }
   };
 
@@ -63,7 +63,7 @@ export function ExportMenu({
       toast.success(t("linkCopied"));
       setTimeout(() => setCopied(null), 2000);
     } catch {
-      toast.error("Failed to copy link");
+      toast.error(t("copyLinkFailed"));
     }
   };
 

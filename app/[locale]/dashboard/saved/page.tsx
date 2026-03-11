@@ -28,7 +28,7 @@ export default function SavedPage() {
           {t("savedTitle")}
         </h1>
         <p className="mt-2 text-muted-foreground">
-          Analyses you&apos;ve bookmarked for later.
+          {t("savedDesc")}
         </p>
       </div>
 

@@ -150,11 +150,11 @@ export default function DashboardPage() {
         <div className="fade-up fade-up-6">
           <Card className="border-t-4 border-t-teal-400 dark:border-t-teal-500">
             <CardHeader>
-              <CardTitle className="text-base">Quick Stats</CardTitle>
+              <CardTitle className="text-base">{t("quickStats")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="label-sm">Best Score</span>
+                <span className="label-sm">{t("bestScore")}</span>
                 <span className="font-mono text-lg font-bold text-teal-500">
                   {analyses.length > 0
                     ? Math.max(...analyses.map((a) => a.opportunityScore))
@@ -163,7 +163,7 @@ export default function DashboardPage() {
               </div>
               <div className="h-px bg-border/60" />
               <div className="flex items-center justify-between">
-                <span className="label-sm">This Month</span>
+                <span className="label-sm">{t("thisMonth")}</span>
                 <span className="font-mono text-lg font-bold text-foreground">
                   {analyses.filter((a) => {
                     const d = new Date(a.createdAt);
@@ -174,7 +174,7 @@ export default function DashboardPage() {
               </div>
               <div className="h-px bg-border/60" />
               <div className="flex items-center justify-between">
-                <span className="label-sm">Saved</span>
+                <span className="label-sm">{t("saved")}</span>
                 <span className="font-mono text-lg font-bold text-coral-500">
                   {savedCount}
                 </span>

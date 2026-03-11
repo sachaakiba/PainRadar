@@ -27,6 +27,17 @@ export const analysisSchema = z.object({
   audience: z.string().max(100).optional(),
 });
 
+export const contactSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters").max(100),
+  email: z.string().email("Please enter a valid email"),
+  subject: z.string().min(3, "Subject must be at least 3 characters").max(200),
+  message: z
+    .string()
+    .min(10, "Message must be at least 10 characters")
+    .max(5000, "Message must be at most 5000 characters"),
+});
+
 export type SignUpInput = z.infer<typeof signUpSchema>;
 export type SignInInput = z.infer<typeof signInSchema>;
 export type AnalysisInput = z.infer<typeof analysisSchema>;
+export type ContactInput = z.infer<typeof contactSchema>;

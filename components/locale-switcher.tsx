@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/routing";
 import { useTransition } from "react";
 import { Button } from "@/components/ui/button";
@@ -41,6 +41,7 @@ export function getLocaleFromStorage(): string | null {
 }
 
 export function LocaleSwitcher({ className }: { className?: string }) {
+  const t = useTranslations("common");
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -67,7 +68,7 @@ export function LocaleSwitcher({ className }: { className?: string }) {
           disabled={isPending}
         >
           <Languages className="h-4 w-4" />
-          <span className="sr-only">Switch language</span>
+          <span className="sr-only">{t("switchLanguage")}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { ArrowRight, Users } from "lucide-react";
 import { useCases } from "@/config/use-cases";
@@ -14,7 +15,14 @@ export const metadata: Metadata = {
     "How PainRadar helps indie hackers, agencies, and startups validate ideas with real pain point data. See which use case fits your needs.",
 };
 
+const slugToKey: Record<string, string> = {
+  "indie-hackers": "indieHackers",
+  "agencies": "agencies",
+  "startups": "startups",
+};
+
 export default function UseCasesPage() {
+  const t = useTranslations("useCases");
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -23,7 +31,7 @@ export default function UseCasesPage() {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Use Cases",
+        name: t("pageTitle"),
         item: absoluteUrl("/use-cases"),
       },
     ],
@@ -47,13 +55,13 @@ export default function UseCasesPage() {
       <JsonLd data={breadcrumbJsonLd} />
       <JsonLd data={itemListJsonLd} />
       <div className="container mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <Breadcrumb items={[{ label: "Use Cases" }]} className="mb-8" />
+        <Breadcrumb items={[{ label: t("pageTitle") }]} className="mt-4 mb-10" />
         <div className="mx-auto max-w-2xl text-center">
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            Use Cases
+            {t("pageTitle")}
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            PainRadar for every stage of your journey
+            {t("pageSubtitle")}
           </p>
         </div>
         <div className="mx-auto mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -63,17 +71,17 @@ export default function UseCasesPage() {
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <h2 className="text-xl font-semibold text-foreground">
-                      {useCase.title}
+                      {t(`${slugToKey[useCase.slug]}.title`)}
                     </h2>
                     <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-primary" />
                   </div>
                   <p className="text-sm text-muted-foreground line-clamp-3">
-                    {useCase.description}
+                    {t(`${slugToKey[useCase.slug]}.description`)}
                   </p>
                   <div className="flex items-center gap-2 pt-2">
                     <Users className="h-4 w-4 text-muted-foreground" />
                     <Badge variant="secondary" className="text-xs font-normal">
-                      {useCase.audience}
+                      {t(`${slugToKey[useCase.slug]}.audience`)}
                     </Badge>
                   </div>
                 </CardHeader>

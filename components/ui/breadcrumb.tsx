@@ -1,5 +1,8 @@
+"use client";
+
 import { Link } from "@/i18n/routing";
 import { ChevronRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 export interface BreadcrumbItem {
@@ -13,6 +16,7 @@ interface BreadcrumbProps {
 }
 
 export function Breadcrumb({ items, className }: BreadcrumbProps) {
+  const t = useTranslations("common");
   return (
     <nav
       aria-label="Breadcrumb"
@@ -22,7 +26,7 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
         href="/"
         className="transition-colors hover:text-foreground"
       >
-        Home
+        {t("home")}
       </Link>
       {items.map((item, i) => (
         <span key={i} className="flex items-center gap-2">

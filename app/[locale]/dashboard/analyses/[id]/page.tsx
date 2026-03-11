@@ -118,13 +118,13 @@ export default function AnalysisDetailPage() {
       if (res.ok) {
         const { analysis: updated } = await res.json();
         setAnalysis((prev) => (prev ? { ...prev, saved: updated.saved } : null));
-        toast.success(updated.saved ? "Saved" : "Removed from saved");
+        toast.success(updated.saved ? t("saved") : t("removedFromSaved"));
       } else {
         const data = await res.json().catch(() => ({}));
-        toast.error(data?.error ?? "Failed to update");
+        toast.error(data?.error ?? t("updateFailed"));
       }
     } catch {
-      toast.error("Failed to update");
+      toast.error(t("updateFailed"));
     } finally {
       setSaving(false);
     }
@@ -233,7 +233,7 @@ export default function AnalysisDetailPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm leading-relaxed text-muted-foreground whitespace-pre-wrap">
-                  {analysis.summary || "No summary available."}
+                  {analysis.summary || t("noSummaryAvailable")}
                 </p>
                 {analysis.seoSummary && (
                   <div className="mt-6 rounded-xl bg-teal-50 dark:bg-teal-900/10 p-4 border-l-4 border-l-teal-400">
@@ -250,7 +250,7 @@ export default function AnalysisDetailPage() {
           <TabsContent value="pain-points" className="mt-4">
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">{t("painPoints")}</CardTitle>
+                <CardTitle className="text-base">{t("painPointsTitle")}</CardTitle>
                 <p className="text-sm text-muted-foreground">{t("painPointsDesc")}</p>
               </CardHeader>
               <CardContent>
@@ -266,7 +266,7 @@ export default function AnalysisDetailPage() {
               </CardHeader>
               <CardContent>
                 {analysis.productIdeas.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">No product ideas identified.</p>
+                  <p className="text-sm text-muted-foreground">{t("noProductIdeas")}</p>
                 ) : (
                   <div className="grid gap-4 sm:grid-cols-2">
                     {analysis.productIdeas.map((idea) => (
@@ -295,7 +295,7 @@ export default function AnalysisDetailPage() {
               </CardHeader>
               <CardContent>
                 {analysis.keywordIdeas.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">No keywords identified.</p>
+                  <p className="text-sm text-muted-foreground">{t("noKeywords")}</p>
                 ) : (
                   <div className="flex flex-wrap gap-2">
                     {analysis.keywordIdeas.map((kw) => (
@@ -314,7 +314,7 @@ export default function AnalysisDetailPage() {
               </CardHeader>
               <CardContent>
                 {analysis.acquisitionChannels.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">No channels identified.</p>
+                  <p className="text-sm text-muted-foreground">{t("noChannels")}</p>
                 ) : (
                   <ul className="space-y-3">
                     {analysis.acquisitionChannels.map((ch) => (
@@ -338,7 +338,7 @@ export default function AnalysisDetailPage() {
               </CardHeader>
               <CardContent>
                 {analysis.objections.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">No objections identified.</p>
+                  <p className="text-sm text-muted-foreground">{t("noObjections")}</p>
                 ) : (
                   <ul className="space-y-2">
                     {analysis.objections.map((obj) => (
@@ -360,7 +360,7 @@ export default function AnalysisDetailPage() {
               </CardHeader>
               <CardContent>
                 {analysis.recurringPhrases.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">No recurring phrases identified.</p>
+                  <p className="text-sm text-muted-foreground">{t("noRecurringPhrases")}</p>
                 ) : (
                   <div className="flex flex-wrap gap-2">
                     {analysis.recurringPhrases.map((p) => (

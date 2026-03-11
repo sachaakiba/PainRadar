@@ -14,12 +14,20 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { absoluteUrl, getScoreBg } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 
-const SCORE_LABELS: Record<string, string> = {
-  opportunityScore: "Opportunity",
-  demandScore: "Demand",
-  urgencyScore: "Urgency",
-  competitionScore: "Competition",
-  monetizationScore: "Monetization",
+const SCORE_KEYS = [
+  "opportunityScore",
+  "demandScore",
+  "urgencyScore",
+  "competitionScore",
+  "monetizationScore",
+] as const;
+
+const SCORE_LABEL_KEYS: Record<(typeof SCORE_KEYS)[number], string> = {
+  opportunityScore: "opportunity",
+  demandScore: "demand",
+  urgencyScore: "urgency",
+  competitionScore: "competition",
+  monetizationScore: "monetization",
 };
 
 function getScoreIndicatorClass(score: number) {
@@ -78,17 +86,18 @@ export default async function ExamplePage({
 
   const t = await getTranslations("common");
   const tAnalysis = await getTranslations("analysis");
+  const tExamples = await getTranslations("examples");
   const analysis = generateMockAnalysis(example.query, example.topic, undefined, locale as "en" | "fr");
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 1, name: t("home"), item: absoluteUrl("/") },
       {
         "@type": "ListItem",
         position: 2,
-        name: "Examples",
+        name: tExamples("exampleAnalysis"),
         item: absoluteUrl("/examples"),
       },
       {
@@ -115,17 +124,17 @@ export default async function ExamplePage({
       <div className="container mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         <Breadcrumb
           items={[
-            { label: "Examples", href: "/examples" },
+            { label: tExamples("exampleAnalysis"), href: "/examples" },
             { label: example.topic },
           ]}
-          className="mb-8"
+          className="mt-4 mb-10"
         />
         <article>
           <header className="mb-10">
             <div className="flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-primary" />
               <span className="text-sm font-medium text-muted-foreground">
-                Example analysis
+                {tExamples("exampleAnalysis")}
               </span>
             </div>
             <h1 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
@@ -142,7 +151,7 @@ export default async function ExamplePage({
                 <div className="flex items-center justify-between">
                   <h2 className="flex items-center gap-2 text-lg font-semibold">
                     <BarChart3 className="h-5 w-5" />
-                    Opportunity Score
+                    {tAnalysis("opportunityScore")}
                   </h2>
                   <Badge
                     variant="secondary"
@@ -154,21 +163,13 @@ export default async function ExamplePage({
               </CardHeader>
               <CardContent>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  {(
-                    [
-                      "opportunityScore",
-                      "demandScore",
-                      "urgencyScore",
-                      "competitionScore",
-                      "monetizationScore",
-                    ] as const
-                  ).map((key) => {
+                  {SCORE_KEYS.map((key) => {
                     const value = analysis[key];
                     return (
                       <div key={key} className="space-y-2">
                         <div className="flex items-center justify-between text-sm">
                           <span className="font-medium text-muted-foreground">
-                            {SCORE_LABELS[key]}
+                            {tAnalysis(SCORE_LABEL_KEYS[key])}
                           </span>
                           <span
                             className={cn(
@@ -191,7 +192,7 @@ export default async function ExamplePage({
 
             <Card>
               <CardHeader>
-                <h2 className="text-lg font-semibold">{t("painPoints")}</h2>
+                <h2 className="text-lg font-semibold">{tAnalysis("painPointsTitle")}</h2>
                 <p className="text-sm text-muted-foreground">
                   {tAnalysis("painPointsDesc")}
                 </p>
@@ -214,7 +215,7 @@ export default async function ExamplePage({
                             getScoreBg(point.severityScore)
                           )}
                         >
-                          Severity: {point.severityScore}
+                          {tAnalysis("severity")}: {point.severityScore}
                         </Badge>
                         {point.sentiment && (
                           <Badge variant="outline" className="text-xs">
@@ -223,7 +224,7 @@ export default async function ExamplePage({
                         )}
                         {point.sourceName && (
                           <span className="text-xs text-muted-foreground">
-                            from {point.sourceName}
+                            {tAnalysis("from")} {point.sourceName}
                           </span>
                         )}
                       </div>
@@ -237,7 +238,7 @@ export default async function ExamplePage({
               <CardHeader>
                 <h2 className="flex items-center gap-2 text-lg font-semibold">
                   <Lightbulb className="h-5 w-5" />
-                  Product Ideas
+                  {tAnalysis("productIdeas")}
                 </h2>
               </CardHeader>
               <CardContent>
@@ -257,7 +258,7 @@ export default async function ExamplePage({
                       </p>
                       {idea.targetAudience && (
                         <p className="mt-1 text-xs text-muted-foreground">
-                          Target: {idea.targetAudience}
+                          {tAnalysis("target")}: {idea.targetAudience}
                         </p>
                       )}
                     </div>
@@ -270,7 +271,7 @@ export default async function ExamplePage({
               <CardHeader>
                 <h2 className="flex items-center gap-2 text-lg font-semibold">
                   <Search className="h-5 w-5" />
-                  SEO Keywords
+                  {tAnalysis("seoKeywords")}
                 </h2>
               </CardHeader>
               <CardContent>

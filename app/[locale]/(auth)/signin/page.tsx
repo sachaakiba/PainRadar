@@ -49,9 +49,7 @@ export default function SignInPage() {
     });
 
     if (error) {
-      toast.error(
-        error.message ?? "Invalid email or password. Please try again.",
-      );
+      toast.error(error.message ?? t("invalidCredentials"));
       return;
     }
 

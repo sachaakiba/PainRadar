@@ -19,22 +19,20 @@ export function Footer() {
     },
     {
       title: t("resources"),
-      links: [
-        { href: "/blog" as const, label: t("blog") },
-      ],
+      links: [{ href: "/blog" as const, label: t("blog") }],
     },
     {
       title: t("company"),
       links: [
-        { href: "/" as const, label: t("about") },
-        { href: "/" as const, label: t("contact") },
+        { href: "/about" as const, label: t("about") },
+        { href: "/contact" as const, label: t("contact") },
       ],
     },
     {
       title: t("legal"),
       links: [
-        { href: "/" as const, label: t("privacy") },
-        { href: "/" as const, label: t("terms") },
+        { href: "/privacy" as const, label: t("privacy") },
+        { href: "/terms" as const, label: t("terms") },
       ],
     },
   ];

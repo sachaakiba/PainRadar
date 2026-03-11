@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
 import { blogPosts } from "@/content/blog-posts";
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
+  const t = useTranslations("blog");
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -23,7 +25,7 @@ export default function BlogPage() {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Blog",
+        name: t("pageTitle"),
         item: absoluteUrl("/blog"),
       },
     ],
@@ -48,18 +50,18 @@ export default function BlogPage() {
       <JsonLd data={breadcrumbJsonLd} />
       <JsonLd data={blogListJsonLd} />
       <div className="container mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
-        <Breadcrumb items={[{ label: "Blog" }]} className="mb-8" />
+        <Breadcrumb items={[{ label: t("pageTitle") }]} className="mt-4 mb-10" />
         <div className="mb-12">
           <h1 className="text-4xl font-bold tracking-tight text-foreground">
-            Blog
+            {t("pageTitle")}
           </h1>
           <p className="mt-2 text-lg text-muted-foreground">
-            Insights on pain point research and SaaS validation
+            {t("pageSubtitle")}
           </p>
         </div>
-        <div className="space-y-6">
+        <div className="flex flex-col gap-8">
           {blogPosts.map((post) => (
-            <Link key={post.slug} href={`/blog/${post.slug}`}>
+            <Link key={post.slug} href={`/blog/${post.slug}`} className="block">
               <Card className="group h-full border-border/50 transition-all duration-200 hover:border-primary/30 hover:shadow-md">
                 <CardHeader>
                   <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">

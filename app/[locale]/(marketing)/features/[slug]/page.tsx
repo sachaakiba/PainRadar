@@ -87,7 +87,7 @@ export default async function FeaturePage({
             { label: "Features", href: "/features" },
             { label: feature.title },
           ]}
-          className="mb-8"
+          className="mt-4 mb-10"
         />
         <article>
           <div className="mb-8 flex items-start gap-4">

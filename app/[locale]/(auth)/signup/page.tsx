@@ -54,7 +54,7 @@ export default function SignUpPage() {
     });
 
     if (error) {
-      toast.error(error.message ?? "Something went wrong. Please try again.");
+      toast.error(error.message ?? t("signUpError"));
       return;
     }
 

@@ -19,7 +19,7 @@ export interface PainPoint {
 export function PainPointList({ painPoints }: { painPoints: PainPoint[] }) {
   const t = useTranslations("analysis");
   if (painPoints.length === 0) {
-    return <p className="text-sm text-muted-foreground">No pain points identified.</p>;
+    return <p className="text-sm text-muted-foreground">{t("noDataIdentified")}</p>;
   }
 
   return (
