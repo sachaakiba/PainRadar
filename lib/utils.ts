@@ -41,6 +41,8 @@ export function getScoreBg(score: number) {
   return "bg-red-500/10 text-red-500";
 }
 
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://pain-radar.com";
+
 export function absoluteUrl(path: string) {
-  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`;
+  return `${baseUrl}${path}`;
 }

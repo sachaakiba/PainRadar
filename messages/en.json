@@ -595,10 +595,177 @@
     "contactContent": "If you have any questions about these Terms of Service, please contact us at painradar.app@gmail.com.",
     "scrollToTop": "Scroll to top"
   },
+  "seoLanding": {
+    "saasIdeas": {
+      "pageTitle": "SaaS Ideas 2026 — Validated From Real Pain Points | PainRadar",
+      "metaDescription": "Discover SaaS ideas backed by real customer pain points. PainRadar surfaces recurring complaints and turns them into validated product opportunities for founders.",
+      "h1": "SaaS Ideas Validated by Real Pain Points",
+      "intro": "The best SaaS ideas don't come from brainstorming—they come from patterns of real complaints. PainRadar analyzes discussions from Reddit, forums, and reviews to surface recurring pain points and score opportunities so you can build what people actually need.",
+      "howPainRadarHelps": "PainRadar gives you structured pain point reports, opportunity scores, product ideas, and keyword angles for any niche—in minutes instead of weeks of manual research.",
+      "ctaTitle": "Find your next SaaS idea",
+      "ctaButton": "Start for free",
+      "faqTitle": "Frequently asked questions",
+      "faq": [
+        { "q": "Where do SaaS ideas come from?", "a": "The strongest ideas come from recurring problems people complain about in communities, reviews, and support channels. PainRadar aggregates and scores these so you can prioritize." },
+        { "q": "How does PainRadar validate ideas?", "a": "We score each opportunity on demand, urgency, competition, and monetization using real discussion data—so you see which pain points are worth building for." }
+      ]
+    },
+    "startupIdeasFromReddit": {
+      "pageTitle": "Startup Ideas From Reddit — Find Problems People Complain About | PainRadar",
+      "metaDescription": "Use Reddit to find startup ideas. PainRadar automates pain point discovery from subreddits so you can validate ideas before building.",
+      "h1": "Startup Ideas From Reddit",
+      "intro": "Reddit is full of people complaining about tools, workflows, and missing solutions. Those complaints are startup ideas waiting to be validated. PainRadar scans subreddits and forums to surface recurring pain points and turn them into actionable product opportunities.",
+      "howPainRadarHelps": "Instead of scrolling for hours, run a topic in PainRadar and get structured pain points, opportunity scores, and product ideas derived from real Reddit and forum discussions.",
+      "ctaTitle": "Discover Reddit-backed ideas",
+      "ctaButton": "Try PainRadar free",
+      "faqTitle": "FAQ",
+      "faq": [
+        { "q": "Which subreddits work best for startup ideas?", "a": "Niche subs (e.g. r/freelance, r/therapists) and adjacent ones (r/smallbusiness, r/entrepreneur) often have the most specific, actionable complaints." },
+        { "q": "How is this different from manual Reddit research?", "a": "PainRadar aggregates and scores pain points across many sources, so you see patterns and priorities in minutes instead of taking notes by hand." }
+      ]
+    },
+    "problemsToBuildASaas": {
+      "pageTitle": "Problems to Build a SaaS Around — Validated Opportunities | PainRadar",
+      "metaDescription": "Find real problems worth building a SaaS for. PainRadar surfaces validated pain points and opportunity scores so you can choose the right problem to solve.",
+      "h1": "Problems to Build a SaaS Around",
+      "intro": "Not every problem is a business. The best SaaS products solve problems that are frequent, urgent, and underserved. PainRadar helps you discover which problems people complain about most—and how big the opportunity is—before you invest time building.",
+      "howPainRadarHelps": "Enter a niche or audience and get pain points, demand and urgency scores, competition signals, and product ideas—so you can pick a problem that's worth solving.",
+      "ctaTitle": "Find a problem worth solving",
+      "ctaButton": "Start for free",
+      "faqTitle": "FAQ",
+      "faq": [
+        { "q": "What makes a problem good for a SaaS?", "a": "Recurring pain, willingness to pay, and gaps in existing solutions. PainRadar scores these dimensions so you can compare opportunities." },
+        { "q": "How do you know the problem is real?", "a": "We use unsolicited feedback from discussions and reviews—what people say when nobody's asking—which is more reliable than surveys." }
+      ]
+    },
+    "toolsFoundersWishExisted": {
+      "pageTitle": "Tools Founders Wish Existed — Pain Point Discovery | PainRadar",
+      "metaDescription": "Discover tools founders and indie hackers wish existed. PainRadar finds recurring pain points and product gaps from real discussions.",
+      "h1": "Tools Founders Wish Existed",
+      "intro": "Founders and indie hackers constantly run into the same gaps: tools that are too heavy, too generic, or simply don't exist. PainRadar surfaces what people are actually asking for in communities and reviews—so you can build the tool they wish existed.",
+      "howPainRadarHelps": "Run any topic and get a list of pain points, suggested product ideas, and opportunity scores. Perfect for finding your next micro-SaaS or side project.",
+      "ctaTitle": "Find the next tool to build",
+      "ctaButton": "Try PainRadar",
+      "faqTitle": "FAQ",
+      "faq": [
+        { "q": "Where does PainRadar find these ideas?", "a": "We analyze Reddit, forums, G2, Capterra, and niche communities for recurring complaints and feature requests." },
+        { "q": "Can I use this for micro-SaaS ideas?", "a": "Yes. Many of the best micro-SaaS ideas come from narrow pain points that big tools ignore—exactly what PainRadar surfaces." }
+      ]
+    },
+    "customerPainPoints": {
+      "pageTitle": "Customer Pain Points — How to Find and Use Them | PainRadar",
+      "metaDescription": "Learn how to find and prioritize customer pain points. PainRadar extracts real complaints from discussions and reviews to validate product ideas.",
+      "h1": "Customer Pain Points: How to Find and Use Them",
+      "intro": "Customer pain points are the problems, frustrations, and unmet needs your audience talks about. Finding them in the wild—in reviews, forums, and support—is one of the best ways to validate product ideas and prioritize your roadmap.",
+      "howPainRadarHelps": "PainRadar automates pain point discovery: we extract, tag, and score complaints from multiple sources so you can see what matters most without manual research.",
+      "ctaTitle": "Discover pain points in your niche",
+      "ctaButton": "Start for free",
+      "faqTitle": "FAQ",
+      "faq": [
+        { "q": "What is a customer pain point?", "a": "A specific problem or frustration customers experience—often expressed in reviews, forums, or support. Real pain points are recurring and actionable." },
+        { "q": "Why use unsolicited feedback?", "a": "People are more honest when they're not being surveyed. Complaints in the wild show what really bothers them." }
+      ]
+    },
+    "startupValidation": {
+      "pageTitle": "Startup Validation — Validate Your Idea With Real Data | PainRadar",
+      "metaDescription": "Validate your startup idea using real pain point data. PainRadar scores demand, urgency, and competition so you can de-risk before building.",
+      "h1": "Startup Validation With Real Data",
+      "intro": "Validating your startup idea before you build saves time and money. PainRadar helps you check whether the problem is real, recurring, and worth solving by analyzing what people actually say in discussions and reviews.",
+      "howPainRadarHelps": "Get opportunity scores (demand, urgency, competition, monetization) and structured pain points for your niche—so you can validate or pivot with evidence.",
+      "ctaTitle": "Validate your idea",
+      "ctaButton": "Try PainRadar free",
+      "faqTitle": "FAQ",
+      "faq": [
+        { "q": "How does PainRadar validate ideas?", "a": "We score opportunities using real discussion data: volume of complaints, urgency of language, competitive gaps, and monetization signals." },
+        { "q": "When should I validate?", "a": "Before writing code. A quick PainRadar run can show whether the pain is widespread and underserved." }
+      ]
+    },
+    "painPointExamples": {
+      "pageTitle": "Pain Point Examples — Real Complaints That Became Products | PainRadar",
+      "metaDescription": "See real pain point examples: invoicing for freelancers, CRM for therapists, scheduling for tutors. PainRadar turns complaints into product opportunities.",
+      "h1": "Pain Point Examples That Lead to Products",
+      "intro": "The best product ideas start with real pain points. Here we show concrete examples: recurring complaints in specific niches and how they map to product opportunities. PainRadar surfaces these patterns from real discussions.",
+      "howPainRadarHelps": "Run any niche in PainRadar to get real pain point examples, severity and frequency, and suggested product ideas—with opportunity scores.",
+      "ctaTitle": "See pain points in your niche",
+      "ctaButton": "Start for free",
+      "faqTitle": "FAQ",
+      "faq": [
+        { "q": "What are good pain point examples?", "a": "Specific, recurring complaints (e.g. 'chasing late payments', 'no tool for X') that appear across multiple sources." },
+        { "q": "How do you turn pain points into products?", "a": "We suggest product ideas and MVP scope from the pain point language—so you can test the smallest solution first." }
+      ]
+    },
+    "nicheSaasIdeas": {
+      "pageTitle": "Niche SaaS Ideas — Underserved Markets | PainRadar",
+      "metaDescription": "Find niche SaaS ideas in underserved markets. PainRadar discovers pain points and opportunities in verticals big tools ignore.",
+      "h1": "Niche SaaS Ideas for Underserved Markets",
+      "intro": "Niche SaaS products often win by solving one problem deeply for one audience. PainRadar helps you find those niches: verticals where people complain a lot but existing tools are generic or absent.",
+      "howPainRadarHelps": "Explore niches (e.g. therapists, freelancers, small agencies) and get pain points, opportunity scores, and product ideas tailored to that audience.",
+      "ctaTitle": "Explore niche opportunities",
+      "ctaButton": "Try PainRadar",
+      "faqTitle": "FAQ",
+      "faq": [
+        { "q": "What makes a good niche for SaaS?", "a": "A defined audience, clear pain points, and limited or generic competition. PainRadar scores these so you can compare niches." },
+        { "q": "How narrow should the niche be?", "a": "Narrow enough that you can own the language and workflow; broad enough that there's real volume. PainRadar helps you see the balance." }
+      ]
+    },
+    "redditBusinessIdeas": {
+      "pageTitle": "Reddit Business Ideas — Find Validated Opportunities | PainRadar",
+      "metaDescription": "Turn Reddit discussions into business ideas. PainRadar extracts pain points and product opportunities from subreddits and forums.",
+      "h1": "Reddit Business Ideas From Real Discussions",
+      "intro": "Reddit is a goldmine for business ideas: people openly complain about tools, workflows, and missing solutions. PainRadar scans these discussions to surface recurring pain points and score opportunities—so you can build what they're asking for.",
+      "howPainRadarHelps": "Enter a topic or audience and get structured pain points and product ideas derived from Reddit and forum discussions—without hours of manual scrolling.",
+      "ctaTitle": "Find Reddit-backed ideas",
+      "ctaButton": "Start for free",
+      "faqTitle": "FAQ",
+      "faq": [
+        { "q": "Which subreddits are best for business ideas?", "a": "Niche subs (e.g. r/freelance, r/smallbusiness) and those where your audience talks about their work and tools." },
+        { "q": "Is Reddit data reliable?", "a": "Recurring complaints across many posts are a strong signal. PainRadar aggregates and scores so you see patterns, not single rants." }
+      ]
+    },
+    "microSaasIdeas": {
+      "pageTitle": "Micro SaaS Ideas — Niche Products for Indie Hackers | PainRadar",
+      "metaDescription": "Discover micro SaaS ideas for indie hackers. PainRadar finds narrow pain points and validated opportunities you can build solo.",
+      "h1": "Micro SaaS Ideas for Indie Hackers",
+      "intro": "Micro SaaS products solve one problem well for one audience—often the kind of tool big vendors ignore. PainRadar surfaces these opportunities: pain points that are frequent, specific, and underserved so you can ship a focused product.",
+      "howPainRadarHelps": "Run niches and get pain points, opportunity scores, and MVP-style product ideas—perfect for picking a micro-SaaS to build and ship fast.",
+      "ctaTitle": "Find your micro-SaaS idea",
+      "ctaButton": "Try PainRadar free",
+      "faqTitle": "FAQ",
+      "faq": [
+        { "q": "What is a micro-SaaS?", "a": "A small, focused software product for a narrow audience—often built and run by a solo founder or tiny team." },
+        { "q": "How do I find micro-SaaS ideas?", "a": "Look for recurring pain points in niches that big tools don't serve well. PainRadar scores demand and competition so you can spot gaps." }
+      ]
+    }
+  },
+  "painPages": {
+    "invoicingFreelancers": { "title": "Invoicing for Freelancers — Pain Points & SaaS Ideas", "overview": "Freelancers struggle with fragmented invoicing: manual creation, late payment chasing, and lack of professional branding. Real discussions show strong demand for simple, freelancer-first tools.", "whyStruggle": "Freelancers often work across multiple clients and need invoicing that's fast, professional, and doesn't require full accounting software.", "painPoints": ["Chasing clients for late payments with no automated reminders", "Manual invoice creation eating into billable time", "Lack of professional branding on invoices", "No single place for recurring invoices and expense tracking"], "productOpportunities": ["Lightweight invoicing with smart reminders and Stripe", "Client-specific payment terms and branding"], "mvpIdeas": ["Invoicing app for solo freelancers with reminders and basic expense tracking"], "keywordAngle": "invoicing for freelancers, freelance invoicing software, payment reminders freelancers" },
+    "crmTherapists": { "title": "CRM for Therapists — Pain Points & Product Ideas", "overview": "Therapists need HIPAA-compliant client management: intake forms, secure notes, and session-based views. Most CRMs are built for sales, not therapy.", "whyStruggle": "Therapy workflows require compliance, secure note-taking, and client progress tracking that generic CRMs don't offer.", "painPoints": ["Using spreadsheets or generic CRMs not built for therapy", "Missing intake forms and secure session notes", "No session-based client views", "Switching between multiple tools for scheduling and notes"], "productOpportunities": ["HIPAA-compliant practice management for solo therapists", "Intake, notes, scheduling, and progress dashboards"], "mvpIdeas": ["Therapist-focused CRM with encrypted notes and appointment scheduling"], "keywordAngle": "CRM for therapists, practice management software therapists, HIPAA client management" },
+    "schedulingTutors": { "title": "Scheduling for Tutors — Pain Points & SaaS Ideas", "overview": "Tutors need flexible scheduling: recurring sessions, make-ups, and payment collection. Generic tools don't handle tutor-specific workflows.", "whyStruggle": "Tutors juggle multiple students, time zones, and parent communication—without tools built for their scale.", "painPoints": ["Rescheduling sessions manually", "Losing track of make-up classes", "Coordinating with parents across time zones", "No package or recurring session management"], "productOpportunities": ["Tutor-first scheduling with recurring sessions and parent portal", "Package management and integrated payments"], "mvpIdeas": ["Scheduling platform for 1–20 students with packages and payments"], "keywordAngle": "scheduling for tutors, tutor scheduling app, tutoring business software" },
+    "recruitingAgencies": { "title": "Recruiting for Agencies — Pain Points & Product Ideas", "overview": "Small agencies find enterprise ATS tools overkill. They need pipeline tracking and client reports without the cost or complexity.", "whyStruggle": "Agencies need to show clients progress and branding without buying tools built for 500-person HR teams.", "painPoints": ["Paying for bloated ATS with unused features", "Tracking candidates in spreadsheets", "Losing hires to slow processes", "No simple client-facing reports"], "productOpportunities": ["Lean ATS for agencies: pipeline, branding, job board integrations"], "mvpIdeas": ["ATS for teams under 50 with client branding and simple reporting"], "keywordAngle": "recruiting software for agencies, ATS for small agencies" },
+    "restaurantWaitlist": { "title": "Restaurant Waitlist — Pain Points & SaaS Ideas", "overview": "Restaurants struggle with waitlist chaos: paper lists, phone calls, and no visibility for guests. Demand is high for simple digital waitlists.", "whyStruggle": "Hosts waste time on 'how long is the wait?' while guests leave. Real-time updates and minimal hardware are key.", "painPoints": ["Guests calling repeatedly for wait times", "Manual list management overwhelming hosts", "No real-time updates for customers", "Paper lists and no analytics"], "productOpportunities": ["Digital waitlist with SMS updates and real-time estimates"], "mvpIdeas": ["Waitlist app that works from one phone or tablet, no extra hardware"], "keywordAngle": "restaurant waitlist app, waitlist management restaurant" },
+    "crmLawyers": { "title": "CRM for Lawyers — Pain Points & Product Ideas", "overview": "Law firms need matter-based client management, time tracking, and document handling. Many use generic CRMs or spreadsheets.", "whyStruggle": "Legal workflows require matter-centric views, conflict checks, and billing integration that standard CRMs don't provide.", "painPoints": ["Generic CRMs not built for matters and matters", "No clear matter-based client view", "Time and billing scattered across tools", "Document management disconnected from matters"], "productOpportunities": ["Law firm CRM with matter management and time/billing"], "mvpIdeas": ["CRM for small firms: matters, time tracking, and document links"], "keywordAngle": "CRM for lawyers, law firm practice management" },
+    "schedulingCoaches": { "title": "Scheduling for Coaches — Pain Points & SaaS Ideas", "overview": "Coaches need flexible scheduling for 1:1 and group sessions, with packages and payments. Calendly and generic tools don't fit coaching workflows.", "whyStruggle": "Coaches sell packages and recurring sessions; they need scheduling that reflects that without complex setup.", "painPoints": ["Managing packages and session credits manually", "No client self-service for rescheduling", "Payments disconnected from scheduling", "No reminder or follow-up sequences"], "productOpportunities": ["Coaching-focused scheduling with packages and payments"], "mvpIdeas": ["Scheduling for coaches with packages, payments, and reminders"], "keywordAngle": "scheduling for coaches, coaching business software" },
+    "bookingRestaurants": { "title": "Booking for Restaurants — Pain Points & SaaS Ideas", "overview": "Restaurants need table booking and waitlist in one place, with minimal friction for guests and staff. Many tools are built for large chains.", "whyStruggle": "Independent restaurants need simple booking, waitlist, and maybe table management—without enterprise complexity.", "painPoints": ["No-shows and last-minute cancellations", "Manual phone and email booking", "Waitlist and reservations in separate systems", "No customer-facing wait or booking status"], "productOpportunities": ["Unified booking and waitlist for independents"], "mvpIdeas": ["Booking + waitlist for small restaurants, works on one device"], "keywordAngle": "restaurant booking system, table booking software" },
+    "clientOnboardingAgencies": { "title": "Client Onboarding for Agencies — Pain Points & SaaS Ideas", "overview": "Agencies waste time on scattered onboarding: contracts, access, kickoffs. A simple client onboarding flow would save hours per client.", "whyStruggle": "Onboarding is repetitive but often manual—forms, access, and project setup live in different places.", "painPoints": ["Collecting info and contracts via email", "No single checklist for new clients", "Access and credentials scattered", "Kickoff and handoff ad-hoc"], "productOpportunities": ["Client onboarding platform for agencies: forms, checklist, templates"], "mvpIdeas": ["Onboarding tool with forms, tasks, and client portal"], "keywordAngle": "client onboarding agency, agency onboarding software" },
+    "inventorySmallRetail": { "title": "Inventory for Small Retail — Pain Points & SaaS Ideas", "overview": "Small retailers need simple inventory and reorder alerts without enterprise systems. Spreadsheets don't scale; big tools are overkill.", "whyStruggle": "Small retail needs low-cost, easy inventory that connects to sales and reorder points.", "painPoints": ["Tracking stock in spreadsheets", "No reorder alerts or low-stock visibility", "Manual counts and discrepancies", "No integration with point of sale"], "productOpportunities": ["Simple inventory for small retail with alerts and POS link"], "mvpIdeas": ["Inventory app for single-location or small chains"], "keywordAngle": "inventory software small business, retail inventory app" },
+    "payrollContractors": { "title": "Payroll for Contractors — Pain Points & SaaS Ideas", "overview": "Contractors and small teams need straightforward contractor payroll without full HR suites. Compliance and simplicity are key.", "whyStruggle": "Contractor payments, tax forms, and compliance are painful without a dedicated, simple tool.", "painPoints": ["Managing 1099s and payments manually", "No clear contractor vs employee handling", "Compliance and deadlines scattered", "Expensive or complex payroll suites"], "productOpportunities": ["Contractor-focused payroll: payments, 1099s, compliance"], "mvpIdeas": ["Payroll for contractors and small teams, simple UI"], "keywordAngle": "contractor payroll software, 1099 payroll" },
+    "projectManagementFreelancers": { "title": "Project Management for Freelancers — Pain Points & SaaS Ideas", "overview": "Freelancers need light project and task tracking per client without full PM tools. Many tools are built for teams, not solos.", "whyStruggle": "Freelancers need client-scoped tasks, deadlines, and maybe time tracking—without complexity.", "painPoints": ["Using team PM tools for solo work", "No clear per-client task view", "Overkill features and pricing", "Time tracking not tied to tasks"], "productOpportunities": ["Freelancer PM: client buckets, tasks, time, simple reports"], "mvpIdeas": ["Light PM for freelancers: clients, tasks, time"], "keywordAngle": "project management for freelancers, freelance task management" },
+    "timeTrackingConsultants": { "title": "Time Tracking for Consultants — Pain Points & SaaS Ideas", "overview": "Consultants need accurate time tracking and simple billing. Tools are often too heavy or not built for consultant workflows.", "whyStruggle": "Consultants bill by time and need tracking that ties to clients and invoices without friction.", "painPoints": ["Switching between timer and invoice tools", "No client or project breakdown", "Manual rounding and edits", "No integration with invoicing"], "productOpportunities": ["Consultant time tracking with client/project and invoice export"], "mvpIdeas": ["Time tracking that feeds straight into consultant invoices"], "keywordAngle": "time tracking for consultants, consultant time tracking" },
+    "contractManagementLawyers": { "title": "Contract Management for Lawyers — Pain Points & SaaS Ideas", "overview": "Law firms need contract storage, search, and key-date tracking. Generic document tools don't offer matter-based contract management.", "whyStruggle": "Contracts are core to legal work; firms need versioning, search, and reminders in one place.", "painPoints": ["Contracts in shared drives with no structure", "No key-date or renewal reminders", "Search and retrieval time-consuming", "No template or clause library"], "productOpportunities": ["Contract management for small firms: storage, search, reminders"], "mvpIdeas": ["Contract repository with search and key-date alerts"], "keywordAngle": "contract management for lawyers, law firm contract software" },
+    "appointmentBookingSalons": { "title": "Appointment Booking for Salons — Pain Points & SaaS Ideas", "overview": "Salons need online booking, staff calendars, and maybe retail—without enterprise POS. Demand is high for salon-specific tools.", "whyStruggle": "Salons have multiple staff, services, and often products; they need one system that fits.", "painPoints": ["Phone and walk-in only, no online booking", "No staff-specific availability", "No reminders or no-show handling", "Retail and services disconnected"], "productOpportunities": ["Salon booking with staff calendars, reminders, and optional retail"], "mvpIdeas": ["Booking for salons: staff slots, SMS reminders, simple payments"], "keywordAngle": "salon booking software, appointment booking salon" },
+    "documentManagementAccountants": { "title": "Document Management for Accountants — Pain Points & SaaS Ideas", "overview": "Accountants need secure client document storage, versioning, and request workflows. Generic cloud storage doesn't fit compliance needs.", "whyStruggle": "Client documents must be organized by client, secure, and easy to request and track.", "painPoints": ["Client files in folders with no structure", "No secure request or portal", "Version control and audit trail missing", "Compliance and retention unclear"], "productOpportunities": ["Client document management for accountants: portal, requests, retention"], "mvpIdeas": ["Document management for accounting firms with client portal"], "keywordAngle": "document management for accountants, accountant client portal" },
+    "leadTrackingRealtors": { "title": "Lead Tracking for Realtors — Pain Points & SaaS Ideas", "overview": "Realtors need simple lead and pipeline tracking without full CRM complexity. Many use spreadsheets or generic CRMs.", "whyStruggle": "Realtors want lead source, status, and follow-up in one place—lightweight and mobile-friendly.", "painPoints": ["Leads in spreadsheets or email", "No pipeline or status view", "Follow-up and nurture manual", "No source or conversion tracking"], "productOpportunities": ["Realtor lead pipeline: capture, status, follow-up, source tracking"], "mvpIdeas": ["Lead tracker for realtors with pipeline and reminders"], "keywordAngle": "lead tracking for realtors, real estate CRM" },
+    "membershipManagementGyms": { "title": "Membership Management for Gyms — Pain Points & SaaS Ideas", "overview": "Gyms and studios need membership, check-in, and payments in one system. Enterprise tools are expensive; spreadsheets don't scale.", "whyStruggle": "Gyms need recurring billing, access control, and maybe class booking—without complexity.", "painPoints": ["Memberships and payments in separate systems", "Manual check-in or paper lists", "No class or session booking", "Churn and retention not visible"], "productOpportunities": ["Gym membership: billing, check-in, optional class booking"], "mvpIdeas": ["Membership and check-in for small gyms and studios"], "keywordAngle": "gym membership software, fitness studio management" },
+    "expenseTrackingFreelancers": { "title": "Expense Tracking for Freelancers — Pain Points & SaaS Ideas", "overview": "Freelancers need simple expense tracking and categorization for taxes and reimbursement. Full accounting is overkill.", "whyStruggle": "Freelancers need to capture receipts, categorize, and maybe export—without a full bookkeeping suite.", "painPoints": ["Receipts and expenses in spreadsheets", "No categorization or tax buckets", "Manual export for accountant", "No client or project tagging"], "productOpportunities": ["Freelancer expense app: capture, categorize, export for taxes"], "mvpIdeas": ["Expense tracking for freelancers with receipt capture and export"], "keywordAngle": "expense tracking freelancers, freelance expense app" },
+    "quotesProposalsAgencies": { "title": "Quotes and Proposals for Agencies — Pain Points & SaaS Ideas", "overview": "Agencies spend hours on quotes and proposals. Templates and client-specific pricing would speed wins and reduce errors.", "whyStruggle": "Proposals are repetitive but need to look professional and be easy to customize and send.", "painPoints": ["Building proposals from scratch each time", "No template or pricing library", "Version control and approval messy", "No e-sign or tracking"], "productOpportunities": ["Proposal tool for agencies: templates, pricing, e-sign, tracking"], "mvpIdeas": ["Quote and proposal builder with templates and e-sign"], "keywordAngle": "proposal software agencies, agency quote tool" }
+  },
   "footer": {
     "tagline": "Find real problems. Build real products.",
     "product": "Product",
     "resources": "Resources",
+    "saasIdeas": "SaaS ideas",
+    "painPointsByNiche": "Pain points by niche",
+    "startupValidation": "Startup validation",
     "company": "Company",
     "legal": "Legal",
     "features": "Features",

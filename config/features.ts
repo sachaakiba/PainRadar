@@ -28,6 +28,19 @@ export const features: Feature[] = [
     ],
   },
   {
+    slug: "keyword-insights",
+    title: "Keyword Insights",
+    description:
+      "Discover high-intent keywords and content angles from real customer language. See what your audience searches for when they're in pain—and use it for positioning, content, and acquisition.",
+    icon: "TrendingUp",
+    details: [
+      "Keywords derived from pain point discussions and reviews",
+      "Intent classification (problem-aware, solution-aware, product-aware)",
+      "Priority scoring for content and landing pages",
+      "Recurring phrases that indicate strong demand",
+    ],
+  },
+  {
     slug: "seo-insights",
     title: "SEO Insights",
     description:

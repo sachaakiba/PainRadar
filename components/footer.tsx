@@ -19,7 +19,12 @@ export function Footer() {
     },
     {
       title: t("resources"),
-      links: [{ href: "/blog" as const, label: t("blog") }],
+      links: [
+        { href: "/blog" as const, label: t("blog") },
+        { href: "/saas-ideas" as const, label: t("saasIdeas") },
+        { href: "/pain" as const, label: t("painPointsByNiche") },
+        { href: "/startup-validation" as const, label: t("startupValidation") },
+      ],
     },
     {
       title: t("company"),

@@ -40,6 +40,25 @@ export const useCases: UseCase[] = [
     ],
   },
   {
+    slug: "freelancers",
+    title: "PainRadar for Freelancers",
+    description:
+      "Find tools and product ideas that solve real problems freelancers complain about. PainRadar surfaces pain points from invoicing, scheduling, and client management—so you can build or choose solutions that fit how freelancers actually work.",
+    audience: "Freelancers, solo consultants, and independent professionals",
+    painPoints: [
+      "Juggling invoicing, contracts, and time tracking across multiple tools",
+      "No single view of client work and payments",
+      "Manual follow-ups for late payments and renewals",
+      "Finding software built for solo use, not enterprises",
+    ],
+    benefits: [
+      "Discover which pain points freelancers talk about most",
+      "See validated product ideas tailored to freelance workflows",
+      "Get keyword and positioning angles from real discussions",
+      "Validate your own tool idea before building",
+    ],
+  },
+  {
     slug: "startups",
     title: "PainRadar for Startups",
     description:
