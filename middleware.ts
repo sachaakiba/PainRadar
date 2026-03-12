@@ -23,7 +23,9 @@ export function middleware(request: NextRequest) {
     pathname.match(/^\/(en|fr)\/dashboard/);
 
   if (isDashboard) {
-    const sessionCookie = request.cookies.get("better-auth.session_token");
+    const sessionCookie =
+      request.cookies.get("better-auth.session_token") ||
+      request.cookies.get("__Secure-better-auth.session_token");
     if (!sessionCookie) {
       const locale = pathname.startsWith("/fr") ? "fr" : "en";
       return NextResponse.redirect(
