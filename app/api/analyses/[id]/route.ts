@@ -13,6 +13,9 @@ export async function GET(
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+  if (!session.user.emailVerified) {
+    return NextResponse.json({ error: "Email not verified" }, { status: 403 });
+  }
 
   const { id } = await params;
 
@@ -45,6 +48,9 @@ export async function PATCH(
   const session = await getSession();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  if (!session.user.emailVerified) {
+    return NextResponse.json({ error: "Email not verified" }, { status: 403 });
   }
 
   const { id } = await params;

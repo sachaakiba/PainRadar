@@ -31,7 +31,7 @@ export async function POST(request: Request) {
 
   try {
     await resend.emails.send({
-      from: "PainRadar <onboarding@resend.dev>",
+      from: "PainRadar <noreply@pain-radar.com>",
       to: contactEmail,
       replyTo: email,
       subject: `[PainRadar Contact] ${subject}`,

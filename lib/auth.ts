@@ -2,6 +2,15 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { db } from "@/lib/db";
 import { sendNewUserNotification } from "@/lib/user-notifications";
+import { sendVerificationEmail, sendPasswordResetEmail } from "@/lib/email";
+
+async function getUserLocale(userId: string): Promise<string> {
+  const user = await db.user.findUnique({
+    where: { id: userId },
+    select: { locale: true },
+  });
+  return user?.locale ?? "en";
+}
 
 export const auth = betterAuth({
   database: prismaAdapter(db, {
@@ -11,10 +20,35 @@ export const auth = betterAuth({
   trustedOrigins: [
     "http://localhost:3000",
     "https://pain-radar-phi.vercel.app",
+    "https://pain-radar.com",
+    "https://www.pain-radar.com",
   ],
   emailAndPassword: {
     enabled: true,
     minPasswordLength: 8,
+    requireEmailVerification: true,
+    sendResetPassword: async ({ user, url }) => {
+      const locale = await getUserLocale(user.id);
+      void sendPasswordResetEmail({
+        to: user.email,
+        name: user.name,
+        url,
+        locale,
+      });
+    },
+  },
+  emailVerification: {
+    sendOnSignUp: true,
+    autoSignInAfterVerification: true,
+    sendVerificationEmail: async ({ user, url }) => {
+      const locale = await getUserLocale(user.id);
+      void sendVerificationEmail({
+        to: user.email,
+        name: user.name,
+        url,
+        locale,
+      });
+    },
   },
   socialProviders: {
     google: {

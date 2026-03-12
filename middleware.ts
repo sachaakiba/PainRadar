@@ -34,6 +34,19 @@ export function middleware(request: NextRequest) {
     }
   }
 
+  // Auth pages that unverified users should still access
+  const isAuthPage =
+    pathname.match(/^\/(en|fr)?\/?verify-email/) ||
+    pathname.match(/^\/(en|fr)?\/?check-email/) ||
+    pathname.match(/^\/(en|fr)?\/?resend-verification/) ||
+    pathname.match(/^\/(en|fr)?\/?signin/) ||
+    pathname.match(/^\/(en|fr)?\/?signup/);
+
+  // Skip email verification check for auth pages
+  if (isAuthPage) {
+    return intlMiddleware(request);
+  }
+
   return intlMiddleware(request);
 }
 

@@ -48,7 +48,7 @@ export async function sendNewUserNotification(user: NewUserParams): Promise<void
 
   try {
     await resend.emails.send({
-      from: "PainRadar <onboarding@resend.dev>",
+      from: "PainRadar <noreply@pain-radar.com>",
       to: notifyEmail,
       subject: `[PainRadar] New user: ${user.email}`,
       html,

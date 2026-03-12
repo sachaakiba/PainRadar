@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { requireSession } from "@/lib/auth-server";
+import { requireSessionWithoutEmailCheck } from "@/lib/auth-server";
 import { locales, type Locale } from "@/i18n/config";
 
 export async function updateUserLocale(locale: string) {
@@ -9,7 +9,7 @@ export async function updateUserLocale(locale: string) {
     return { success: false, error: "Invalid locale" };
   }
 
-  const session = await requireSession();
+  const session = await requireSessionWithoutEmailCheck();
 
   await db.user.update({
     where: { id: session.user.id },

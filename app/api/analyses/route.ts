@@ -12,6 +12,9 @@ export async function GET(request: Request) {
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+  if (!session.user.emailVerified) {
+    return NextResponse.json({ error: "Email not verified" }, { status: 403 });
+  }
 
   const { searchParams } = new URL(request.url);
   const savedOnly = searchParams.get("saved") === "true";
@@ -39,6 +42,9 @@ export async function POST(request: Request) {
   const session = await getSession();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  if (!session.user.emailVerified) {
+    return NextResponse.json({ error: "Email not verified" }, { status: 403 });
   }
 
   const body = await request.json();
