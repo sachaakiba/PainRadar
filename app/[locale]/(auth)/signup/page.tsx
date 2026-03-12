@@ -43,6 +43,22 @@ export default function SignUpPage() {
   const isSubmitting = form.formState.isSubmitting;
 
   async function onSubmit(values: SignUpInput) {
+    try {
+      const checkResponse = await fetch("/api/auth/check-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: values.email }),
+      });
+      const checkData = await checkResponse.json();
+      
+      if (checkData.exists) {
+        form.setError("email", { message: t("emailAlreadyExists") });
+        return;
+      }
+    } catch {
+      // Continue with signup if check fails
+    }
+
     const { data, error } = await authClient.signUp.email({
       name: values.name,
       email: values.email,
@@ -51,7 +67,18 @@ export default function SignUpPage() {
     });
 
     if (error) {
-      form.setError("root", { message: error.message ?? t("signUpError") });
+      const errorCode = (error.code ?? "").toUpperCase();
+      const errorMessage = (error.message ?? "").toLowerCase();
+      
+      if (
+        errorCode.includes("USER_ALREADY_EXISTS") ||
+        errorMessage.includes("already exists") ||
+        errorMessage.includes("existe déjà")
+      ) {
+        form.setError("email", { message: t("emailAlreadyExists") });
+      } else {
+        form.setError("root", { message: error.message ?? t("signUpError") });
+      }
       return;
     }
 
