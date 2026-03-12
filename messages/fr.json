@@ -196,6 +196,7 @@
     "googleError": "Échec de la connexion avec Google. Veuillez réessayer.",
     "invalidCredentials": "Email ou mot de passe invalide. Veuillez réessayer.",
     "signUpError": "Une erreur s'est produite. Veuillez réessayer.",
+    "emailAlreadyExists": "Un compte avec cet email existe déjà.",
     "emailNotVerified": "Veuillez vérifier votre adresse email avant de vous connecter.",
     "verifyingEmail": "Vérification de votre email...",
     "verifyingEmailDesc": "Veuillez patienter pendant que nous vérifions votre adresse email.",

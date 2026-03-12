@@ -196,6 +196,7 @@
     "googleError": "Failed to sign in with Google. Please try again.",
     "invalidCredentials": "Invalid email or password. Please try again.",
     "signUpError": "Something went wrong. Please try again.",
+    "emailAlreadyExists": "An account with this email already exists.",
     "emailNotVerified": "Please verify your email address before signing in.",
     "verifyingEmail": "Verifying your email...",
     "verifyingEmailDesc": "Please wait while we verify your email address.",
