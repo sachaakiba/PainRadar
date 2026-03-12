@@ -41,11 +41,18 @@ export async function POST(request: Request) {
     }
 
     if (user.stripeCustomerId) {
-      customerId = user.stripeCustomerId;
-    } else {
+      try {
+        await stripe.customers.retrieve(user.stripeCustomerId);
+        customerId = user.stripeCustomerId;
+      } catch {
+        customerId = null;
+      }
+    }
+
+    if (!customerId) {
       const customer = await stripe.customers.create({
         email: user.email,
-        name: user.name,
+        name: user.name ?? undefined,
         metadata: { userId: session.user.id },
       });
       customerId = customer.id;

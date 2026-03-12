@@ -40,7 +40,7 @@ export default function SettingsPage() {
   const [isPending, startTransition] = useTransition();
   const [selectedLocale, setSelectedLocale] = useState(locale);
   const [userPlan, setUserPlan] = useState<PlanId>("free");
-  const [isBillingPending, setIsBillingPending] = useState(false);
+  const [isPortalPending, setIsPortalPending] = useState(false);
 
   const fetchPlan = useCallback(async () => {
     try {
@@ -73,29 +73,8 @@ export default function SettingsPage() {
     });
   }
 
-  async function handleUpgrade(planId: "starter" | "pro") {
-    setIsBillingPending(true);
-    try {
-      const res = await fetch("/api/stripe/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ planId }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.url) {
-        toast.error(data.error ?? t("somethingWentWrong"));
-        return;
-      }
-      window.location.href = data.url;
-    } catch {
-      toast.error(t("somethingWentWrong"));
-    } finally {
-      setIsBillingPending(false);
-    }
-  }
-
   async function handleManageSubscription() {
-    setIsBillingPending(true);
+    setIsPortalPending(true);
     try {
       const res = await fetch("/api/stripe/portal", { method: "POST" });
       const data = await res.json();
@@ -107,7 +86,7 @@ export default function SettingsPage() {
     } catch {
       toast.error(t("somethingWentWrong"));
     } finally {
-      setIsBillingPending(false);
+      setIsPortalPending(false);
     }
   }
 
@@ -205,37 +184,20 @@ export default function SettingsPage() {
             </div>
 
             {userPlan === "free" ? (
-              <div className="flex flex-col gap-2 sm:flex-row">
-                <Button
-                  onClick={() => handleUpgrade("starter")}
-                  disabled={isBillingPending}
-                  className="flex-1"
-                >
-                  {isBillingPending ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : null}
-                  {t("upgradeToStarter")}
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => handleUpgrade("pro")}
-                  disabled={isBillingPending}
-                  className="flex-1"
-                >
-                  {isBillingPending ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : null}
-                  {t("upgradeToPro")}
-                </Button>
-              </div>
+              <Button
+                onClick={() => router.push("/pricing")}
+                className="w-fit"
+              >
+                {t("upgradeCta")}
+              </Button>
             ) : (
               <Button
                 variant="outline"
                 onClick={handleManageSubscription}
-                disabled={isBillingPending}
+                disabled={isPortalPending}
                 className="w-fit"
               >
-                {isBillingPending ? (
+                {isPortalPending ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : null}
                 {t("manageSubscription")}

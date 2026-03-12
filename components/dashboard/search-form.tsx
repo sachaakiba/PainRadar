@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
 import { toast } from "sonner";
 
 export function SearchForm() {
@@ -47,7 +47,17 @@ export function SearchForm() {
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data.error ?? t("analysisError"));
+        const message = data.error ?? t("analysisError");
+        if (data.code === "plan_limit_exceeded") {
+          toast.error(message, {
+            action: {
+              label: t("upgradeNow"),
+              onClick: () => router.push("/dashboard/settings"),
+            },
+          });
+          return;
+        }
+        throw new Error(message);
       }
 
       const { analysis } = await res.json();
