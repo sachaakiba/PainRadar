@@ -92,9 +92,6 @@ export async function POST(request: Request) {
     if (err instanceof Error && err.message === "Unauthorized") {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    if (err instanceof Error && err.message === "Email not verified") {
-      return NextResponse.json({ error: "Email not verified" }, { status: 403 });
-    }
     console.error("Stripe checkout error:", err);
     await sendErrorAlert({
       source: "Stripe Checkout",

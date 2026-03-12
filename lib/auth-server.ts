@@ -13,16 +13,5 @@ export async function requireSession() {
   if (!session) {
     throw new Error("Unauthorized");
   }
-  if (!session.user.emailVerified) {
-    throw new Error("Email not verified");
-  }
-  return session;
-}
-
-export async function requireSessionWithoutEmailCheck() {
-  const session = await getSession();
-  if (!session) {
-    throw new Error("Unauthorized");
-  }
   return session;
 }

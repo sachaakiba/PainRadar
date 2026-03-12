@@ -19,12 +19,6 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
     }
   }, [session, isPending, router]);
 
-  useEffect(() => {
-    if (!isPending && session && !session.user.emailVerified) {
-      router.push("/check-email");
-    }
-  }, [session, isPending, router]);
-
   if (isPending) {
     return (
       <div className="flex h-screen bg-background">
@@ -46,7 +40,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
     );
   }
 
-  if (!session || !session.user.emailVerified) return null;
+  if (!session) return null;
 
   return (
     <div className="flex h-screen bg-background">
