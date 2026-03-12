@@ -5,6 +5,7 @@ import { Link, usePathname } from "@/i18n/routing";
 import { useState, useEffect } from "react";
 import { Radar, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { LocaleSwitcher, LocaleSwitcherButton } from "@/components/locale-switcher";
 import { ThemeToggle, ThemeToggleButton } from "@/components/theme-toggle";
 import { useSession } from "@/lib/auth-client";
@@ -20,7 +21,7 @@ import { cn } from "@/lib/utils";
 export function Navbar() {
   const t = useTranslations("nav");
   const pathname = usePathname();
-  const { data: session } = useSession();
+  const { data: session, isPending: isSessionLoading } = useSession();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -76,7 +77,12 @@ export function Navbar() {
         <div className="hidden items-center gap-2 md:flex">
           <LocaleSwitcher />
           <ThemeToggle />
-          {isLoggedIn ? (
+          {isSessionLoading ? (
+            <>
+              <Skeleton className="h-9 w-20" />
+              <Skeleton className="h-9 w-28" />
+            </>
+          ) : isLoggedIn ? (
             <Button asChild>
               <Link href="/dashboard">{t("dashboard")}</Link>
             </Button>
@@ -134,7 +140,12 @@ export function Navbar() {
                   darkLabel={t("darkMode")}
                   onToggle={() => setMobileOpen(false)}
                 />
-                {isLoggedIn ? (
+                {isSessionLoading ? (
+                  <>
+                    <Skeleton className="h-10 w-full" />
+                    <Skeleton className="h-10 w-full" />
+                  </>
+                ) : isLoggedIn ? (
                   <Button asChild>
                     <Link href="/dashboard" onClick={() => setMobileOpen(false)}>
                       {t("dashboard")}
