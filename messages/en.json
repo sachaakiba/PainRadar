@@ -56,26 +56,42 @@
     "enterAnyTopic": "Enter any topic and get a full pain point analysis in minutes.",
     "signUpFree": "Sign up free",
     "exampleAnalysis": "Example analysis",
+    "painPointAnalysis": "Pain Point Analysis",
     "exampleItems": {
       "invoicingFreelancers": {
         "topic": "Invoicing for freelancers",
-        "summary": "Freelancers struggle with fragmented invoicing workflows. Manual invoice creation, late payment chasing, and lack of professional branding emerge as top complaints."
+        "query": "invoicing for freelancers",
+        "summary": "Freelancers struggle with fragmented invoicing workflows. Manual invoice creation, late payment chasing, and lack of professional branding emerge as top complaints.",
+        "topPainPoint": "Spending hours chasing clients for late payments with no automated reminders or professional follow-up sequences.",
+        "suggestedProduct": "A lightweight invoicing app with smart payment reminders, client-specific payment terms, and Stripe integration—built for solo freelancers, not agencies."
       },
       "crmTherapists": {
         "topic": "CRM for therapists",
-        "summary": "Mental health practitioners need HIPAA-compliant client management that handles intake forms and session notes without the complexity of enterprise CRMs."
+        "query": "CRM for therapists",
+        "summary": "Mental health practitioners need HIPAA-compliant client management that handles intake forms and session notes without the complexity of enterprise CRMs.",
+        "topPainPoint": "Using spreadsheets or generic CRMs that aren't built for therapy workflows—missing intake forms, secure note-taking, and session-based client views.",
+        "suggestedProduct": "A HIPAA-compliant practice management tool focused on solo therapists: intake forms, encrypted session notes, appointment scheduling, and simple client progress dashboards."
       },
       "schedulingTutors": {
         "topic": "Scheduling for tutors",
-        "summary": "Tutors juggling multiple students and time zones need flexible scheduling with recurring sessions, make-up classes, and payment collection."
+        "query": "scheduling for tutors",
+        "summary": "Tutors juggling multiple students and time zones need flexible scheduling with recurring sessions, make-up classes, and payment collection.",
+        "topPainPoint": "Constantly rescheduling sessions manually, losing track of which students need make-ups, and wasting time coordinating with parents across different time zones.",
+        "suggestedProduct": "A tutor-first scheduling platform with recurring sessions, package management, parent portal for availability, and integrated payments—designed for 1–20 students, not hundreds."
       },
       "recruitingAgencies": {
         "topic": "Recruiting for small agencies",
-        "summary": "Small agencies find enterprise ATS tools overkill and spreadsheets unsustainable. They need simple pipeline tracking and client-facing reports."
+        "query": "recruiting for small agencies",
+        "summary": "Small agencies find enterprise ATS tools overkill and spreadsheets unsustainable. They need simple pipeline tracking and client-facing reports.",
+        "topPainPoint": "Paying for bloated ATS software with features they never use, while still tracking candidates in spreadsheets and losing great hires to slow processes.",
+        "suggestedProduct": "A lean ATS for agencies: candidate pipeline, client branding, simple reporting, and integrations with job boards—priced for teams under 50, not enterprise."
       },
       "restaurantWaitlist": {
         "topic": "Restaurant waitlist management",
-        "summary": "Independent restaurants struggle with waitlist chaos: paper lists, phone calls, and no visibility into wait times for customers."
+        "query": "restaurant waitlist management",
+        "summary": "Independent restaurants struggle with waitlist chaos: paper lists, phone calls, and no visibility into wait times for customers.",
+        "topPainPoint": "Guests calling repeatedly to check wait times, hosts overwhelmed with manual list management, and no way for customers to get real-time updates without standing at the host stand.",
+        "suggestedProduct": "A simple digital waitlist with SMS updates, real-time wait estimates, and a customer-facing status page—no tablets required, works from a single phone or tablet."
       }
     }
   },
@@ -320,17 +336,53 @@
     "indieHackers": {
       "title": "PainRadar for Indie Hackers",
       "description": "Stop guessing what to build. PainRadar surfaces real pain points from Reddit, forums, and reviews so you can validate ideas before writing a single line of code.",
-      "audience": "Solo founders and indie hackers building in public"
+      "audience": "Solo founders and indie hackers building in public",
+      "painPoints": [
+        "Wasting months building ideas that nobody wants",
+        "Guessing at problems instead of validating with real data",
+        "Not knowing how to find or prioritize customer complaints",
+        "Lacking time to manually research dozens of communities"
+      ],
+      "benefits": [
+        "Discover validated ideas in minutes, not months",
+        "See which pain points have the highest demand and urgency",
+        "Get AI-summarized insights from real customer conversations",
+        "Focus your limited time on building, not researching"
+      ]
     },
     "agencies": {
       "title": "PainRadar for Agencies",
       "description": "Win more clients by proposing solutions that solve real problems. PainRadar gives your team data-backed insight into prospect pain points.",
-      "audience": "Digital agencies, consultancies, and service businesses"
+      "audience": "Digital agencies, consultancies, and service businesses",
+      "painPoints": [
+        "Proposing generic solutions that don't address specific client pain",
+        "Struggling to differentiate in crowded RFP responses",
+        "Lacking concrete data to back up recommendations",
+        "Spending hours on manual research for each prospect"
+      ],
+      "benefits": [
+        "Generate client-specific pain point reports in minutes",
+        "Support proposals with real customer complaints and demand signals",
+        "Identify underserved niches and expansion opportunities",
+        "Equip your team with research that closes deals"
+      ]
     },
     "startups": {
       "title": "PainRadar for Startups",
       "description": "Validate your roadmap with evidence, not intuition. PainRadar analyzes thousands of conversations to surface the pain points that matter most.",
-      "audience": "Early-stage startups and product teams"
+      "audience": "Early-stage startups and product teams",
+      "painPoints": [
+        "Building features based on HiPPO opinions instead of data",
+        "Unclear which customer complaints deserve roadmap priority",
+        "Competitive landscape feels opaque and hard to quantify",
+        "Limited time for deep customer research before each sprint"
+      ],
+      "benefits": [
+        "Prioritize features using real demand and urgency scores",
+        "Understand competitive positioning from actual customer feedback",
+        "Identify adjacent problems and expansion opportunities",
+        "Align the whole team around evidence-based roadmaps"
+      ]
     }
   },
   "blog": {
@@ -351,15 +403,57 @@
     "readyToTryDesc": "Start discovering pain points in minutes.",
     "manualResearch": {
       "title": "Manual Reddit Research",
-      "description": "Manually scrolling through Reddit, forums, and review sites to find pain points. Many founders start here — but it's time-consuming and hard to scale."
+      "description": "Manually scrolling through Reddit, forums, and review sites to find pain points. Many founders start here — but it's time-consuming and hard to scale.",
+      "painRadar": [
+        "Automated analysis across Reddit, forums, G2, Capterra, and niche communities",
+        "Structured pain point extraction with severity scoring and source attribution",
+        "Opportunity scoring across demand, urgency, competition, and monetization",
+        "Product ideas and SEO keywords generated from real customer language",
+        "Results in minutes, not hours or days"
+      ],
+      "alternative": [
+        "Manual searches and endless scrolling",
+        "Unstructured notes and spreadsheets",
+        "No consistent scoring or prioritization framework",
+        "Ad-hoc keyword ideas from memory",
+        "Hours of research for each topic"
+      ]
     },
     "googleTrends": {
       "title": "Google Trends",
-      "description": "Google Trends shows search volume over time. Useful for high-level interest, but it doesn't reveal pain points, complaints, or product opportunities."
+      "description": "Google Trends shows search volume over time. Useful for high-level interest, but it doesn't reveal pain points, complaints, or product opportunities.",
+      "painRadar": [
+        "Real customer complaints and frustrations—not just search volume",
+        "Pain point extraction with sentiment and severity",
+        "Product ideas and differentiation angles from actual discussions",
+        "Competitor gap analysis from review sites and forums",
+        "Context: what people say when they're frustrated, not just what they search"
+      ],
+      "alternative": [
+        "Search volume trends only—no qualitative insight",
+        "No pain point or complaint data",
+        "No product or positioning recommendations",
+        "Limited competitor context",
+        "No direct link to customer language"
+      ]
     },
     "surveyTools": {
       "title": "Survey Tools",
-      "description": "Survey tools like Typeform or Google Forms let you ask people what they want. But surveys require an audience, leading questions, and often miss unsolicited frustration."
+      "description": "Survey tools like Typeform or Google Forms let you ask people what they want. But surveys require an audience, leading questions, and often miss unsolicited frustration.",
+      "painRadar": [
+        "Analyzes unsolicited feedback—what people say when nobody's asking",
+        "No audience required; works from public discussions",
+        "Unbiased: real complaints, not survey-leading answers",
+        "Instant insights; no need to design, send, or wait for surveys",
+        "Scales to any number of niches and topics"
+      ],
+      "alternative": [
+        "Requires building or buying an audience first",
+        "Leading questions skew results",
+        "People answer what they think you want to hear",
+        "Weeks to design, send, and analyze",
+        "One survey per topic; hard to scale"
+      ]
     }
   },
   "privacy": {

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { ArrowRight, Users } from "lucide-react";
 import { useCases } from "@/config/use-cases";
@@ -21,13 +21,14 @@ const slugToKey: Record<string, string> = {
   "startups": "startups",
 };
 
-export default function UseCasesPage() {
-  const t = useTranslations("useCases");
+export default async function UseCasesPage() {
+  const t = await getTranslations("useCases");
+  const tCommon = await getTranslations("common");
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 1, name: tCommon("home"), item: absoluteUrl("/") },
       {
         "@type": "ListItem",
         position: 2,

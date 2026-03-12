@@ -14,6 +14,14 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { absoluteUrl, getScoreBg } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 
+const slugToKey: Record<string, string> = {
+  "invoicing-freelancers": "invoicingFreelancers",
+  "crm-therapists": "crmTherapists",
+  "scheduling-tutors": "schedulingTutors",
+  "recruiting-small-agencies": "recruitingAgencies",
+  "restaurant-waitlist": "restaurantWaitlist",
+};
+
 const SCORE_KEYS = [
   "opportunityScore",
   "demandScore",
@@ -56,21 +64,26 @@ export async function generateMetadata({
   const { slug } = await params;
   const example = exampleAnalyses.find((e) => e.slug === slug);
   if (!example) return { title: "Example not found" };
+  const key = slugToKey[slug];
+  const tExamples = await getTranslations("examples");
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://painradar.com";
   const url = `${baseUrl}/examples/${slug}`;
+  const topic = tExamples(`exampleItems.${key}.topic`);
+  const summary = tExamples(`exampleItems.${key}.summary`);
+  const painPointAnalysis = tExamples("painPointAnalysis");
   return {
-    title: `${example.topic} – Pain Point Analysis | PainRadar`,
-    description: example.summary,
+    title: `${topic} – ${painPointAnalysis} | PainRadar`,
+    description: summary,
     openGraph: {
-      title: `${example.topic} – Pain Point Analysis | PainRadar`,
-      description: example.summary,
+      title: `${topic} – ${painPointAnalysis} | PainRadar`,
+      description: summary,
       url,
       type: "article",
     },
     twitter: {
       card: "summary_large_image",
-      title: `${example.topic} – Pain Point Analysis | PainRadar`,
-      description: example.summary,
+      title: `${topic} – ${painPointAnalysis} | PainRadar`,
+      description: summary,
     },
   };
 }
@@ -84,6 +97,7 @@ export default async function ExamplePage({
   const example = exampleAnalyses.find((e) => e.slug === slug);
   if (!example) notFound();
 
+  const key = slugToKey[slug];
   const t = await getTranslations("common");
   const tAnalysis = await getTranslations("analysis");
   const tExamples = await getTranslations("examples");
@@ -103,7 +117,7 @@ export default async function ExamplePage({
       {
         "@type": "ListItem",
         position: 3,
-        name: example.topic,
+        name: tExamples(`exampleItems.${key}.topic`),
         item: absoluteUrl(`/examples/${slug}`),
       },
     ],
@@ -112,8 +126,8 @@ export default async function ExamplePage({
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: `${example.topic} – Pain Point Analysis`,
-    description: example.summary,
+    headline: `${tExamples(`exampleItems.${key}.topic`)} – ${tExamples("painPointAnalysis")}`,
+    description: tExamples(`exampleItems.${key}.summary`),
     url: absoluteUrl(`/examples/${slug}`),
   };
 
@@ -125,7 +139,7 @@ export default async function ExamplePage({
         <Breadcrumb
           items={[
             { label: tExamples("exampleAnalysis"), href: "/examples" },
-            { label: example.topic },
+            { label: tExamples(`exampleItems.${key}.topic`) },
           ]}
           className="mt-4 mb-10"
         />
@@ -138,7 +152,7 @@ export default async function ExamplePage({
               </span>
             </div>
             <h1 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              {example.topic}
+              {tExamples(`exampleItems.${key}.topic`)}
             </h1>
             <p className="mt-4 text-lg text-muted-foreground">
               {analysis.summary}
@@ -245,7 +259,7 @@ export default async function ExamplePage({
                 <div className="space-y-4">
                   <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
                     <p className="text-sm font-medium text-foreground">
-                      {example.suggestedProduct}
+                      {tExamples(`exampleItems.${key}.suggestedProduct`)}
                     </p>
                   </div>
                   {analysis.productIdeas.slice(1).map((idea, i) => (

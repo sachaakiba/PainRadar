@@ -55,6 +55,8 @@ export default async function UseCasePage({
   const useCaseTitle = key ? tUseCases(`${key}.title`) : useCase.title;
   const useCaseDesc = key ? tUseCases(`${key}.description`) : useCase.description;
   const useCaseAudience = key ? tUseCases(`${key}.audience`) : useCase.audience;
+  const painPoints = key ? (tUseCases.raw(`${key}.painPoints`) as string[]) : useCase.painPoints;
+  const benefits = key ? (tUseCases.raw(`${key}.benefits`) as string[]) : useCase.benefits;
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -119,7 +121,7 @@ export default async function UseCasePage({
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2">
-                  {useCase.painPoints.map((p, i) => (
+                  {painPoints.map((p, i) => (
                     <li
                       key={i}
                       className="flex items-start gap-2 text-sm text-muted-foreground"
@@ -140,7 +142,7 @@ export default async function UseCasePage({
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2">
-                  {useCase.benefits.map((b, i) => (
+                  {benefits.map((b, i) => (
                     <li
                       key={i}
                       className="flex items-start gap-2 text-sm text-muted-foreground"

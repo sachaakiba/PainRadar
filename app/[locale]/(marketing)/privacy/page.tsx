@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { JsonLd } from "@/components/json-ld";
 import { absoluteUrl } from "@/lib/utils";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { ChevronUp } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -21,14 +21,15 @@ const sections = [
   { id: "contact", titleKey: "contactTitle", contentKey: "contactContent" },
 ] as const;
 
-export default function PrivacyPage() {
-  const t = useTranslations("privacy");
+export default async function PrivacyPage() {
+  const t = await getTranslations("privacy");
+  const tCommon = await getTranslations("common");
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 1, name: tCommon("home"), item: absoluteUrl("/") },
       {
         "@type": "ListItem",
         position: 2,

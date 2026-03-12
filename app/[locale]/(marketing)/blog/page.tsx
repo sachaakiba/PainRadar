@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
 import { blogPosts } from "@/content/blog-posts";
@@ -15,13 +15,14 @@ export const metadata: Metadata = {
     "Insights on pain point research, Reddit workflows, and validating SaaS ideas. Learn how to find product ideas from real customer complaints.",
 };
 
-export default function BlogPage() {
-  const t = useTranslations("blog");
+export default async function BlogPage() {
+  const t = await getTranslations("blog");
+  const tCommon = await getTranslations("common");
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 1, name: tCommon("home"), item: absoluteUrl("/") },
       {
         "@type": "ListItem",
         position: 2,

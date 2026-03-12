@@ -53,6 +53,8 @@ export default async function AlternativePage({
 
   const altTitle = key ? tAlt(`${key}.title`) : alt.title;
   const altDesc = key ? tAlt(`${key}.description`) : alt.description;
+  const prItems = key ? (tAlt.raw(`${key}.painRadar`) as string[]) : alt.comparison.painRadar;
+  const altItems = key ? (tAlt.raw(`${key}.alternative`) as string[]) : alt.comparison.alternative;
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -112,7 +114,7 @@ export default async function AlternativePage({
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
-                  {alt.comparison.painRadar.map((item, i) => (
+                  {prItems.map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <Check className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" />
                       <span className="text-sm text-muted-foreground">
@@ -126,12 +128,12 @@ export default async function AlternativePage({
             <Card className="border-border/50">
               <CardHeader>
                 <h2 className="text-lg font-semibold text-foreground">
-                  {alt.title}
+                  {altTitle}
                 </h2>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
-                  {alt.comparison.alternative.map((item, i) => (
+                  {altItems.map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <X className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground" />
                       <span className="text-sm text-muted-foreground">

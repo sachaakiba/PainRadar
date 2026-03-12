@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { ArrowRight } from "lucide-react";
 import { exampleAnalyses } from "@/config/examples";
@@ -24,14 +24,15 @@ const slugToKey: Record<string, string> = {
   "restaurant-waitlist": "restaurantWaitlist",
 };
 
-export default function ExamplesPage() {
-  const t = useTranslations("examples");
-  const tAnalysis = useTranslations("analysis");
+export default async function ExamplesPage() {
+  const t = await getTranslations("examples");
+  const tAnalysis = await getTranslations("analysis");
+  const tCommon = await getTranslations("common");
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 1, name: tCommon("home"), item: absoluteUrl("/") },
       {
         "@type": "ListItem",
         position: 2,

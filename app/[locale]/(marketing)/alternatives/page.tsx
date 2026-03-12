@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { ArrowRight } from "lucide-react";
 import { alternatives } from "@/config/alternatives";
@@ -20,13 +20,14 @@ const slugToKey: Record<string, string> = {
   "survey-tools": "surveyTools",
 };
 
-export default function AlternativesPage() {
-  const t = useTranslations("alternatives");
+export default async function AlternativesPage() {
+  const t = await getTranslations("alternatives");
+  const tCommon = await getTranslations("common");
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 1, name: tCommon("home"), item: absoluteUrl("/") },
       {
         "@type": "ListItem",
         position: 2,

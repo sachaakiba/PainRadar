@@ -4,7 +4,7 @@ import { JsonLd } from "@/components/json-ld";
 import { absoluteUrl } from "@/lib/utils";
 import { ContactForm } from "@/components/contact-form";
 import { Mail, MessageSquare, Bug } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -12,14 +12,15 @@ export const metadata: Metadata = {
     "Get in touch with the PainRadar team. Send us your questions, feedback, or bug reports.",
 };
 
-export default function ContactPage() {
-  const t = useTranslations("contact");
+export default async function ContactPage() {
+  const t = await getTranslations("contact");
+  const tCommon = await getTranslations("common");
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 1, name: tCommon("home"), item: absoluteUrl("/") },
       {
         "@type": "ListItem",
         position: 2,

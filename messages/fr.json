@@ -56,26 +56,42 @@
     "enterAnyTopic": "Saisissez n'importe quel sujet et obtenez une analyse complète des points de douleur en quelques minutes.",
     "signUpFree": "S'inscrire gratuitement",
     "exampleAnalysis": "Exemple d'analyse",
+    "painPointAnalysis": "Analyse des points de douleur",
     "exampleItems": {
       "invoicingFreelancers": {
         "topic": "Facturation pour les freelances",
-        "summary": "Les freelances peinent avec des processus de facturation fragmentés. La création manuelle de factures, les relances de paiement et le manque de branding professionnel sont les principales plaintes."
+        "query": "facturation pour les freelances",
+        "summary": "Les freelances peinent avec des processus de facturation fragmentés. La création manuelle de factures, les relances de paiement et le manque de branding professionnel sont les principales plaintes.",
+        "topPainPoint": "Passer des heures à relancer des clients pour des paiements en retard, sans rappels automatiques ni séquences de relance professionnelles.",
+        "suggestedProduct": "Une application de facturation légère avec des rappels de paiement intelligents, des conditions de paiement par client et une intégration Stripe — conçue pour les freelances, pas les agences."
       },
       "crmTherapists": {
         "topic": "CRM pour les thérapeutes",
-        "summary": "Les praticiens en santé mentale ont besoin d'un outil de gestion client conforme HIPAA qui gère les formulaires d'admission et les notes de séance sans la complexité des CRM d'entreprise."
+        "query": "CRM pour les thérapeutes",
+        "summary": "Les praticiens en santé mentale ont besoin d'un outil de gestion client conforme HIPAA qui gère les formulaires d'admission et les notes de séance sans la complexité des CRM d'entreprise.",
+        "topPainPoint": "Utiliser des tableurs ou des CRM génériques non adaptés aux workflows thérapeutiques — pas de formulaires d'admission, de prise de notes sécurisée ni de vues client par séance.",
+        "suggestedProduct": "Un outil de gestion de cabinet conforme HIPAA pour les thérapeutes : formulaires d'admission, notes de séance chiffrées, prise de rendez-vous et tableaux de bord de suivi patient."
       },
       "schedulingTutors": {
         "topic": "Planification pour les tuteurs",
-        "summary": "Les tuteurs jonglant entre plusieurs élèves et fuseaux horaires ont besoin d'une planification flexible avec des séances récurrentes, des cours de rattrapage et la collecte de paiements."
+        "query": "planification pour les tuteurs",
+        "summary": "Les tuteurs jonglant entre plusieurs élèves et fuseaux horaires ont besoin d'une planification flexible avec des séances récurrentes, des cours de rattrapage et la collecte de paiements.",
+        "topPainPoint": "Reprogrammer constamment les séances manuellement, perdre le fil des rattrapages et perdre du temps à coordonner avec les parents dans différents fuseaux horaires.",
+        "suggestedProduct": "Une plateforme de planification pensée pour les tuteurs : séances récurrentes, gestion de forfaits, portail parent et paiements intégrés — conçue pour 1 à 20 élèves."
       },
       "recruitingAgencies": {
         "topic": "Recrutement pour petites agences",
-        "summary": "Les petites agences trouvent les ATS d'entreprise surdimensionnés et les tableurs insoutenables. Elles ont besoin d'un suivi de pipeline simple et de rapports orientés clients."
+        "query": "recrutement pour petites agences",
+        "summary": "Les petites agences trouvent les ATS d'entreprise surdimensionnés et les tableurs insoutenables. Elles ont besoin d'un suivi de pipeline simple et de rapports orientés clients.",
+        "topPainPoint": "Payer pour un ATS surdimensionné avec des fonctionnalités inutilisées, tout en continuant à suivre les candidats dans des tableurs et en perdant les meilleurs talents.",
+        "suggestedProduct": "Un ATS léger pour agences : pipeline candidat, branding client, rapports simples et intégrations aux job boards — au prix adapté aux équipes de moins de 50 personnes."
       },
       "restaurantWaitlist": {
         "topic": "Gestion de liste d'attente restaurant",
-        "summary": "Les restaurants indépendants peinent avec le chaos des listes d'attente : listes papier, appels téléphoniques et aucune visibilité sur les temps d'attente pour les clients."
+        "query": "gestion de liste d'attente restaurant",
+        "summary": "Les restaurants indépendants peinent avec le chaos des listes d'attente : listes papier, appels téléphoniques et aucune visibilité sur les temps d'attente pour les clients.",
+        "topPainPoint": "Les clients appellent sans cesse pour connaître le temps d'attente, les hôtes sont débordés par la gestion manuelle et les clients n'ont aucun moyen de suivre leur position en temps réel.",
+        "suggestedProduct": "Une liste d'attente digitale simple avec notifications SMS, estimations en temps réel et une page de statut client — fonctionne depuis un seul téléphone ou tablette."
       }
     }
   },
@@ -320,17 +336,53 @@
     "indieHackers": {
       "title": "PainRadar pour les Indie Hackers",
       "description": "Arrêtez de deviner quoi construire. PainRadar identifie les vrais points de douleur sur Reddit, les forums et les avis pour valider vos idées avant d'écrire une seule ligne de code.",
-      "audience": "Fondateurs solo et indie hackers qui construisent en public"
+      "audience": "Fondateurs solo et indie hackers qui construisent en public",
+      "painPoints": [
+        "Perdre des mois à construire des idées dont personne ne veut",
+        "Deviner les problèmes au lieu de valider avec des données réelles",
+        "Ne pas savoir comment trouver ou prioriser les plaintes clients",
+        "Manquer de temps pour rechercher manuellement dans des dizaines de communautés"
+      ],
+      "benefits": [
+        "Découvrir des idées validées en minutes, pas en mois",
+        "Voir quels points de douleur ont la plus forte demande et urgence",
+        "Obtenir des analyses IA résumées de vraies conversations clients",
+        "Concentrer votre temps limité sur la construction, pas la recherche"
+      ]
     },
     "agencies": {
       "title": "PainRadar pour les Agences",
       "description": "Gagnez plus de clients en proposant des solutions qui résolvent de vrais problèmes. PainRadar donne à votre équipe des insights basés sur les données des points de douleur prospects.",
-      "audience": "Agences digitales, cabinets de conseil et entreprises de services"
+      "audience": "Agences digitales, cabinets de conseil et entreprises de services",
+      "painPoints": [
+        "Proposer des solutions génériques qui ne répondent pas aux douleurs spécifiques du client",
+        "Peiner à se différencier dans les réponses aux appels d'offres",
+        "Manquer de données concrètes pour appuyer les recommandations",
+        "Passer des heures en recherche manuelle pour chaque prospect"
+      ],
+      "benefits": [
+        "Générer des rapports de points de douleur spécifiques au client en minutes",
+        "Appuyer les propositions avec de vraies plaintes clients et signaux de demande",
+        "Identifier des niches sous-exploitées et des opportunités d'expansion",
+        "Équiper votre équipe de recherches qui concluent des contrats"
+      ]
     },
     "startups": {
       "title": "PainRadar pour les Startups",
       "description": "Validez votre roadmap avec des preuves, pas de l'intuition. PainRadar analyse des milliers de conversations pour faire émerger les points de douleur les plus importants.",
-      "audience": "Startups en phase initiale et équipes produit"
+      "audience": "Startups en phase initiale et équipes produit",
+      "painPoints": [
+        "Construire des fonctionnalités basées sur des opinions plutôt que des données",
+        "Incertain de quelles plaintes clients méritent la priorité sur la roadmap",
+        "Le paysage concurrentiel semble opaque et difficile à quantifier",
+        "Temps limité pour une recherche client approfondie avant chaque sprint"
+      ],
+      "benefits": [
+        "Prioriser les fonctionnalités en utilisant de vrais scores de demande et d'urgence",
+        "Comprendre le positionnement concurrentiel à partir de vrais retours clients",
+        "Identifier des problèmes adjacents et des opportunités d'expansion",
+        "Aligner toute l'équipe autour de roadmaps basées sur des preuves"
+      ]
     }
   },
   "blog": {
@@ -351,15 +403,57 @@
     "readyToTryDesc": "Commencez à découvrir des points de douleur en quelques minutes.",
     "manualResearch": {
       "title": "Recherche manuelle sur Reddit",
-      "description": "Parcourir manuellement Reddit, les forums et les sites d'avis pour trouver des points de douleur. Beaucoup de fondateurs commencent ici — mais c'est chronophage et difficile à mettre à l'échelle."
+      "description": "Parcourir manuellement Reddit, les forums et les sites d'avis pour trouver des points de douleur. Beaucoup de fondateurs commencent ici — mais c'est chronophage et difficile à mettre à l'échelle.",
+      "painRadar": [
+        "Analyse automatisée sur Reddit, forums, G2, Capterra et communautés de niche",
+        "Extraction structurée des points de douleur avec score de sévérité et attribution de source",
+        "Score d'opportunité sur la demande, l'urgence, la concurrence et la monétisation",
+        "Idées de produits et mots-clés SEO générés à partir du langage réel des clients",
+        "Résultats en minutes, pas en heures ou en jours"
+      ],
+      "alternative": [
+        "Recherches manuelles et défilement sans fin",
+        "Notes non structurées et tableurs",
+        "Pas de cadre cohérent de scoring ou de priorisation",
+        "Idées de mots-clés ad-hoc de mémoire",
+        "Des heures de recherche pour chaque sujet"
+      ]
     },
     "googleTrends": {
       "title": "Google Trends",
-      "description": "Google Trends montre le volume de recherche dans le temps. Utile pour l'intérêt général, mais ne révèle pas les points de douleur, plaintes ou opportunités produit."
+      "description": "Google Trends montre le volume de recherche dans le temps. Utile pour l'intérêt général, mais ne révèle pas les points de douleur, plaintes ou opportunités produit.",
+      "painRadar": [
+        "Vraies plaintes et frustrations clients — pas seulement le volume de recherche",
+        "Extraction de points de douleur avec sentiment et sévérité",
+        "Idées de produits et angles de différenciation issus de vraies discussions",
+        "Analyse des lacunes concurrentielles à partir de sites d'avis et forums",
+        "Contexte : ce que les gens disent quand ils sont frustrés, pas juste ce qu'ils cherchent"
+      ],
+      "alternative": [
+        "Tendances de volume de recherche uniquement — pas d'analyse qualitative",
+        "Pas de données sur les points de douleur ou les plaintes",
+        "Pas de recommandations produit ou positionnement",
+        "Contexte concurrentiel limité",
+        "Pas de lien direct avec le langage client"
+      ]
     },
     "surveyTools": {
       "title": "Outils de sondage",
-      "description": "Les outils de sondage comme Typeform ou Google Forms permettent de demander aux gens ce qu'ils veulent. Mais les sondages nécessitent une audience, induisent des biais et passent souvent à côté des frustrations spontanées."
+      "description": "Les outils de sondage comme Typeform ou Google Forms permettent de demander aux gens ce qu'ils veulent. Mais les sondages nécessitent une audience, induisent des biais et passent souvent à côté des frustrations spontanées.",
+      "painRadar": [
+        "Analyse les retours spontanés — ce que les gens disent quand personne ne demande",
+        "Pas d'audience requise ; fonctionne à partir de discussions publiques",
+        "Impartial : vraies plaintes, pas des réponses orientées par un sondage",
+        "Analyses instantanées ; pas besoin de concevoir, envoyer ou attendre des sondages",
+        "S'adapte à n'importe quel nombre de niches et sujets"
+      ],
+      "alternative": [
+        "Nécessite de construire ou acheter une audience d'abord",
+        "Les questions orientées faussent les résultats",
+        "Les gens répondent ce qu'ils pensent que vous voulez entendre",
+        "Des semaines pour concevoir, envoyer et analyser",
+        "Un sondage par sujet ; difficile à mettre à l'échelle"
+      ]
     }
   },
   "privacy": {

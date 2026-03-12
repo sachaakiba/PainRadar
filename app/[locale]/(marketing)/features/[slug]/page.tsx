@@ -16,6 +16,13 @@ import { JsonLd } from "@/components/json-ld";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { absoluteUrl } from "@/lib/utils";
 
+const slugToKey: Record<string, string> = {
+  "pain-point-detection": "painPointDetection",
+  "idea-validation": "ideaValidation",
+  "seo-insights": "seoInsights",
+  "opportunity-scoring": "opportunityScoring",
+};
+
 const iconMap = {
   Crosshair,
   Lightbulb,
@@ -35,12 +42,16 @@ export async function generateMetadata({
   const { slug } = await params;
   const feature = features.find((f) => f.slug === slug);
   if (!feature) return { title: "Feature not found" };
+  const key = slugToKey[slug];
+  const tFeatures = await getTranslations("features");
+  const title = key ? tFeatures(`${key}.title`) : feature.title;
+  const description = key ? tFeatures(`${key}.description`) : feature.description;
   return {
-    title: `${feature.title} | PainRadar`,
-    description: feature.description,
+    title: `${title} | PainRadar`,
+    description,
     openGraph: {
-      title: `${feature.title} | PainRadar`,
-      description: feature.description,
+      title: `${title} | PainRadar`,
+      description,
       url: absoluteUrl(`/features/${slug}`),
     },
   };
@@ -54,25 +65,31 @@ export default async function FeaturePage({
   const { slug } = await params;
   const feature = features.find((f) => f.slug === slug);
   if (!feature) notFound();
-  
+
+  const key = slugToKey[slug];
   const t = await getTranslations("common");
+  const tFeatures = await getTranslations("features");
   const Icon = iconMap[feature.icon as keyof typeof iconMap] ?? BarChart3;
+
+  const title = key ? tFeatures(`${key}.title`) : feature.title;
+  const description = key ? tFeatures(`${key}.description`) : feature.description;
+  const details = key ? (tFeatures.raw(`${key}.details`) as string[]) : feature.details;
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 1, name: t("home"), item: absoluteUrl("/") },
       {
         "@type": "ListItem",
         position: 2,
-        name: "Features",
+        name: tFeatures("pageTitle"),
         item: absoluteUrl("/features"),
       },
       {
         "@type": "ListItem",
         position: 3,
-        name: feature.title,
+        name: title,
         item: absoluteUrl(`/features/${slug}`),
       },
     ],
@@ -84,8 +101,8 @@ export default async function FeaturePage({
       <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         <Breadcrumb
           items={[
-            { label: "Features", href: "/features" },
-            { label: feature.title },
+            { label: tFeatures("pageTitle"), href: "/features" },
+            { label: title },
           ]}
           className="mt-4 mb-10"
         />
@@ -96,10 +113,10 @@ export default async function FeaturePage({
             </div>
             <div>
               <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                {feature.title}
+                {title}
               </h1>
               <p className="mt-4 text-lg text-muted-foreground">
-                {feature.description}
+                {description}
               </p>
             </div>
           </div>
@@ -109,7 +126,7 @@ export default async function FeaturePage({
             </CardHeader>
             <CardContent>
               <ul className="space-y-3">
-                {feature.details.map((detail, i) => (
+                {details.map((detail, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <Check className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" />
                     <span className="text-muted-foreground">{detail}</span>

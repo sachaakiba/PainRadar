@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { JsonLd } from "@/components/json-ld";
 import { absoluteUrl } from "@/lib/utils";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -12,14 +12,15 @@ export const metadata: Metadata = {
   description: "Learn about PainRadar — our mission, how we work, and what we believe.",
 };
 
-export default function AboutPage() {
-  const t = useTranslations("about");
+export default async function AboutPage() {
+  const t = await getTranslations("about");
+  const tCommon = await getTranslations("common");
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 1, name: tCommon("home"), item: absoluteUrl("/") },
       { "@type": "ListItem", position: 2, name: "About", item: absoluteUrl("/about") },
     ],
   };
