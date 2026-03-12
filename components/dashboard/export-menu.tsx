@@ -7,6 +7,7 @@ import {
   Copy,
   Link2,
   ChevronDown,
+  Lock,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -15,18 +16,26 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { toast } from "sonner";
 
 interface ExportMenuProps {
   data: unknown;
   shareUrl?: string;
   filename?: string;
+  canExport?: boolean;
 }
 
 export function ExportMenu({
   data,
   shareUrl,
   filename = "analysis.json",
+  canExport = true,
 }: ExportMenuProps) {
   const t = useTranslations("analysis");
   const [copied, setCopied] = useState<"json" | "link" | null>(null);
@@ -66,6 +75,24 @@ export function ExportMenu({
       toast.error(t("copyLinkFailed"));
     }
   };
+
+  if (!canExport) {
+    return (
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant="outline" size="sm" disabled className="opacity-60">
+              <Lock className="mr-2 h-4 w-4" />
+              {t("export")}
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{t("exportUpgradeRequired")}</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    );
+  }
 
   return (
     <DropdownMenu>

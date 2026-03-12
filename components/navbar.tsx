@@ -7,6 +7,7 @@ import { useTheme } from "next-themes";
 import { Radar, Menu, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LocaleSwitcher, LocaleSwitcherButton } from "@/components/locale-switcher";
+import { useSession } from "@/lib/auth-client";
 import {
   Dialog,
   DialogContent,
@@ -20,9 +21,12 @@ export function Navbar() {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
+  const { data: session } = useSession();
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const isLoggedIn = !!session?.user;
 
   const links = [
     { href: "/features", label: t("features") },
@@ -88,12 +92,20 @@ export function Navbar() {
               <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
             </Button>
           )}
-          <Button variant="ghost" asChild>
-            <Link href="/signin">{t("signIn")}</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/signup">{t("getStarted")}</Link>
-          </Button>
+          {isLoggedIn ? (
+            <Button asChild>
+              <Link href="/dashboard">{t("dashboard")}</Link>
+            </Button>
+          ) : (
+            <>
+              <Button variant="ghost" asChild>
+                <Link href="/signin">{t("signIn")}</Link>
+              </Button>
+              <Button asChild>
+                <Link href="/signup">{t("getStarted")}</Link>
+              </Button>
+            </>
+          )}
         </div>
 
         <Dialog open={mobileOpen} onOpenChange={setMobileOpen}>
@@ -154,16 +166,26 @@ export function Navbar() {
                     )}
                   </Button>
                 )}
-                <Button variant="ghost" asChild>
-                  <Link href="/signin" onClick={() => setMobileOpen(false)}>
-                    {t("signIn")}
-                  </Link>
-                </Button>
-                <Button asChild>
-                  <Link href="/signup" onClick={() => setMobileOpen(false)}>
-                    {t("getStarted")}
-                  </Link>
-                </Button>
+                {isLoggedIn ? (
+                  <Button asChild>
+                    <Link href="/dashboard" onClick={() => setMobileOpen(false)}>
+                      {t("dashboard")}
+                    </Link>
+                  </Button>
+                ) : (
+                  <>
+                    <Button variant="ghost" asChild>
+                      <Link href="/signin" onClick={() => setMobileOpen(false)}>
+                        {t("signIn")}
+                      </Link>
+                    </Button>
+                    <Button asChild>
+                      <Link href="/signup" onClick={() => setMobileOpen(false)}>
+                        {t("getStarted")}
+                      </Link>
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
           </DialogContent>

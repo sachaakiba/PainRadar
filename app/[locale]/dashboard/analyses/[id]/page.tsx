@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link, useRouter } from "@/i18n/routing";
 import { ArrowLeft, Bookmark, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,6 +21,8 @@ import { CopyButton } from "@/components/dashboard/copy-button";
 import { ExportMenu } from "@/components/dashboard/export-menu";
 import { absoluteUrl, formatDate, getScoreBg } from "@/lib/utils";
 import { toast } from "sonner";
+import { getUserPlan } from "@/actions/user";
+import { getPlanLimits } from "@/lib/plans";
 
 interface PainPoint {
   id: string;
@@ -88,12 +90,14 @@ interface Analysis {
 
 export default function AnalysisDetailPage() {
   const t = useTranslations("analysis");
+  const tDashboard = useTranslations("dashboard");
   const params = useParams();
   const router = useRouter();
   const id = params.id as string;
   const [analysis, setAnalysis] = useState<Analysis | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [canExport, setCanExport] = useState(false);
 
   useEffect(() => {
     fetch(`/api/analyses/${id}`)
@@ -104,6 +108,11 @@ export default function AnalysisDetailPage() {
       .then((data) => setAnalysis(data.analysis))
       .catch(() => router.push("/dashboard/analyses"))
       .finally(() => setLoading(false));
+
+    getUserPlan().then((plan) => {
+      const limits = getPlanLimits(plan);
+      setCanExport(limits.canExport);
+    });
   }, [id, router]);
 
   const toggleSave = async () => {
@@ -121,7 +130,16 @@ export default function AnalysisDetailPage() {
         toast.success(updated.saved ? t("saved") : t("removedFromSaved"));
       } else {
         const data = await res.json().catch(() => ({}));
-        toast.error(data?.error ?? t("updateFailed"));
+        if (data.code === "plan_limit_exceeded") {
+          toast.error(data.error ?? t("updateFailed"), {
+            action: {
+              label: tDashboard("upgradeNow"),
+              onClick: () => router.push("/dashboard/settings"),
+            },
+          });
+        } else {
+          toast.error(data?.error ?? t("updateFailed"));
+        }
       }
     } catch {
       toast.error(t("updateFailed"));
@@ -184,6 +202,7 @@ export default function AnalysisDetailPage() {
             data={analysis}
             shareUrl={absoluteUrl(`/dashboard/analyses/${id}`)}
             filename={`painradar-${analysis.topic.replace(/\s+/g, "-")}.json`}
+            canExport={canExport}
           />
         </div>
       </div>
