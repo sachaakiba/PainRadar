@@ -1,6 +1,7 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { db } from "@/lib/db";
+import { sendNewUserNotification } from "@/lib/user-notifications";
 
 export const auth = betterAuth({
   database: prismaAdapter(db, {
@@ -27,6 +28,29 @@ export const auth = betterAuth({
     cookieCache: {
       enabled: true,
       maxAge: 60 * 5,
+    },
+  },
+  user: {
+    additionalFields: {
+      locale: { type: "string", required: false },
+      plan: { type: "string", required: false },
+      stripeCustomerId: { type: "string", required: false },
+      stripeSubscriptionId: { type: "string", required: false },
+      planExpiresAt: { type: "date", required: false },
+    },
+  },
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          await sendNewUserNotification({
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            createdAt: user.createdAt,
+          });
+        },
+      },
     },
   },
 });
