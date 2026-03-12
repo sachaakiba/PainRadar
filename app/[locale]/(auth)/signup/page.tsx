@@ -1,13 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useTranslations, useLocale } from "next-intl";
+import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { useForm } from "react-hook-form";
-import { updateUserLocale } from "@/actions/locale";
-import { getLocaleFromStorage } from "@/components/locale-switcher";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 import { signUpSchema, type SignUpInput } from "@/lib/validations";
 import {
@@ -27,13 +24,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Loader2 } from "lucide-react";
+import { Loader2, Mail } from "lucide-react";
 import { GoogleSignInButton } from "@/components/auth/google-button";
 
 export default function SignUpPage() {
   const t = useTranslations("auth");
-  const locale = useLocale();
-  const router = useRouter();
+  const [emailSent, setEmailSent] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
   const form = useForm<SignUpInput>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -54,17 +51,55 @@ export default function SignUpPage() {
     });
 
     if (error) {
-      toast.error(error.message ?? t("signUpError"));
+      form.setError("root", { message: error.message ?? t("signUpError") });
       return;
     }
 
     if (data) {
-      const cachedLocale = getLocaleFromStorage();
-      const localeToSave = cachedLocale || locale || "en";
-      await updateUserLocale(localeToSave);
-      toast.success(t("accountCreated"));
-      router.push("/dashboard");
+      setUserEmail(values.email);
+      setEmailSent(true);
     }
+  }
+
+  if (emailSent) {
+    return (
+      <Card className="w-full max-w-md border-2 border-border/50 shadow-card-lg">
+        <CardHeader className="space-y-2 text-center pb-2">
+          <div className="mx-auto mb-2">
+            <Mail className="h-12 w-12 text-coral-500" />
+          </div>
+          <CardTitle className="font-display text-2xl font-bold tracking-tight">
+            {t("checkYourEmail")}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="text-center space-y-4">
+          <p className="text-muted-foreground">
+            {t("verificationEmailSentTo")}
+          </p>
+          <p className="font-medium text-foreground">{userEmail}</p>
+          <div className="rounded-lg bg-muted/50 p-4 mt-4">
+            <p className="text-sm text-muted-foreground">
+              {t("didntReceiveEmail")}
+            </p>
+            <ul className="mt-2 text-sm text-muted-foreground text-left list-disc list-inside space-y-1">
+              <li>{t("checkSpamFolder")}</li>
+              <li>{t("waitFewMinutes")}</li>
+            </ul>
+          </div>
+        </CardContent>
+        <CardFooter className="flex flex-col gap-4 pt-2">
+          <Link
+            href="/resend-verification"
+            className="text-sm font-semibold text-coral-500 underline-offset-4 hover:underline"
+          >
+            {t("resendVerificationLink")}
+          </Link>
+          <Button asChild variant="outline" className="w-full" size="lg">
+            <Link href="/signin">{t("backToSignIn")}</Link>
+          </Button>
+        </CardFooter>
+      </Card>
+    );
   }
 
   return (
@@ -147,6 +182,11 @@ export default function SignUpPage() {
                 </FormItem>
               )}
             />
+            {form.formState.errors.root && (
+              <p className="text-sm text-destructive text-center">
+                {form.formState.errors.root.message}
+              </p>
+            )}
           </CardContent>
           <CardFooter className="flex flex-col gap-4 pt-2">
             <Button

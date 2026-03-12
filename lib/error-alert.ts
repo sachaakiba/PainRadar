@@ -48,7 +48,7 @@ export async function sendErrorAlert({
 
   try {
     await resend.emails.send({
-      from: "PainRadar Alerts <onboarding@resend.dev>",
+      from: "PainRadar Alerts <alerts@pain-radar.com>",
       to: alertEmail,
       subject: `[PainRadar Error] ${source}`,
       html,
