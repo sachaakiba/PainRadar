@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { requireSession } from "@/lib/auth-server";
 import { stripe } from "@/lib/stripe";
 import { db } from "@/lib/db";
+import { sendErrorAlert } from "@/lib/error-alert";
 import type { PlanId } from "@/types";
 
 const PLAN_PRICE_IDS: Record<Exclude<PlanId, "free">, string | undefined> = {
@@ -10,8 +11,14 @@ const PLAN_PRICE_IDS: Record<Exclude<PlanId, "free">, string | undefined> = {
 };
 
 export async function POST(request: Request) {
+  let userId: string | undefined;
+  let customerId: string | null = null;
+  let priceId: string | undefined;
+
   try {
     const session = await requireSession();
+    userId = session.user.id;
+
     const body = await request.json();
     const planId = body?.planId as "starter" | "pro" | undefined;
 
@@ -22,7 +29,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const priceId = PLAN_PRICE_IDS[planId];
+    priceId = PLAN_PRICE_IDS[planId];
     if (!priceId) {
       return NextResponse.json(
         { error: "Stripe price not configured for this plan." },
@@ -30,7 +37,6 @@ export async function POST(request: Request) {
       );
     }
 
-    let customerId: string | null = null;
     const user = await db.user.findUnique({
       where: { id: session.user.id },
       select: { stripeCustomerId: true, email: true, name: true },
@@ -87,6 +93,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     console.error("Stripe checkout error:", err);
+    await sendErrorAlert({
+      source: "Stripe Checkout",
+      error: err,
+      context: {
+        endpoint: "/api/stripe/checkout",
+        userId,
+        customerId,
+        priceId,
+      },
+    });
     return NextResponse.json(
       { error: "Failed to create checkout session." },
       { status: 500 }
