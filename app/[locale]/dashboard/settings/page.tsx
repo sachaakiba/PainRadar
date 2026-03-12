@@ -28,6 +28,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Loader2 } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 import type { PlanId } from "@/types";
 
 export default function SettingsPage() {
@@ -39,7 +40,7 @@ export default function SettingsPage() {
   const { data: session } = useSession();
   const [isPending, startTransition] = useTransition();
   const [selectedLocale, setSelectedLocale] = useState(locale);
-  const [userPlan, setUserPlan] = useState<PlanId>("free");
+  const [userPlan, setUserPlan] = useState<PlanId | null>(null);
   const [isPortalPending, setIsPortalPending] = useState(false);
 
   const fetchPlan = useCallback(async () => {
@@ -47,7 +48,7 @@ export default function SettingsPage() {
       const plan = await getUserPlan();
       setUserPlan(plan);
     } catch {
-      // silently ignore; default is free
+      setUserPlan("free");
     }
   }, []);
 
@@ -95,14 +96,18 @@ export default function SettingsPage() {
       ? t("starterPlan")
       : userPlan === "pro"
         ? t("proPlan")
-        : t("freePlan");
+        : userPlan === "free"
+          ? t("freePlan")
+          : "";
 
   const planDesc =
     userPlan === "starter"
       ? t("starterPlanDesc")
       : userPlan === "pro"
         ? t("proPlanDesc")
-        : t("freePlanDesc");
+        : userPlan === "free"
+          ? t("freePlanDesc")
+          : "";
 
   return (
     <div className="space-y-10">
@@ -178,30 +183,42 @@ export default function SettingsPage() {
             <CardDescription>{t("currentPlanDesc")}</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <Badge variant="coral">{planLabel}</Badge>
-              <span className="text-sm text-muted-foreground">{planDesc}</span>
-            </div>
-
-            {userPlan === "free" ? (
-              <Button
-                onClick={() => router.push("/pricing")}
-                className="w-fit"
-              >
-                {t("upgradeCta")}
-              </Button>
+            {userPlan === null ? (
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center gap-3">
+                  <Skeleton className="h-6 w-20 rounded-full" />
+                  <Skeleton className="h-4 w-40" />
+                </div>
+                <Skeleton className="h-10 w-44" />
+              </div>
             ) : (
-              <Button
-                variant="outline"
-                onClick={handleManageSubscription}
-                disabled={isPortalPending}
-                className="w-fit"
-              >
-                {isPortalPending ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ) : null}
-                {t("manageSubscription")}
-              </Button>
+              <>
+                <div className="flex items-center gap-3">
+                  <Badge variant="coral">{planLabel}</Badge>
+                  <span className="text-sm text-muted-foreground">{planDesc}</span>
+                </div>
+
+                {userPlan === "free" ? (
+                  <Button
+                    onClick={() => router.push("/pricing")}
+                    className="w-fit"
+                  >
+                    {t("upgradeCta")}
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outline"
+                    onClick={handleManageSubscription}
+                    disabled={isPortalPending}
+                    className="w-fit"
+                  >
+                    {isPortalPending ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : null}
+                    {t("manageSubscription")}
+                  </Button>
+                )}
+              </>
             )}
           </CardContent>
         </Card>
