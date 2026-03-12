@@ -95,6 +95,8 @@ export type PricingPlan = {
   features: string[];
   cta: string;
   highlighted?: boolean;
+  planId?: PlanId;
+  priceId?: string;
 };
 
 export type UseCase = {

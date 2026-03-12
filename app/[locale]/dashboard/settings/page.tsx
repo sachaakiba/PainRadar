@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect, useCallback } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/routing";
+import { useSearchParams } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
 import { updateUserLocale } from "@/actions/locale";
+import { getUserPlan } from "@/actions/user";
 import { saveLocaleToStorage, localeLabels } from "@/components/locale-switcher";
 import { toast } from "sonner";
 import {
@@ -26,15 +28,40 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Loader2 } from "lucide-react";
+import type { PlanId } from "@/types";
 
 export default function SettingsPage() {
   const t = useTranslations("dashboard");
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { data: session } = useSession();
   const [isPending, startTransition] = useTransition();
   const [selectedLocale, setSelectedLocale] = useState(locale);
+  const [userPlan, setUserPlan] = useState<PlanId>("free");
+  const [isBillingPending, setIsBillingPending] = useState(false);
+
+  const fetchPlan = useCallback(async () => {
+    try {
+      const plan = await getUserPlan();
+      setUserPlan(plan);
+    } catch {
+      // silently ignore; default is free
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchPlan();
+  }, [fetchPlan]);
+
+  useEffect(() => {
+    if (searchParams.get("success") === "true") {
+      toast.success(t("upgradeSuccess"));
+      router.replace(pathname);
+      fetchPlan();
+    }
+  }, [searchParams, t, router, pathname, fetchPlan]);
 
   function handleLocaleChange(newLocale: string) {
     setSelectedLocale(newLocale);
@@ -45,6 +72,58 @@ export default function SettingsPage() {
       router.replace(pathname, { locale: newLocale as "en" | "fr" });
     });
   }
+
+  async function handleUpgrade(planId: "starter" | "pro") {
+    setIsBillingPending(true);
+    try {
+      const res = await fetch("/api/stripe/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ planId }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.url) {
+        toast.error(data.error ?? t("somethingWentWrong"));
+        return;
+      }
+      window.location.href = data.url;
+    } catch {
+      toast.error(t("somethingWentWrong"));
+    } finally {
+      setIsBillingPending(false);
+    }
+  }
+
+  async function handleManageSubscription() {
+    setIsBillingPending(true);
+    try {
+      const res = await fetch("/api/stripe/portal", { method: "POST" });
+      const data = await res.json();
+      if (!res.ok || !data.url) {
+        toast.error(data.error ?? t("somethingWentWrong"));
+        return;
+      }
+      window.location.href = data.url;
+    } catch {
+      toast.error(t("somethingWentWrong"));
+    } finally {
+      setIsBillingPending(false);
+    }
+  }
+
+  const planLabel =
+    userPlan === "starter"
+      ? t("starterPlan")
+      : userPlan === "pro"
+        ? t("proPlan")
+        : t("freePlan");
+
+  const planDesc =
+    userPlan === "starter"
+      ? t("starterPlanDesc")
+      : userPlan === "pro"
+        ? t("proPlanDesc")
+        : t("freePlanDesc");
 
   return (
     <div className="space-y-10">
@@ -119,14 +198,49 @@ export default function SettingsPage() {
             <CardTitle className="text-base">{t("currentPlan")}</CardTitle>
             <CardDescription>{t("currentPlanDesc")}</CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <CardContent className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
-              <Badge variant="coral">{t("freePlan")}</Badge>
-              <span className="text-sm text-muted-foreground">
-                {t("freePlanDesc")}
-              </span>
+              <Badge variant="coral">{planLabel}</Badge>
+              <span className="text-sm text-muted-foreground">{planDesc}</span>
             </div>
-            <Button>{t("upgradeCta")}</Button>
+
+            {userPlan === "free" ? (
+              <div className="flex flex-col gap-2 sm:flex-row">
+                <Button
+                  onClick={() => handleUpgrade("starter")}
+                  disabled={isBillingPending}
+                  className="flex-1"
+                >
+                  {isBillingPending ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : null}
+                  {t("upgradeToStarter")}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => handleUpgrade("pro")}
+                  disabled={isBillingPending}
+                  className="flex-1"
+                >
+                  {isBillingPending ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : null}
+                  {t("upgradeToPro")}
+                </Button>
+              </div>
+            ) : (
+              <Button
+                variant="outline"
+                onClick={handleManageSubscription}
+                disabled={isBillingPending}
+                className="w-fit"
+              >
+                {isBillingPending ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : null}
+                {t("manageSubscription")}
+              </Button>
+            )}
           </CardContent>
         </Card>
       </div>

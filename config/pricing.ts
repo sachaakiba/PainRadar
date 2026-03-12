@@ -3,6 +3,7 @@ import { PricingPlan } from "@/types";
 export const pricingPlans: PricingPlan[] = [
   {
     name: "Free",
+    planId: "free",
     price: "$0",
     period: "forever",
     description: "Get started with basic pain point discovery.",
@@ -16,6 +17,7 @@ export const pricingPlans: PricingPlan[] = [
   },
   {
     name: "Starter",
+    planId: "starter",
     price: "$19",
     period: "/month",
     description: "For serious founders validating ideas.",
@@ -32,6 +34,7 @@ export const pricingPlans: PricingPlan[] = [
   },
   {
     name: "Pro",
+    planId: "pro",
     price: "$39",
     period: "/month",
     description: "For teams and power users.",
