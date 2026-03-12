@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { stripe } from "@/lib/stripe";
 import { db } from "@/lib/db";
+import { sendErrorAlert } from "@/lib/error-alert";
 import type { PlanId } from "@/types";
 
 function planFromPriceId(priceId: string): PlanId {
@@ -33,12 +34,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
+  let userId: string | undefined;
+  let customerId: string | undefined;
+  let priceId: string | undefined;
+  let subscriptionId: string | undefined;
+
   try {
     switch (event.type) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
-        const userId = session.metadata?.userId;
-        const subscriptionId =
+        userId = session.metadata?.userId;
+        customerId = session.customer as string;
+        subscriptionId =
           typeof session.subscription === "string"
             ? session.subscription
             : session.subscription?.id;
@@ -49,14 +56,14 @@ export async function POST(request: Request) {
         }
 
         const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-        const priceId = subscription.items.data[0]?.price?.id;
+        priceId = subscription.items.data[0]?.price?.id;
         const plan = priceId ? planFromPriceId(priceId) : "free";
 
         await db.user.update({
           where: { id: userId },
           data: {
             plan,
-            stripeCustomerId: session.customer as string,
+            stripeCustomerId: customerId,
             stripeSubscriptionId: subscriptionId,
           },
         });
@@ -65,9 +72,10 @@ export async function POST(request: Request) {
 
       case "customer.subscription.updated": {
         const subscription = event.data.object as Stripe.Subscription;
-        const userId = subscription.metadata?.userId;
-        const subscriptionId = subscription.id;
-        const priceId = subscription.items.data[0]?.price?.id;
+        userId = subscription.metadata?.userId;
+        customerId = subscription.customer as string;
+        subscriptionId = subscription.id;
+        priceId = subscription.items.data[0]?.price?.id;
         const plan = priceId ? planFromPriceId(priceId) : "free";
 
         if (!userId) {
@@ -76,6 +84,7 @@ export async function POST(request: Request) {
             select: { id: true },
           });
           if (!existing) break;
+          userId = existing.id;
           await db.user.update({
             where: { id: existing.id },
             data: { plan, stripeSubscriptionId: subscriptionId },
@@ -91,7 +100,8 @@ export async function POST(request: Request) {
 
       case "customer.subscription.deleted": {
         const subscription = event.data.object as Stripe.Subscription;
-        const subscriptionId = subscription.id;
+        subscriptionId = subscription.id;
+        customerId = subscription.customer as string;
 
         await db.user.updateMany({
           where: { stripeSubscriptionId: subscriptionId },
@@ -109,6 +119,19 @@ export async function POST(request: Request) {
     }
   } catch (err) {
     console.error("Stripe webhook handler error:", err);
+    await sendErrorAlert({
+      source: "Stripe Webhook",
+      error: err,
+      context: {
+        endpoint: "/api/stripe/webhook",
+        eventType: event.type,
+        eventId: event.id,
+        userId,
+        customerId,
+        priceId,
+        subscriptionId,
+      },
+    });
     return NextResponse.json(
       { error: "Webhook handler failed" },
       { status: 500 }

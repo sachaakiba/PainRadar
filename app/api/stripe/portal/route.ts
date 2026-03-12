@@ -2,15 +2,22 @@ import { NextResponse } from "next/server";
 import { requireSession } from "@/lib/auth-server";
 import { stripe } from "@/lib/stripe";
 import { db } from "@/lib/db";
+import { sendErrorAlert } from "@/lib/error-alert";
 
 export async function POST() {
+  let userId: string | undefined;
+  let customerId: string | undefined;
+
   try {
     const session = await requireSession();
+    userId = session.user.id;
 
     const user = await db.user.findUnique({
       where: { id: session.user.id },
       select: { stripeCustomerId: true },
     });
+
+    customerId = user?.stripeCustomerId ?? undefined;
 
     if (!user?.stripeCustomerId) {
       return NextResponse.json(
@@ -31,6 +38,15 @@ export async function POST() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     console.error("Stripe portal error:", err);
+    await sendErrorAlert({
+      source: "Stripe Portal",
+      error: err,
+      context: {
+        endpoint: "/api/stripe/portal",
+        userId,
+        customerId,
+      },
+    });
     return NextResponse.json(
       { error: "Failed to open billing portal." },
       { status: 500 }

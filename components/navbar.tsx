@@ -3,10 +3,11 @@
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/routing";
 import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
-import { Radar, Menu, Moon, Sun } from "lucide-react";
+import { Radar, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { LocaleSwitcher, LocaleSwitcherButton } from "@/components/locale-switcher";
+import { ThemeToggle, ThemeToggleButton } from "@/components/theme-toggle";
 import { useSession } from "@/lib/auth-client";
 import {
   Dialog,
@@ -20,9 +21,7 @@ import { cn } from "@/lib/utils";
 export function Navbar() {
   const t = useTranslations("nav");
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
-  const { data: session } = useSession();
-  const [mounted, setMounted] = useState(false);
+  const { data: session, isPending: isSessionLoading } = useSession();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -34,10 +33,6 @@ export function Navbar() {
     { href: "/use-cases", label: t("useCases") },
     { href: "/blog", label: t("blog") },
   ];
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -81,18 +76,13 @@ export function Navbar() {
 
         <div className="hidden items-center gap-2 md:flex">
           <LocaleSwitcher />
-          {mounted && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              aria-label="Toggle theme"
-            >
-              <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-            </Button>
-          )}
-          {isLoggedIn ? (
+          <ThemeToggle />
+          {isSessionLoading ? (
+            <>
+              <Skeleton className="h-9 w-20" />
+              <Skeleton className="h-9 w-28" />
+            </>
+          ) : isLoggedIn ? (
             <Button asChild>
               <Link href="/dashboard">{t("dashboard")}</Link>
             </Button>
@@ -145,28 +135,17 @@ export function Navbar() {
               <div className="my-3 h-px bg-border/60" />
               <div className="flex flex-col gap-2">
                 <LocaleSwitcherButton />
-                {mounted && (
-                  <Button
-                    variant="ghost"
-                    onClick={() => {
-                      setTheme(theme === "dark" ? "light" : "dark");
-                      setMobileOpen(false);
-                    }}
-                  >
-                    {theme === "dark" ? (
-                      <>
-                        <Sun className="mr-2 h-4 w-4" />
-                        {t("lightMode")}
-                      </>
-                    ) : (
-                      <>
-                        <Moon className="mr-2 h-4 w-4" />
-                        {t("darkMode")}
-                      </>
-                    )}
-                  </Button>
-                )}
-                {isLoggedIn ? (
+                <ThemeToggleButton
+                  lightLabel={t("lightMode")}
+                  darkLabel={t("darkMode")}
+                  onToggle={() => setMobileOpen(false)}
+                />
+                {isSessionLoading ? (
+                  <>
+                    <Skeleton className="h-10 w-full" />
+                    <Skeleton className="h-10 w-full" />
+                  </>
+                ) : isLoggedIn ? (
                   <Button asChild>
                     <Link href="/dashboard" onClick={() => setMobileOpen(false)}>
                       {t("dashboard")}
