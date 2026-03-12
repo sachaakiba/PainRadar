@@ -19,6 +19,7 @@ import { absoluteUrl } from "@/lib/utils";
 const slugToKey: Record<string, string> = {
   "pain-point-detection": "painPointDetection",
   "idea-validation": "ideaValidation",
+  "keyword-insights": "keywordInsights",
   "seo-insights": "seoInsights",
   "opportunity-scoring": "opportunityScoring",
 };

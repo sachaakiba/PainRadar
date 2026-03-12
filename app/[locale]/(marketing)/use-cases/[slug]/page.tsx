@@ -46,6 +46,7 @@ export default async function UseCasePage({
   const slugToKey: Record<string, string> = {
     "indie-hackers": "indieHackers",
     agencies: "agencies",
+    freelancers: "freelancers",
     startups: "startups",
   };
   const key = slugToKey[slug];

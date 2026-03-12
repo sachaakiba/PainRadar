@@ -82,6 +82,11 @@ export default async function ExamplesPage() {
             </Link>
           ))}
         </div>
+        <p className="mt-12 text-center text-sm text-muted-foreground">
+          <Link href="/pain" className="font-medium text-foreground underline-offset-4 hover:underline">
+            Explore more pain points by niche →
+          </Link>
+        </p>
       </div>
     </>
   );
