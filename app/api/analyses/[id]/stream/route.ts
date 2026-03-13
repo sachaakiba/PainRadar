@@ -2,9 +2,11 @@ import { streamObject } from "ai";
 import { getSession } from "@/lib/auth-server";
 import { db } from "@/lib/db";
 import { openai } from "@/lib/openai";
-import { analysisOutputSchema } from "@/lib/analysis-schema";
+import { analysisOutputSchema, analysisOutputWithPromptSchema } from "@/lib/analysis-schema";
 import { buildAnalysisPrompt } from "@/lib/analysis-prompt";
 import { fetchRedditPosts, formatRedditDataForPrompt } from "@/lib/reddit";
+import { getPlanLimits } from "@/lib/plans";
+import type { PlanId } from "@/types";
 
 export const maxDuration = 120;
 
@@ -33,9 +35,11 @@ export async function POST(
 
   const user = await db.user.findUnique({
     where: { id: session.user.id },
-    select: { locale: true },
+    select: { locale: true, plan: true },
   });
   const locale = (user?.locale as "en" | "fr") || "en";
+  const plan = (user?.plan as PlanId) || "free";
+  const { canGenerateAiPrompt } = getPlanLimits(plan);
 
   let redditData: string;
   try {
@@ -49,12 +53,15 @@ export async function POST(
     analysis.topic,
     analysis.audience ?? undefined,
     locale,
-    redditData
+    redditData,
+    canGenerateAiPrompt
   );
+
+  const schema = canGenerateAiPrompt ? analysisOutputWithPromptSchema : analysisOutputSchema;
 
   const result = streamObject({
     model: openai("gpt-4o"),
-    schema: analysisOutputSchema,
+    schema,
     system: prompt.system,
     prompt: prompt.user,
     onFinish: async ({ object }) => {
@@ -81,6 +88,7 @@ export async function POST(
               recommendedMvp: object.recommendedMvp,
               pricingSuggestion: object.pricingSuggestion,
               seoSummary: object.seoSummary,
+              aiPrompt: canGenerateAiPrompt && "aiPrompt" in object ? (object as Record<string, unknown>).aiPrompt as string : null,
             },
           });
 

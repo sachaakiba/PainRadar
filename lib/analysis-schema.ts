@@ -43,7 +43,7 @@ export const recurringPhraseSchema = z.object({
   frequency: z.number().describe("How often this phrase appears (1-15)"),
 });
 
-export const analysisOutputSchema = z.object({
+const baseAnalysisOutputSchema = z.object({
   summary: z.string().describe("Executive summary of the analysis based on real Reddit data"),
   opportunityScore: z.number().min(0).max(100).describe("Overall opportunity score (0-100)"),
   demandScore: z.number().min(0).max(100).describe("Market demand score (0-100)"),
@@ -61,4 +61,13 @@ export const analysisOutputSchema = z.object({
   recurringPhrases: z.array(recurringPhraseSchema).describe("5-6 recurring phrases from discussions"),
 });
 
-export type AnalysisOutput = z.infer<typeof analysisOutputSchema>;
+const aiPromptField = {
+  aiPrompt: z.string().describe("A comprehensive, ready-to-use prompt that a user can paste into an AI coding assistant (Cursor, Claude, ChatGPT) to build the #1 product idea as a full SaaS application. The prompt must include: market context with the opportunity score, the top pain points to solve ranked by severity, the chosen product concept with target audience and differentiator, the full MVP scope, pricing strategy, objections to address in UX/copy, SEO keywords to target, and acquisition channels. End with clear build instructions (tech stack, core features, landing page, auth, dashboard). The prompt must be self-contained — someone reading it with zero context should understand exactly what to build and why."),
+};
+
+export const analysisOutputSchema = baseAnalysisOutputSchema;
+
+export const analysisOutputWithPromptSchema = baseAnalysisOutputSchema.extend(aiPromptField);
+
+export type AnalysisOutput = z.infer<typeof baseAnalysisOutputSchema> & { aiPrompt?: string };
+export type AnalysisOutputWithPrompt = z.infer<typeof analysisOutputWithPromptSchema>;

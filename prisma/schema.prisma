@@ -91,6 +91,7 @@ model Analysis {
   recommendedMvp      String?  @db.Text
   pricingSuggestion   String?  @db.Text
   seoSummary          String?  @db.Text
+  aiPrompt            String?  @db.Text
   saved               Boolean  @default(false)
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt

@@ -141,7 +141,7 @@
       "price": "$39",
       "period": "/month",
       "description": "For teams and power users.",
-      "features": ["Unlimited analyses", "Advanced scoring engine", "Competitor insights (coming soon)", "Custom audience targeting", "API access (coming soon)", "White-label exports", "Dedicated support"],
+      "features": ["Unlimited analyses", "AI-ready prompt for each analysis", "Advanced scoring engine", "Competitor insights (coming soon)", "Custom audience targeting", "API access (coming soon)", "White-label exports", "Dedicated support"],
       "cta": "Get Pro"
     },
     "faqTitle": "Pricing FAQ",
@@ -356,7 +356,16 @@
     "failed": "Analysis failed",
     "failedDesc": "Something went wrong during the analysis. Please try again.",
     "retry": "Retry analysis",
-    "statusGenerating": "Generating..."
+    "statusGenerating": "Generating...",
+    "aiPromptTitle": "AI-Ready Prompt",
+    "aiPromptDesc": "Copy this prompt and paste it into Cursor, Claude, ChatGPT or any AI assistant to build this product.",
+    "aiPromptReady": "Ready to use",
+    "aiPromptCopy": "Copy prompt",
+    "aiPromptCopied": "Prompt copied to clipboard!",
+    "aiPromptExpand": "Show full prompt",
+    "aiPromptCollapse": "Collapse",
+    "aiPromptHint": "Paste this into Cursor, Claude, ChatGPT, or any AI coding assistant to start building.",
+    "aiPromptUpgradeDesc": "Upgrade to Pro to get a ready-to-use AI prompt for each analysis. Copy it into Cursor, Claude, or ChatGPT to instantly start building your product."
   },
   "features": {
     "pageTitle": "Features",
