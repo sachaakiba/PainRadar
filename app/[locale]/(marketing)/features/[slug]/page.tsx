@@ -10,6 +10,7 @@ import {
   Check,
 } from "lucide-react";
 import { features } from "@/config/features";
+import { locales } from "@/i18n/config";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { JsonLd } from "@/components/json-ld";
@@ -32,7 +33,7 @@ const iconMap = {
 };
 
 export function generateStaticParams() {
-  return features.map((f) => ({ slug: f.slug }));
+  return locales.flatMap((locale) => features.map((f) => ({ locale, slug: f.slug })));
 }
 
 export async function generateMetadata({
