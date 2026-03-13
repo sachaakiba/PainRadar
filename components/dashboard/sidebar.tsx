@@ -16,7 +16,7 @@ import { signOut, useSession } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const iconMap = {
   LayoutDashboard,
@@ -37,6 +37,18 @@ export function DashboardSidebar() {
   const t = useTranslations("dashboard");
   const { data: session } = useSession();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [savedCount, setSavedCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch("/api/analyses?saved=true")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data.analyses)) {
+          setSavedCount(data.analyses.length);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const handleSignOut = async () => {
     await signOut({
@@ -91,6 +103,7 @@ export function DashboardSidebar() {
             {links.map((link) => {
               const Icon = iconMap[link.icon as keyof typeof iconMap];
               const isActive = pathname === link.href;
+              const isSaved = link.href === "/dashboard/saved";
               return (
                 <Link
                   key={link.href}
@@ -107,7 +120,12 @@ export function DashboardSidebar() {
                     <span className="absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 rounded-r-full bg-coral-500 transition-transform origin-center" />
                   )}
                   <Icon className={cn("h-4 w-4 shrink-0", isActive && "text-coral-400")} />
-                  {t(link.labelKey)}
+                  <span className="flex-1">{t(link.labelKey)}</span>
+                  {isSaved && savedCount !== null && savedCount > 0 && (
+                    <span className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-coral-500/20 px-1.5 text-xs font-semibold text-coral-400 tabular-nums">
+                      {savedCount > 99 ? "99+" : savedCount}
+                    </span>
+                  )}
                 </Link>
               );
             })}

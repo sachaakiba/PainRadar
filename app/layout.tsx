@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Syne, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 import { siteConfig } from "@/config/site";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const fontSans = Plus_Jakarta_Sans({
@@ -86,6 +87,7 @@ export default async function RootLayout({
         >
           {children}
           <Toaster position="bottom-right" richColors />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
