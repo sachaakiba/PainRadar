@@ -13,6 +13,7 @@ import { JsonLd } from "@/components/json-ld";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { absoluteUrl, getScoreBg } from "@/lib/utils";
 import { cn } from "@/lib/utils";
+import { locales } from "@/i18n/config";
 
 const slugToKey: Record<string, string> = {
   "invoicing-freelancers": "invoicingFreelancers",
@@ -53,7 +54,9 @@ function getScoreTextColor(score: number) {
 }
 
 export function generateStaticParams() {
-  return exampleAnalyses.map((e) => ({ slug: e.slug }));
+  return locales.flatMap((locale) =>
+    exampleAnalyses.map((e) => ({ locale, slug: e.slug }))
+  );
 }
 
 export async function generateMetadata({

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { AlertCircle, CheckCircle2, Users } from "lucide-react";
 import { useCases } from "@/config/use-cases";
+import { locales } from "@/i18n/config";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -12,7 +13,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { absoluteUrl } from "@/lib/utils";
 
 export function generateStaticParams() {
-  return useCases.map((u) => ({ slug: u.slug }));
+  return locales.flatMap((locale) => useCases.map((u) => ({ locale, slug: u.slug })));
 }
 
 export async function generateMetadata({

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Calendar, Clock } from "lucide-react";
 import { blogPosts } from "@/content/blog-posts";
+import { locales } from "@/i18n/config";
 import { markdownToHtml } from "@/lib/markdown";
 import { Button } from "@/components/ui/button";
 import { JsonLd } from "@/components/json-ld";
@@ -12,7 +13,7 @@ import { formatDate } from "@/lib/utils";
 import { absoluteUrl } from "@/lib/utils";
 
 export function generateStaticParams() {
-  return blogPosts.map((p) => ({ slug: p.slug }));
+  return locales.flatMap((locale) => blogPosts.map((p) => ({ locale, slug: p.slug })));
 }
 
 export async function generateMetadata({
