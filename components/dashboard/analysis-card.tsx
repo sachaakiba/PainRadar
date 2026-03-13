@@ -1,7 +1,8 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
-import { Bookmark } from "lucide-react";
+import { Bookmark, Loader2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn, formatDate, getScoreBg } from "@/lib/utils";
@@ -12,10 +13,15 @@ export interface AnalysisCardData {
   topic: string;
   opportunityScore: number;
   saved: boolean;
+  status?: string;
   createdAt: string | Date;
 }
 
 export function AnalysisCard({ analysis }: { analysis: AnalysisCardData }) {
+  const t = useTranslations("analysis");
+  const isGenerating = analysis.status === "generating";
+  const isFailed = analysis.status === "failed";
+
   return (
     <Link href={`/dashboard/analyses/${analysis.id}`} className="block">
       <Card className="card-hover group border-border/40 hover:border-coral-300/40 dark:hover:border-coral-500/30">
@@ -36,15 +42,26 @@ export function AnalysisCard({ analysis }: { analysis: AnalysisCardData }) {
               {formatDate(analysis.createdAt)}
             </p>
           </div>
-          <Badge
-            variant="secondary"
-            className={cn(
-              "w-fit text-sm font-bold tabular-nums",
-              getScoreBg(analysis.opportunityScore)
-            )}
-          >
-            {analysis.opportunityScore}
-          </Badge>
+          {isGenerating ? (
+            <Badge variant="secondary" className="w-fit gap-1.5 text-sm">
+              <Loader2 className="h-3 w-3 animate-spin" />
+              {t("statusGenerating")}
+            </Badge>
+          ) : isFailed ? (
+            <Badge variant="destructive" className="w-fit text-sm">
+              {t("failed")}
+            </Badge>
+          ) : (
+            <Badge
+              variant="secondary"
+              className={cn(
+                "w-fit text-sm font-bold tabular-nums",
+                getScoreBg(analysis.opportunityScore)
+              )}
+            >
+              {analysis.opportunityScore}
+            </Badge>
+          )}
         </CardContent>
       </Card>
     </Link>

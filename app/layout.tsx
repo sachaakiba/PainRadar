@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Syne, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { QueryProvider } from "@/components/query-provider";
 import { Toaster } from "sonner";
 import { siteConfig } from "@/config/site";
 import { Analytics } from "@vercel/analytics/next";
@@ -85,7 +86,9 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <QueryProvider>
+            {children}
+          </QueryProvider>
           <Toaster position="bottom-right" richColors />
           <Analytics />
         </ThemeProvider>
