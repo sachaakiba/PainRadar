@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "PainRadar - Discover Pain Points & SaaS Ideas",
-    "description": "Find real problems people complain about and turn them into SaaS ideas. Analyze discussions and reveal product opportunities."
+    "description": "Discover real problems people complain about — and turn them into SaaS ideas. Analyze discussions and reveal product opportunities."
   },
   "nav": {
     "features": "Features",
@@ -15,7 +15,7 @@
     "darkMode": "Dark mode"
   },
   "hero": {
-    "headline": "Find real problems people complain about — and turn them into SaaS ideas.",
+    "headline": "Discover real problems people complain about — and turn them into SaaS ideas.",
     "subheadline": "PainRadar analyzes discussions and reveals recurring pain points, product opportunities and SEO angles.",
     "cta": "Start discovering problems",
     "secondaryCta": "See example analysis",
