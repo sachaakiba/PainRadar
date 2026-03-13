@@ -347,7 +347,16 @@
     "noObjections": "Aucune objection identifiée.",
     "noRecurringPhrases": "Aucune expression récurrente identifiée.",
     "opportunityScore": "Score d'opportunité",
-    "painPointsTitle": "Points de douleur"
+    "painPointsTitle": "Points de douleur",
+    "generating": "Analyse en cours...",
+    "generatingTitle": "Analyse en cours",
+    "generatingDesc": "Nous analysons les discussions Reddit et identifions les points de douleur avec l'IA. Cela prend généralement 20 à 40 secondes.",
+    "generatingReddit": "Récupération des discussions Reddit...",
+    "generatingAI": "Analyse par IA en cours...",
+    "failed": "Échec de l'analyse",
+    "failedDesc": "Une erreur est survenue pendant l'analyse. Veuillez réessayer.",
+    "retry": "Relancer l'analyse",
+    "statusGenerating": "En cours..."
   },
   "features": {
     "pageTitle": "Fonctionnalités",

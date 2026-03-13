@@ -58,26 +58,51 @@ export async function PATCH(
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  const newSaved = body.saved ?? analysis.saved;
-  if (newSaved && !analysis.saved) {
-    const saveCheck = await checkSaveLimit(session.user.id);
-    if (!saveCheck.allowed) {
-      const user = await db.user.findUnique({
-        where: { id: session.user.id },
-        select: { locale: true },
-      });
-      const locale = (user?.locale as string) || "en";
-      const message = getPlanLimitError("save_limit", locale);
-      return NextResponse.json(
-        { error: message, code: "plan_limit_exceeded" },
-        { status: 403 }
-      );
+  const updateData: Record<string, unknown> = {};
+
+  if (body.status === "generating" && analysis.status === "failed") {
+    updateData.status = "generating";
+    updateData.summary = "";
+    updateData.opportunityScore = 0;
+    updateData.demandScore = 0;
+    updateData.urgencyScore = 0;
+    updateData.competitionScore = 0;
+    updateData.monetizationScore = 0;
+    updateData.recommendedMvp = null;
+    updateData.pricingSuggestion = null;
+    updateData.seoSummary = null;
+
+    await db.painPoint.deleteMany({ where: { analysisId: id } });
+    await db.productIdea.deleteMany({ where: { analysisId: id } });
+    await db.keywordIdea.deleteMany({ where: { analysisId: id } });
+    await db.objection.deleteMany({ where: { analysisId: id } });
+    await db.acquisitionChannel.deleteMany({ where: { analysisId: id } });
+    await db.recurringPhrase.deleteMany({ where: { analysisId: id } });
+  }
+
+  if (body.saved !== undefined) {
+    const newSaved = body.saved;
+    if (newSaved && !analysis.saved) {
+      const saveCheck = await checkSaveLimit(session.user.id);
+      if (!saveCheck.allowed) {
+        const user = await db.user.findUnique({
+          where: { id: session.user.id },
+          select: { locale: true },
+        });
+        const locale = (user?.locale as string) || "en";
+        const message = getPlanLimitError("save_limit", locale);
+        return NextResponse.json(
+          { error: message, code: "plan_limit_exceeded" },
+          { status: 403 }
+        );
+      }
     }
+    updateData.saved = newSaved;
   }
 
   const updated = await db.analysis.update({
     where: { id },
-    data: { saved: newSaved },
+    data: updateData,
   });
 
   return NextResponse.json({ analysis: updated });

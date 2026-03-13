@@ -81,6 +81,7 @@ model Analysis {
   query               String
   topic               String
   audience            String?
+  status              String   @default("completed")
   summary             String   @db.Text
   opportunityScore    Int      @default(0)
   demandScore         Int      @default(0)

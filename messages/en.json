@@ -347,7 +347,16 @@
     "noObjections": "No objections identified.",
     "noRecurringPhrases": "No recurring phrases identified.",
     "opportunityScore": "Opportunity Score",
-    "painPointsTitle": "Pain Points"
+    "painPointsTitle": "Pain Points",
+    "generating": "Analyzing...",
+    "generatingTitle": "Analysis in progress",
+    "generatingDesc": "We're scanning Reddit discussions and analyzing pain points with AI. This usually takes 20-40 seconds.",
+    "generatingReddit": "Fetching Reddit discussions...",
+    "generatingAI": "Analyzing with AI...",
+    "failed": "Analysis failed",
+    "failedDesc": "Something went wrong during the analysis. Please try again.",
+    "retry": "Retry analysis",
+    "statusGenerating": "Generating..."
   },
   "features": {
     "pageTitle": "Features",

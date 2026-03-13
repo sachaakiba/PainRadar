@@ -3,7 +3,6 @@
 import { db } from "@/lib/db";
 import { requireSession } from "@/lib/auth-server";
 import { analysisSchema } from "@/lib/validations";
-import { generateMockAnalysis } from "@/lib/mock-analysis";
 import {
   checkAnalysisLimit,
   checkSaveLimit,
@@ -57,76 +56,14 @@ export async function createAnalysis(formData: {
       };
     }
 
-    const user = await db.user.findUnique({
-      where: { id: session.user.id },
-      select: { locale: true },
-    });
-    const locale = (user?.locale as Locale) || "en";
-
-    const mock = generateMockAnalysis(query, topic, audience, locale);
-
     const analysis = await db.analysis.create({
       data: {
         userId: session.user.id,
         query,
         topic,
         audience: audience ?? null,
-        summary: mock.summary,
-        opportunityScore: mock.opportunityScore,
-        demandScore: mock.demandScore,
-        urgencyScore: mock.urgencyScore,
-        competitionScore: mock.competitionScore,
-        monetizationScore: mock.monetizationScore,
-        recommendedMvp: mock.recommendedMvp,
-        pricingSuggestion: mock.pricingSuggestion,
-        seoSummary: mock.seoSummary,
-        painPoints: {
-          create: mock.painPoints.map((p) => ({
-            text: p.text,
-            sourceName: p.sourceName,
-            sourceType: p.sourceType,
-            sourceUrl: p.sourceUrl,
-            authorHandle: p.authorHandle,
-            sentiment: p.sentiment,
-            frequency: p.frequency,
-            tags: p.tags,
-            audience: p.audience,
-            problemCategory: p.problemCategory,
-            severityScore: p.severityScore,
-          })),
-        },
-        productIdeas: {
-          create: mock.productIdeas.map((p) => ({
-            title: p.title,
-            description: p.description,
-            targetAudience: p.targetAudience,
-            monetizationModel: p.monetizationModel,
-            differentiation: p.differentiation,
-            mvpScope: p.mvpScope,
-          })),
-        },
-        keywordIdeas: {
-          create: mock.keywordIdeas.map((k) => ({
-            keyword: k.keyword,
-            intent: k.intent,
-            priority: k.priority,
-          })),
-        },
-        objections: {
-          create: mock.objections.map((o) => ({ text: o.text })),
-        },
-        acquisitionChannels: {
-          create: mock.acquisitionChannels.map((c) => ({
-            name: c.name,
-            rationale: c.rationale,
-          })),
-        },
-        recurringPhrases: {
-          create: mock.recurringPhrases.map((p) => ({
-            phrase: p.phrase,
-            frequency: p.frequency,
-          })),
-        },
+        status: "generating",
+        summary: "",
       },
     });
 
