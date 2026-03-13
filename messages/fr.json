@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "PainRadar - Découvrez les points de douleur et les idées SaaS",
-    "description": "Trouvez les vrais problèmes dont les gens se plaignent et transformez-les en idées SaaS. Analysez les discussions et révélez les opportunités produit."
+    "description": "Découvrez les vrais problèmes dont les gens se plaignent — et transformez-les en idées SaaS. Analysez les discussions et révélez les opportunités produit."
   },
   "nav": {
     "features": "Fonctionnalités",
@@ -15,7 +15,7 @@
     "darkMode": "Mode sombre"
   },
   "hero": {
-    "headline": "Trouvez les vrais problèmes dont les gens se plaignent — et transformez-les en idées SaaS.",
+    "headline": "Découvrez les vrais problèmes dont les gens se plaignent — et transformez-les en idées SaaS.",
     "subheadline": "PainRadar analyse les discussions et révèle les points de douleur récurrents, les opportunités produit et les angles SEO.",
     "cta": "Commencez à découvrir des problèmes",
     "secondaryCta": "Voir un exemple d'analyse",
