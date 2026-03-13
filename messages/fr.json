@@ -141,7 +141,7 @@
       "price": "39 €",
       "period": "/mois",
       "description": "Pour les équipes et les utilisateurs avancés.",
-      "features": ["Analyses illimitées", "Moteur de scoring avancé", "Insights concurrents (bientôt)", "Ciblage d'audience personnalisé", "Accès API (bientôt)", "Exports white-label", "Support dédié"],
+      "features": ["Analyses illimitées", "Prompt IA prêt à l'emploi par analyse", "Moteur de scoring avancé", "Insights concurrents (bientôt)", "Ciblage d'audience personnalisé", "Accès API (bientôt)", "Exports white-label", "Support dédié"],
       "cta": "Choisir Pro"
     },
     "faqTitle": "FAQ Tarifs",
@@ -273,7 +273,7 @@
     "upgradeToPro": "Passer à Pro — 39 $/mois",
     "manageSubscription": "Gérer l'abonnement",
     "upgradeSuccess": "Abonnement activé ! Bienvenue dans votre nouvelle offre.",
-    "upgradeCta": "Passer à Starter",
+    "upgradeCta": "Changer de plan",
     "viewPricing": "Voir les offres",
     "upgradeNow": "Passer à une offre",
     "upgradeConfirmTitle": "Passer à {plan}",
@@ -356,7 +356,16 @@
     "failed": "Échec de l'analyse",
     "failedDesc": "Une erreur est survenue pendant l'analyse. Veuillez réessayer.",
     "retry": "Relancer l'analyse",
-    "statusGenerating": "En cours..."
+    "statusGenerating": "En cours...",
+    "aiPromptTitle": "Prompt prêt pour l'IA",
+    "aiPromptDesc": "Copiez ce prompt et collez-le dans Cursor, Claude, ChatGPT ou n'importe quel assistant IA pour construire ce produit.",
+    "aiPromptReady": "Prêt à utiliser",
+    "aiPromptCopy": "Copier le prompt",
+    "aiPromptCopied": "Prompt copié dans le presse-papiers !",
+    "aiPromptExpand": "Voir le prompt complet",
+    "aiPromptCollapse": "Réduire",
+    "aiPromptHint": "Collez ce prompt dans Cursor, Claude, ChatGPT ou n'importe quel assistant IA pour commencer à construire.",
+    "aiPromptUpgradeDesc": "Passez au plan Pro pour obtenir un prompt IA prêt à l'emploi pour chaque analyse. Copiez-le dans Cursor, Claude ou ChatGPT pour commencer à construire votre produit instantanément."
   },
   "features": {
     "pageTitle": "Fonctionnalités",

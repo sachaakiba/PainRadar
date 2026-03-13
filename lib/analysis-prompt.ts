@@ -1,6 +1,6 @@
 type Locale = "en" | "fr";
 
-const SYSTEM_PROMPTS: Record<Locale, string> = {
+const BASE_SYSTEM_PROMPTS: Record<Locale, string> = {
   en: `You are an expert SaaS market analyst specializing in pain point discovery and opportunity scoring.
 
 Your task is to analyze real Reddit discussions about a topic/niche and produce a comprehensive market analysis.
@@ -30,12 +30,50 @@ RÈGLES IMPORTANTES :
 - Les authorHandle doivent être les vrais noms d'utilisateurs Reddit.`,
 };
 
+const AI_PROMPT_INSTRUCTIONS: Record<Locale, string> = {
+  en: `
+
+AI PROMPT GENERATION:
+For the "aiPrompt" field, generate a comprehensive, self-contained prompt that someone can paste directly into an AI coding assistant (Cursor, Claude, ChatGPT) to build the best product idea from your analysis. The prompt should:
+- Start with the product name/concept and a compelling 2-sentence pitch
+- Include validated market context (opportunity score, key data points)
+- List the top 5 pain points ranked by severity with actionable feature mappings
+- Define the MVP scope with specific features and user flows
+- Specify the pricing strategy with concrete tiers
+- List objections to address in the UX and marketing copy
+- Include SEO keywords and acquisition channels
+- End with clear technical instructions: use Next.js 15 (App Router), TypeScript, Tailwind CSS, PostgreSQL + Prisma, Stripe for payments, email+Google OAuth auth
+- The prompt must be written in English and be self-contained (someone with zero context should understand exactly what to build and why)
+- Format it with markdown headers (##) for readability`,
+
+  fr: `
+
+GÉNÉRATION DU PROMPT IA :
+Pour le champ "aiPrompt", génère un prompt complet et autonome qu'on peut coller directement dans un assistant IA de code (Cursor, Claude, ChatGPT) pour construire la meilleure idée de produit issue de ton analyse. Le prompt doit :
+- Commencer par le nom/concept du produit et un pitch de 2 phrases
+- Inclure le contexte marché validé (score d'opportunité, données clés)
+- Lister les 5 points de douleur prioritaires classés par sévérité avec des fonctionnalités correspondantes
+- Définir le périmètre MVP avec des fonctionnalités et parcours utilisateurs spécifiques
+- Spécifier la stratégie tarifaire avec des paliers concrets
+- Lister les objections à adresser dans l'UX et le copywriting
+- Inclure les mots-clés SEO et les canaux d'acquisition
+- Terminer avec des instructions techniques claires : utiliser Next.js 15 (App Router), TypeScript, Tailwind CSS, PostgreSQL + Prisma, Stripe pour les paiements, authentification email + Google OAuth
+- Le prompt doit être rédigé en français et autonome (quelqu'un sans contexte doit comprendre exactement quoi construire et pourquoi)
+- Le formater avec des titres markdown (##) pour la lisibilité`,
+};
+
 export function buildAnalysisPrompt(
   topic: string,
   audience: string | undefined,
   locale: Locale,
-  redditData: string
+  redditData: string,
+  includeAiPrompt: boolean = false
 ): { system: string; user: string } {
+  let system = BASE_SYSTEM_PROMPTS[locale];
+  if (includeAiPrompt) {
+    system += AI_PROMPT_INSTRUCTIONS[locale];
+  }
+
   const audienceContext = audience
     ? locale === "fr"
       ? `L'audience cible est : ${audience}.`
@@ -66,7 +104,7 @@ ${redditData}
 Produce a comprehensive market analysis based on this real data. Identify actual pain points expressed by users, evaluate the opportunity, and generate concrete product ideas.`;
 
   return {
-    system: SYSTEM_PROMPTS[locale],
+    system,
     user: userPrompt,
   };
 }

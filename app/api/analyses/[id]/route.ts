@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth-server";
 import { db } from "@/lib/db";
 import { checkSaveLimit, getPlanLimitError } from "@/lib/plan-guard";
+import { getPlanLimits } from "@/lib/plans";
+import type { PlanId } from "@/types";
 
 export const dynamic = "force-dynamic";
 
@@ -33,6 +35,16 @@ export async function GET(
 
   if (!analysis) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
+
+  const user = await db.user.findUnique({
+    where: { id: session.user.id },
+    select: { plan: true },
+  });
+  const { canGenerateAiPrompt } = getPlanLimits((user?.plan as PlanId) || "free");
+
+  if (!canGenerateAiPrompt) {
+    analysis.aiPrompt = null;
   }
 
   return NextResponse.json({ analysis });
@@ -71,6 +83,7 @@ export async function PATCH(
     updateData.recommendedMvp = null;
     updateData.pricingSuggestion = null;
     updateData.seoSummary = null;
+    updateData.aiPrompt = null;
 
     await db.painPoint.deleteMany({ where: { analysisId: id } });
     await db.productIdea.deleteMany({ where: { analysisId: id } });

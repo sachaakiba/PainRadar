@@ -242,26 +242,29 @@ export default function SettingsPage() {
                   <span className="text-sm text-muted-foreground">{planDesc}</span>
                 </div>
 
-                {userPlan === "free" ? (
-                  <Button
-                    onClick={() => router.push("/pricing")}
-                    className="w-fit"
-                  >
-                    {t("upgradeCta")}
-                  </Button>
-                ) : (
-                  <Button
-                    variant="outline"
-                    onClick={handleManageSubscription}
-                    disabled={isPortalPending}
-                    className="w-fit"
-                  >
-                    {isPortalPending ? (
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    ) : null}
-                    {t("manageSubscription")}
-                  </Button>
-                )}
+                <div className="flex flex-wrap items-center gap-3">
+                  {userPlan !== "pro" && (
+                    <Button
+                      onClick={() => router.push("/pricing")}
+                      className="w-fit"
+                    >
+                      {t("upgradeCta")}
+                    </Button>
+                  )}
+                  {userPlan !== "free" && (
+                    <Button
+                      variant="outline"
+                      onClick={handleManageSubscription}
+                      disabled={isPortalPending}
+                      className="w-fit"
+                    >
+                      {isPortalPending ? (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      ) : null}
+                      {t("manageSubscription")}
+                    </Button>
+                  )}
+                </div>
               </>
             )}
           </CardContent>

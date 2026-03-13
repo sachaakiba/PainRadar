@@ -15,6 +15,8 @@ import {
   Search,
   Brain,
   CheckCircle2,
+  Sparkles,
+  Lock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,6 +32,7 @@ import { ScoreBreakdown } from "@/components/dashboard/score-breakdown";
 import { PainPointList } from "@/components/dashboard/pain-point-list";
 import { CopyButton } from "@/components/dashboard/copy-button";
 import { ExportMenu } from "@/components/dashboard/export-menu";
+import { AiPromptCard } from "@/components/dashboard/ai-prompt-card";
 import { absoluteUrl, formatDate, getScoreBg } from "@/lib/utils";
 import { toast } from "sonner";
 import { getUserPlan } from "@/actions/user";
@@ -91,6 +94,7 @@ interface Analysis {
   recommendedMvp?: string | null;
   pricingSuggestion?: string | null;
   seoSummary?: string | null;
+  aiPrompt?: string | null;
   saved: boolean;
   createdAt: string;
   painPoints: PainPoint[];
@@ -111,6 +115,7 @@ interface DisplayData {
   recommendedMvp: string | null;
   pricingSuggestion: string | null;
   seoSummary: string | null;
+  aiPrompt: string | null;
   painPoints: PainPoint[];
   productIdeas: ProductIdea[];
   keywordIdeas: KeywordIdea[];
@@ -137,6 +142,7 @@ function mapStreamedToDisplay(obj: Partial<AnalysisOutput>): DisplayData {
     recommendedMvp: obj.recommendedMvp ?? null,
     pricingSuggestion: obj.pricingSuggestion ?? null,
     seoSummary: obj.seoSummary ?? null,
+    aiPrompt: obj.aiPrompt ?? null,
     painPoints: (obj.painPoints ?? [])
       .filter((p) => p?.text)
       .map((p, i) => ({
@@ -306,6 +312,7 @@ export default function AnalysisDetailPage() {
   const id = params.id as string;
   const [saving, setSaving] = useState(false);
   const [canExport, setCanExport] = useState(false);
+  const [canGenerateAiPrompt, setCanGenerateAiPrompt] = useState(false);
   const [streamStarted, setStreamStarted] = useState(false);
 
   const {
@@ -354,6 +361,7 @@ export default function AnalysisDetailPage() {
     getUserPlan().then((plan) => {
       const limits = getPlanLimits(plan);
       setCanExport(limits.canExport);
+      setCanGenerateAiPrompt(limits.canGenerateAiPrompt);
     });
   }, []);
 
@@ -433,6 +441,7 @@ export default function AnalysisDetailPage() {
           recommendedMvp: analysis.recommendedMvp ?? null,
           pricingSuggestion: analysis.pricingSuggestion ?? null,
           seoSummary: analysis.seoSummary ?? null,
+          aiPrompt: analysis.aiPrompt ?? null,
         };
 
   const scoresReady = displayData.opportunityScore > 0;
@@ -830,6 +839,39 @@ export default function AnalysisDetailPage() {
               </div>
             </TabsContent>
           </Tabs>
+        </RevealSection>
+      )}
+
+      {/* AI-Ready Prompt — Pro only */}
+      {isCompleted && (
+        <RevealSection visible>
+          {canGenerateAiPrompt && displayData.aiPrompt ? (
+            <AiPromptCard prompt={displayData.aiPrompt} />
+          ) : (
+            <Card className="relative overflow-hidden border-2 border-dashed border-violet-300 dark:border-violet-800 bg-gradient-to-r from-violet-500/5 via-fuchsia-500/5 to-amber-500/5">
+              <CardContent className="flex flex-col items-center gap-4 py-10">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 text-violet-500">
+                  <div className="relative">
+                    <Sparkles className="h-6 w-6" />
+                    <Lock className="h-3 w-3 absolute -bottom-1 -right-1 text-violet-700 dark:text-violet-300" />
+                  </div>
+                </div>
+                <div className="text-center space-y-1.5">
+                  <h3 className="font-semibold text-foreground">{t("aiPromptTitle")}</h3>
+                  <p className="text-sm text-muted-foreground max-w-md">
+                    {t("aiPromptUpgradeDesc")}
+                  </p>
+                </div>
+                <Button
+                  size="sm"
+                  className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-white"
+                  onClick={() => router.push("/dashboard/settings")}
+                >
+                  {tDashboard("upgradeNow")}
+                </Button>
+              </CardContent>
+            </Card>
+          )}
         </RevealSection>
       )}
 
