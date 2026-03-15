@@ -52,16 +52,17 @@ export async function POST(
   const role = (user?.role as Role) || "USER";
   const { canGenerateAiPrompt } = getPlanLimits(plan);
 
-  if (role !== "SUPER_ADMIN") {
+  if (!canGenerateAiPrompt && role !== "SUPER_ADMIN") {
     return NextResponse.json(
-      { error: "Only SUPER_ADMIN can regenerate AI prompts." },
+      { error: "AI prompt generation is available on Hobbyist and Founder packs." },
       { status: 403 }
     );
   }
 
-  if (!canGenerateAiPrompt) {
+  const MAX_PROMPT_GENERATIONS = 3;
+  if (role !== "SUPER_ADMIN" && analysis.aiPromptCount >= MAX_PROMPT_GENERATIONS) {
     return NextResponse.json(
-      { error: "Upgrade to Pro to regenerate the AI prompt." },
+      { error: "Maximum prompt generations reached for this analysis." },
       { status: 403 }
     );
   }
@@ -155,12 +156,13 @@ Constraints:
 
     const aiPrompt = result.object.aiPrompt.trim();
 
-    await db.analysis.update({
+    const updated = await db.analysis.update({
       where: { id },
-      data: { aiPrompt },
+      data: { aiPrompt, aiPromptCount: { increment: 1 } },
+      select: { aiPromptCount: true },
     });
 
-    return NextResponse.json({ aiPrompt });
+    return NextResponse.json({ aiPrompt, aiPromptCount: updated.aiPromptCount });
   } catch {
     return NextResponse.json(
       { error: "Failed to regenerate AI prompt." },

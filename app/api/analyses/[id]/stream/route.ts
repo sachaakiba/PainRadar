@@ -6,6 +6,7 @@ import { analysisOutputSchema, analysisOutputWithPromptSchema } from "@/lib/anal
 import { buildAnalysisPrompt } from "@/lib/analysis-prompt";
 import { fetchRedditPosts, formatRedditDataForPrompt } from "@/lib/reddit";
 import { getPlanLimits } from "@/lib/plans";
+import { consumeCredit } from "@/lib/plan-guard";
 import type { PlanId } from "@/types";
 
 export const maxDuration = 120;
@@ -165,6 +166,8 @@ export async function POST(
             });
           }
         });
+
+        await consumeCredit(session.user.id);
       } catch {
         await db.analysis.update({
           where: { id },

@@ -14,24 +14,26 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import type { PlanId } from "@/types";
 
 const planKeys = [
   { key: "free" as const, highlighted: false, accent: "border-t-teal-400" },
-  { key: "starter" as const, highlighted: true, accent: "border-t-coral-500" },
-  { key: "pro" as const, highlighted: false, accent: "border-t-amber-400" },
+  { key: "single" as const, highlighted: false, accent: "border-t-violet-400" },
+  { key: "hobbyist" as const, highlighted: true, accent: "border-t-coral-500" },
+  { key: "founder" as const, highlighted: false, accent: "border-t-amber-400" },
 ] as const;
+
+type PricingPackKey = (typeof planKeys)[number]["key"];
 
 export function PricingSection() {
   const t = useTranslations("pricing");
   const tDashboard = useTranslations("dashboard");
   const router = useRouter();
   const { data: session, isPending: isSessionLoading } = useSession();
-  const [pendingPlan, setPendingPlan] = useState<PlanId | null>(null);
+  const [pendingPlan, setPendingPlan] = useState<PricingPackKey | null>(null);
 
   const isLoggedIn = !!session?.user;
 
-  async function handleCtaClick(key: (typeof planKeys)[number]["key"]) {
+  async function handleCtaClick(key: PricingPackKey) {
     if (isSessionLoading) return;
 
     if (key === "free") {
@@ -43,7 +45,7 @@ export function PricingSection() {
       return;
     }
 
-    if (key === "starter" || key === "pro") {
+    if (key === "single" || key === "hobbyist" || key === "founder") {
       if (!isLoggedIn) {
         router.push("/signin");
         return;
@@ -79,94 +81,111 @@ export function PricingSection() {
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">{t("subtitle")}</p>
         </div>
-        <div className="mx-auto mt-16 grid max-w-5xl gap-8 md:grid-cols-3">
-          {planKeys.map(({ key, highlighted, accent }) => (
-            <Card
-              key={key}
-              className={cn(
-                "card-hover relative flex flex-col border-t-4",
-                accent,
-                highlighted
-                  ? "shadow-card-lg ring-2 ring-coral-500/20"
-                  : "shadow-card-sm",
-              )}
-            >
-              {highlighted && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                  <span className="rounded-pill bg-coral-500 px-4 py-1 text-xs font-bold text-white tracking-wide">
-                    {t("mostPopular")}
-                  </span>
-                </div>
-              )}
-              <CardHeader className="pb-4 pt-6">
-                <h3 className="font-display text-xl font-bold text-foreground">
-                  {t(`${key}.name`)}
-                </h3>
-                <div className="flex items-baseline gap-1 mt-2">
-                  <span className="stat-number text-foreground">
-                    {t(`${key}.price`)}
-                  </span>
-                  <span className="text-sm text-muted-foreground">
-                    {t(`${key}.period`)}
-                  </span>
-                </div>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {t(`${key}.description`)}
-                </p>
-              </CardHeader>
-              <CardContent className="flex-1">
-                <ul className="space-y-3">
-                  {(t.raw(`${key}.features`) as string[]).map((feature) => {
-                    const isAiFeature = /\bAI\b|prompt\s*IA/i.test(feature);
-                    return (
-                      <li
-                        key={feature}
-                        className={cn(
-                          "flex items-center gap-3 text-sm",
-                          isAiFeature && "rounded-lg bg-coral-50 dark:bg-coral-950/20 px-3 py-2 -mx-3"
-                        )}
-                      >
-                        <div className={cn(
-                          "flex h-5 w-5 shrink-0 items-center justify-center rounded-full",
-                          isAiFeature
-                            ? "bg-coral-100 dark:bg-coral-900/30"
-                            : "bg-teal-100 dark:bg-teal-900/30"
-                        )}>
-                          {isAiFeature ? (
-                            <Sparkles className="h-3 w-3 text-coral-600 dark:text-coral-400" />
-                          ) : (
-                            <Check className="h-3 w-3 text-teal-600 dark:text-teal-400" />
+        <div className="mx-auto mt-14 grid max-w-5xl gap-6 md:grid-cols-2">
+          {planKeys.map(({ key, highlighted, accent }) => {
+            const badge = t(`${key}.badge`);
+            return (
+              <Card
+                key={key}
+                className={cn(
+                  "card-hover relative flex h-full flex-col border-t-4",
+                  accent,
+                  highlighted
+                    ? "shadow-card-lg ring-2 ring-coral-500/30 bg-coral-500/[0.04]"
+                    : "shadow-card-sm bg-card/90",
+                )}
+              >
+                {highlighted && (
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                    <span className="rounded-pill bg-coral-500 px-4 py-1 text-[11px] font-bold text-white tracking-wide">
+                      {t("mostPopular")}
+                    </span>
+                  </div>
+                )}
+                <CardHeader className="pb-5 pt-6">
+                  <h3 className="font-display text-[22px] leading-tight font-bold text-foreground">
+                    {t(`${key}.name`)}
+                  </h3>
+                  <div className="mt-3 flex items-end gap-2">
+                    <span className="font-display text-5xl leading-none text-foreground">
+                      {t(`${key}.price`)}
+                    </span>
+                    {badge && (
+                      <span className="rounded-full border border-border/60 bg-secondary/50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                        {badge}
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {t(`${key}.description`)}
+                  </p>
+                </CardHeader>
+                <CardContent className="flex-1">
+                  <ul className="space-y-2.5">
+                    {(t.raw(`${key}.features`) as string[]).map((feature) => {
+                      const isAiFeature = /\bAI\b|prompt\s*IA/i.test(feature);
+                      return (
+                        <li
+                          key={feature}
+                          className={cn(
+                            "flex items-start gap-3 rounded-lg px-2 py-1.5 text-sm leading-snug",
+                            isAiFeature && "bg-coral-500/10",
                           )}
-                        </div>
-                        <span className={cn(
-                          isAiFeature
-                            ? "font-semibold text-coral-700 dark:text-coral-300"
-                            : "text-muted-foreground"
-                        )}>
-                          {feature}
-                        </span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </CardContent>
-              <CardFooter className="pt-4">
-                <Button
-                  variant={highlighted ? "default" : "outline"}
-                  className="w-full"
-                  size="lg"
-                  onClick={() => handleCtaClick(key)}
-                  disabled={isSessionLoading || !!pendingPlan}
-                >
-                  {(isSessionLoading && key !== "free") ||
-                  pendingPlan === key ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : null}
-                  {t(`${key}.cta`)}
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
+                        >
+                          <div
+                            className={cn(
+                              "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full",
+                              isAiFeature
+                                ? "bg-coral-500/20"
+                                : "bg-teal-500/20",
+                            )}
+                          >
+                            {isAiFeature ? (
+                              <Sparkles className="h-3 w-3 text-coral-300" />
+                            ) : (
+                              <Check className="h-3 w-3 text-teal-300" />
+                            )}
+                          </div>
+                          <span
+                            className={cn(
+                              isAiFeature
+                                ? "font-semibold text-coral-100"
+                                : "text-foreground/90",
+                            )}
+                          >
+                            {feature}
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </CardContent>
+                <CardFooter className="pt-5">
+                  <Button
+                    variant={highlighted ? "default" : "outline"}
+                    className={cn(
+                      "w-full text-base",
+                      !highlighted &&
+                        "border-border/70 bg-transparent hover:bg-secondary/40",
+                    )}
+                    size="lg"
+                    onClick={() => handleCtaClick(key)}
+                    disabled={
+                      isSessionLoading ||
+                      !!pendingPlan ||
+                      (!!session?.user && key === "free")
+                    }
+                  >
+                    {(isSessionLoading && key !== "free") ||
+                    pendingPlan === key ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : null}
+                    {t(`${key}.cta`)}
+                  </Button>
+                </CardFooter>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </section>

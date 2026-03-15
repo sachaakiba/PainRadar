@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth-server";
 import { db } from "@/lib/db";
 import { analysisSchema } from "@/lib/validations";
-import { checkAnalysisLimit, getPlanLimitError, type PlanLimitErrorType } from "@/lib/plan-guard";
+import { checkCredits, getPlanLimitError, type PlanLimitErrorType } from "@/lib/plan-guard";
 
 export const dynamic = "force-dynamic";
 
@@ -52,16 +52,16 @@ export async function POST(request: Request) {
 
   const { query, topic, audience } = parsed.data;
 
-  const limitCheck = await checkAnalysisLimit(session.user.id);
-  if (!limitCheck.allowed) {
+  const creditCheck = await checkCredits(session.user.id);
+  if (!creditCheck.allowed) {
     const user = await db.user.findUnique({
       where: { id: session.user.id },
       select: { locale: true },
     });
     const locale = (user?.locale as string) || "en";
-    const message = getPlanLimitError(limitCheck.error as PlanLimitErrorType, locale);
+    const message = getPlanLimitError(creditCheck.error as PlanLimitErrorType, locale);
     return NextResponse.json(
-      { error: message, code: "plan_limit_exceeded" },
+      { error: message, code: "no_credits" },
       { status: 403 }
     );
   }

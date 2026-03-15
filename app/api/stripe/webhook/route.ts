@@ -3,12 +3,19 @@ import Stripe from "stripe";
 import { stripe } from "@/lib/stripe";
 import { db } from "@/lib/db";
 import { sendErrorAlert } from "@/lib/error-alert";
+import { PACK_CREDITS } from "@/config/pricing";
+import { normalizePlan } from "@/lib/plan-guard";
 import type { PlanId } from "@/types";
 
-function planFromPriceId(priceId: string): PlanId {
-  if (priceId === process.env.STRIPE_STARTER_PRICE_ID) return "starter";
-  if (priceId === process.env.STRIPE_PRO_PRICE_ID) return "pro";
-  return "free";
+const TIER_RANK: Record<PlanId, number> = { free: 0, hobbyist: 1, founder: 2 };
+
+type PackId = "single" | "hobbyist" | "founder";
+
+function packFromPriceId(priceId: string): PackId | null {
+  if (priceId === process.env.STRIPE_SINGLE_PRICE_ID) return "single";
+  if (priceId === process.env.STRIPE_HOBBYIST_PRICE_ID) return "hobbyist";
+  if (priceId === process.env.STRIPE_FOUNDER_PRICE_ID) return "founder";
+  return null;
 }
 
 export async function POST(request: Request) {
@@ -37,7 +44,6 @@ export async function POST(request: Request) {
   let userId: string | undefined;
   let customerId: string | undefined;
   let priceId: string | undefined;
-  let subscriptionId: string | undefined;
 
   try {
     switch (event.type) {
@@ -45,76 +51,50 @@ export async function POST(request: Request) {
         const session = event.data.object as Stripe.Checkout.Session;
         userId = session.metadata?.userId;
         customerId = session.customer as string;
-        subscriptionId =
-          typeof session.subscription === "string"
-            ? session.subscription
-            : session.subscription?.id;
 
-        if (!userId || !subscriptionId) {
-          console.error("checkout.session.completed missing userId or subscriptionId");
+        if (!userId) {
+          console.error("checkout.session.completed missing userId");
           break;
         }
 
-        const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-        priceId = subscription.items.data[0]?.price?.id;
-        const plan = priceId ? planFromPriceId(priceId) : "free";
+        const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
+        priceId = lineItems.data[0]?.price?.id;
+
+        if (!priceId) {
+          console.error("checkout.session.completed missing priceId");
+          break;
+        }
+
+        const packId = session.metadata?.packId as PackId | undefined
+          ?? packFromPriceId(priceId);
+
+        if (!packId || !(packId in PACK_CREDITS)) {
+          console.error("checkout.session.completed unknown pack:", packId);
+          break;
+        }
+
+        const currentUser = await db.user.findUnique({
+          where: { id: userId },
+          select: { plan: true },
+        });
+
+        const currentPlan = normalizePlan(currentUser?.plan ?? null);
+        const targetPlan: PlanId = packId === "founder" ? "founder" : "hobbyist";
+        const newPlan =
+          TIER_RANK[targetPlan] >= TIER_RANK[currentPlan] ? targetPlan : currentPlan;
 
         await db.user.update({
           where: { id: userId },
           data: {
-            plan,
+            credits: { increment: PACK_CREDITS[packId] },
+            plan: newPlan,
             stripeCustomerId: customerId,
-            stripeSubscriptionId: subscriptionId,
-          },
-        });
-        break;
-      }
-
-      case "customer.subscription.updated": {
-        const subscription = event.data.object as Stripe.Subscription;
-        userId = subscription.metadata?.userId;
-        customerId = subscription.customer as string;
-        subscriptionId = subscription.id;
-        priceId = subscription.items.data[0]?.price?.id;
-        const plan = priceId ? planFromPriceId(priceId) : "free";
-
-        if (!userId) {
-          const existing = await db.user.findFirst({
-            where: { stripeSubscriptionId: subscriptionId },
-            select: { id: true },
-          });
-          if (!existing) break;
-          userId = existing.id;
-          await db.user.update({
-            where: { id: existing.id },
-            data: { plan, stripeSubscriptionId: subscriptionId },
-          });
-        } else {
-          await db.user.update({
-            where: { id: userId },
-            data: { plan, stripeSubscriptionId: subscriptionId },
-          });
-        }
-        break;
-      }
-
-      case "customer.subscription.deleted": {
-        const subscription = event.data.object as Stripe.Subscription;
-        subscriptionId = subscription.id;
-        customerId = subscription.customer as string;
-
-        await db.user.updateMany({
-          where: { stripeSubscriptionId: subscriptionId },
-          data: {
-            plan: "free",
-            stripeSubscriptionId: null,
           },
         });
         break;
       }
 
       default:
-        // Unhandled event type
         break;
     }
   } catch (err) {
@@ -129,7 +109,6 @@ export async function POST(request: Request) {
         userId,
         customerId,
         priceId,
-        subscriptionId,
       },
     });
     return NextResponse.json(

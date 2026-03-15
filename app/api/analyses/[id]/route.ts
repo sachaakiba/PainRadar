@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth-server";
 import { db } from "@/lib/db";
-import { checkSaveLimit, getPlanLimitError } from "@/lib/plan-guard";
 import { getPlanLimits } from "@/lib/plans";
 import type { PlanId } from "@/types";
 
@@ -94,23 +93,7 @@ export async function PATCH(
   }
 
   if (body.saved !== undefined) {
-    const newSaved = body.saved;
-    if (newSaved && !analysis.saved) {
-      const saveCheck = await checkSaveLimit(session.user.id);
-      if (!saveCheck.allowed) {
-        const user = await db.user.findUnique({
-          where: { id: session.user.id },
-          select: { locale: true },
-        });
-        const locale = (user?.locale as string) || "en";
-        const message = getPlanLimitError("save_limit", locale);
-        return NextResponse.json(
-          { error: message, code: "plan_limit_exceeded" },
-          { status: 403 }
-        );
-      }
-    }
-    updateData.saved = newSaved;
+    updateData.saved = body.saved;
   }
 
   const updated = await db.analysis.update({

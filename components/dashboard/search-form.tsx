@@ -62,11 +62,11 @@ export function SearchForm() {
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         const message = data.error ?? t("analysisError");
-        if (data.code === "plan_limit_exceeded") {
+        if (data.code === "no_credits") {
           toast.error(message, {
             action: {
               label: t("upgradeNow"),
-              onClick: () => router.push("/dashboard/settings"),
+              onClick: () => router.push("/pricing"),
             },
           });
           return;

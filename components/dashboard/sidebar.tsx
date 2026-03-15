@@ -15,8 +15,11 @@ import {
 import { signOut, useSession } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getUserPlan } from "@/actions/user";
 
 const iconMap = {
   LayoutDashboard,
@@ -38,6 +41,10 @@ export function DashboardSidebar() {
   const { data: session } = useSession();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [savedCount, setSavedCount] = useState<number | null>(null);
+  const { data: userPlan, isLoading: isUserPlanLoading } = useQuery({
+    queryKey: ["user-plan"],
+    queryFn: getUserPlan,
+  });
 
   useEffect(() => {
     fetch("/api/analyses?saved=true")
@@ -82,7 +89,7 @@ export function DashboardSidebar() {
         className={cn(
           "fixed left-0 top-0 z-40 flex h-screen w-60 flex-col bg-sidebar",
           "transition-transform duration-200 ease-in-out lg:translate-x-0",
-          mobileOpen ? "translate-x-0" : "-translate-x-full"
+          mobileOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
         <div className="flex flex-1 flex-col px-4 pt-16 pb-4 lg:pt-6">
@@ -113,13 +120,18 @@ export function DashboardSidebar() {
                     "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150",
                     isActive
                       ? "bg-coral-500/12 text-white"
-                      : "text-sidebar-foreground hover:bg-sidebar-hover hover:text-white"
+                      : "text-sidebar-foreground hover:bg-sidebar-hover hover:text-white",
                   )}
                 >
                   {isActive && (
                     <span className="absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 rounded-r-full bg-coral-500 transition-transform origin-center" />
                   )}
-                  <Icon className={cn("h-4 w-4 shrink-0", isActive && "text-coral-400")} />
+                  <Icon
+                    className={cn(
+                      "h-4 w-4 shrink-0",
+                      isActive && "text-coral-400",
+                    )}
+                  />
                   <span className="flex-1">{t(link.labelKey)}</span>
                   {isSaved && savedCount !== null && savedCount > 0 && (
                     <span className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-coral-500/20 px-1.5 text-xs font-semibold text-coral-400 tabular-nums">
@@ -130,6 +142,45 @@ export function DashboardSidebar() {
               );
             })}
           </nav>
+
+          <div className="mb-4 rounded-xl border border-white/10 bg-white/5 px-3 py-2.5">
+            <p className="text-[10px] uppercase tracking-wider text-sidebar-foreground">
+              {t("currentPlan")}
+            </p>
+            {isUserPlanLoading ? (
+              <div className="mt-2 space-y-2">
+                <Skeleton className="h-6 w-14 bg-white/10" />
+                <Skeleton className="h-4 w-28 bg-white/10" />
+                <Skeleton className="h-8 w-full bg-white/10" />
+              </div>
+            ) : (
+              <div className="mt-1 space-y-2">
+                <p className="text-sm font-semibold text-primary tabular-nums">
+                  {(userPlan?.credits ?? 0).toString()}
+                </p>
+                <p className="text-[11px] text-white/80">
+                  {userPlan?.plan === "free"
+                    ? t("planStatusFree")
+                    : t("planStatusPaid")}
+                </p>
+                <p className="text-xs text-sidebar-foreground">
+                  {userPlan?.credits && userPlan.credits > 0
+                    ? t("creditsRemaining", { count: userPlan.credits })
+                    : t("noCreditsLeft")}
+                </p>
+                <Button
+                  asChild
+                  size="sm"
+                  variant="outline"
+                  className="h-8 w-full border-white/20 bg-transparent text-white hover:bg-white/10"
+                >
+                  <Link href="/pricing" onClick={() => setMobileOpen(false)}>
+                    {t("addCredits")}
+                  </Link>
+                </Button>
+              </div>
+            )}
+          </div>
 
           <div className="space-y-3 pt-4 border-t border-white/8">
             <div className="flex items-center gap-3 px-3">

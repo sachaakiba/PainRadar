@@ -4,7 +4,7 @@ import { useEffect, useState, useRef, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/routing";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { experimental_useObject as useObject } from "@ai-sdk/react";
 import {
   ArrowLeft,
@@ -95,6 +95,7 @@ interface Analysis {
   pricingSuggestion?: string | null;
   seoSummary?: string | null;
   aiPrompt?: string | null;
+  aiPromptCount: number;
   saved: boolean;
   createdAt: string;
   painPoints: PainPoint[];
@@ -246,6 +247,34 @@ function RevealSection({ children, visible }: { children: React.ReactNode; visib
   );
 }
 
+function LockedOverlay({ t, tDashboard, router }: { t: (key: string) => string; tDashboard: (key: string) => string; router: ReturnType<typeof useRouter> }) {
+  return (
+    <Card className="relative overflow-hidden border-2 border-dashed border-amber-300 dark:border-amber-800 bg-gradient-to-r from-amber-500/5 via-coral-500/5 to-teal-500/5">
+      <CardContent className="flex flex-col items-center gap-4 py-10">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500/20 to-coral-500/20 text-amber-500">
+          <div className="relative">
+            <Sparkles className="h-6 w-6" />
+            <Lock className="h-3 w-3 absolute -bottom-1 -right-1 text-amber-700 dark:text-amber-300" />
+          </div>
+        </div>
+        <div className="text-center space-y-1.5">
+          <h3 className="font-semibold text-foreground">{t("lockedSectionTitle")}</h3>
+          <p className="text-sm text-muted-foreground max-w-md">
+            {t("lockedSectionDesc")}
+          </p>
+        </div>
+        <Button
+          size="sm"
+          className="bg-gradient-to-r from-amber-600 to-coral-600 hover:from-amber-700 hover:to-coral-700 text-white"
+          onClick={() => router.push("/pricing")}
+        >
+          {t("unlockNow")}
+        </Button>
+      </CardContent>
+    </Card>
+  );
+}
+
 function StreamProgress({ phase, t }: { phase: StreamPhase; t: (key: string) => string }) {
   const steps = [
     { key: "reddit" as const, icon: Search, label: t("generatingReddit") },
@@ -309,13 +338,16 @@ export default function AnalysisDetailPage() {
   const tDashboard = useTranslations("dashboard");
   const params = useParams();
   const router = useRouter();
+  const queryClient = useQueryClient();
   const id = params.id as string;
   const [saving, setSaving] = useState(false);
   const [regeneratingPrompt, setRegeneratingPrompt] = useState(false);
   const [canExport, setCanExport] = useState(false);
   const [canGenerateAiPrompt, setCanGenerateAiPrompt] = useState(false);
+  const [fullAnalysis, setFullAnalysis] = useState(false);
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const [streamStarted, setStreamStarted] = useState(false);
+  const creditsInvalidatedRef = useRef(false);
 
   const {
     data: analysis,
@@ -360,11 +392,19 @@ export default function AnalysisDetailPage() {
   }, [isStreaming, streamStarted, streamError, refetch]);
 
   useEffect(() => {
-    getUserPlan().then(({ plan, isSuperAdmin }) => {
+    if (analysis?.status === "completed" && streamStarted && !creditsInvalidatedRef.current) {
+      creditsInvalidatedRef.current = true;
+      queryClient.invalidateQueries({ queryKey: ["user-plan"] });
+    }
+  }, [analysis?.status, streamStarted, queryClient]);
+
+  useEffect(() => {
+    getUserPlan().then(({ plan, isSuperAdmin: isAdmin }) => {
       const limits = getPlanLimits(plan);
       setCanExport(limits.canExport);
       setCanGenerateAiPrompt(limits.canGenerateAiPrompt);
-      setIsSuperAdmin(isSuperAdmin);
+      setFullAnalysis(limits.fullAnalysis);
+      setIsSuperAdmin(isAdmin);
     });
   }, []);
 
@@ -404,16 +444,7 @@ export default function AnalysisDetailPage() {
         refetch();
       } else {
         const data = await res.json().catch(() => ({}));
-        if (data.code === "plan_limit_exceeded") {
-          toast.error(data.error ?? t("updateFailed"), {
-            action: {
-              label: tDashboard("upgradeNow"),
-              onClick: () => router.push("/dashboard/settings"),
-            },
-          });
-        } else {
-          toast.error(data?.error ?? t("updateFailed"));
-        }
+        toast.error(data?.error ?? t("updateFailed"));
       }
     } catch {
       toast.error(t("updateFailed"));
@@ -676,97 +707,109 @@ export default function AnalysisDetailPage() {
             </TabsContent>
 
             <TabsContent value="product-ideas" className="mt-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">{t("productIdeas")}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {displayData.productIdeas.length > 0 ? (
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      {displayData.productIdeas.map((idea: ProductIdea) => (
-                        <RevealSection key={idea.id} visible>
-                          <Card className="border-l-4 border-l-amber-400">
-                            <CardHeader className="pb-2">
-                              <CardTitle className="text-sm">{idea.title}</CardTitle>
-                              {idea.targetAudience && (
-                                <p className="label-sm">{t("target")}: {idea.targetAudience}</p>
-                              )}
-                            </CardHeader>
-                            <CardContent>
-                              <p className="text-sm text-muted-foreground">{idea.description}</p>
-                            </CardContent>
-                          </Card>
-                        </RevealSection>
-                      ))}
-                    </div>
-                  ) : isGenerating ? (
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      {[...Array(2)].map((_, i) => (
-                        <Skeleton key={i} className="h-32 w-full" />
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-sm text-muted-foreground">{t("noProductIdeas")}</p>
-                  )}
-                </CardContent>
-              </Card>
+              {!fullAnalysis && !isGenerating ? (
+                <LockedOverlay t={t} tDashboard={tDashboard} router={router} />
+              ) : (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-base">{t("productIdeas")}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {displayData.productIdeas.length > 0 ? (
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        {displayData.productIdeas.map((idea: ProductIdea) => (
+                          <RevealSection key={idea.id} visible>
+                            <Card className="border-l-4 border-l-amber-400">
+                              <CardHeader className="pb-2">
+                                <CardTitle className="text-sm">{idea.title}</CardTitle>
+                                {idea.targetAudience && (
+                                  <p className="label-sm">{t("target")}: {idea.targetAudience}</p>
+                                )}
+                              </CardHeader>
+                              <CardContent>
+                                <p className="text-sm text-muted-foreground">{idea.description}</p>
+                              </CardContent>
+                            </Card>
+                          </RevealSection>
+                        ))}
+                      </div>
+                    ) : isGenerating ? (
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        {[...Array(2)].map((_, i) => (
+                          <Skeleton key={i} className="h-32 w-full" />
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-muted-foreground">{t("noProductIdeas")}</p>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
             </TabsContent>
 
             <TabsContent value="keywords" className="mt-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">{t("seoKeywords")}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {displayData.keywordIdeas.length > 0 ? (
-                    <div className="flex flex-wrap gap-2">
-                      {displayData.keywordIdeas.map((kw: KeywordIdea) => (
-                        <Badge key={kw.id} variant="teal">{kw.keyword}</Badge>
-                      ))}
-                    </div>
-                  ) : isGenerating ? (
-                    <div className="flex flex-wrap gap-2">
-                      {[...Array(4)].map((_, i) => (
-                        <Skeleton key={i} className="h-6 w-24" />
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-sm text-muted-foreground">{t("noKeywords")}</p>
-                  )}
-                </CardContent>
-              </Card>
+              {!fullAnalysis && !isGenerating ? (
+                <LockedOverlay t={t} tDashboard={tDashboard} router={router} />
+              ) : (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-base">{t("seoKeywords")}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {displayData.keywordIdeas.length > 0 ? (
+                      <div className="flex flex-wrap gap-2">
+                        {displayData.keywordIdeas.map((kw: KeywordIdea) => (
+                          <Badge key={kw.id} variant="teal">{kw.keyword}</Badge>
+                        ))}
+                      </div>
+                    ) : isGenerating ? (
+                      <div className="flex flex-wrap gap-2">
+                        {[...Array(4)].map((_, i) => (
+                          <Skeleton key={i} className="h-6 w-24" />
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-muted-foreground">{t("noKeywords")}</p>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
             </TabsContent>
 
             <TabsContent value="channels" className="mt-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">{t("acquisitionChannels")}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {displayData.acquisitionChannels.length > 0 ? (
-                    <ul className="space-y-3">
-                      {displayData.acquisitionChannels.map((ch: AcquisitionChannel) => (
-                        <RevealSection key={ch.id} visible>
-                          <li className="rounded-xl bg-secondary/40 p-4">
-                            <span className="font-semibold text-foreground">{ch.name}</span>
-                            {ch.rationale && (
-                              <p className="mt-1 text-sm text-muted-foreground">{ch.rationale}</p>
-                            )}
-                          </li>
-                        </RevealSection>
-                      ))}
-                    </ul>
-                  ) : isGenerating ? (
-                    <div className="space-y-3">
-                      {[...Array(3)].map((_, i) => (
-                        <Skeleton key={i} className="h-16 w-full" />
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-sm text-muted-foreground">{t("noChannels")}</p>
-                  )}
-                </CardContent>
-              </Card>
+              {!fullAnalysis && !isGenerating ? (
+                <LockedOverlay t={t} tDashboard={tDashboard} router={router} />
+              ) : (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-base">{t("acquisitionChannels")}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {displayData.acquisitionChannels.length > 0 ? (
+                      <ul className="space-y-3">
+                        {displayData.acquisitionChannels.map((ch: AcquisitionChannel) => (
+                          <RevealSection key={ch.id} visible>
+                            <li className="rounded-xl bg-secondary/40 p-4">
+                              <span className="font-semibold text-foreground">{ch.name}</span>
+                              {ch.rationale && (
+                                <p className="mt-1 text-sm text-muted-foreground">{ch.rationale}</p>
+                              )}
+                            </li>
+                          </RevealSection>
+                        ))}
+                      </ul>
+                    ) : isGenerating ? (
+                      <div className="space-y-3">
+                        {[...Array(3)].map((_, i) => (
+                          <Skeleton key={i} className="h-16 w-full" />
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-muted-foreground">{t("noChannels")}</p>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
             </TabsContent>
 
             <TabsContent value="objections" className="mt-4">
@@ -825,43 +868,47 @@ export default function AnalysisDetailPage() {
             </TabsContent>
 
             <TabsContent value="mvp" className="mt-4">
-              <div className="space-y-4">
-                {displayData.recommendedMvp ? (
-                  <RevealSection visible>
-                    <Card className="border-l-4 border-l-teal-400">
-                      <CardHeader>
-                        <CardTitle className="text-base">{t("recommendedMvp")}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-sm leading-relaxed whitespace-pre-wrap">{displayData.recommendedMvp}</p>
+              {!fullAnalysis && !isGenerating ? (
+                <LockedOverlay t={t} tDashboard={tDashboard} router={router} />
+              ) : (
+                <div className="space-y-4">
+                  {displayData.recommendedMvp ? (
+                    <RevealSection visible>
+                      <Card className="border-l-4 border-l-teal-400">
+                        <CardHeader>
+                          <CardTitle className="text-base">{t("recommendedMvp")}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-sm leading-relaxed whitespace-pre-wrap">{displayData.recommendedMvp}</p>
+                        </CardContent>
+                      </Card>
+                    </RevealSection>
+                  ) : isGenerating ? (
+                    <Skeleton className="h-32 w-full" />
+                  ) : null}
+                  {displayData.pricingSuggestion ? (
+                    <RevealSection visible>
+                      <Card className="border-l-4 border-l-amber-400">
+                        <CardHeader>
+                          <CardTitle className="text-base">{t("pricingSuggestion")}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-sm leading-relaxed whitespace-pre-wrap">{displayData.pricingSuggestion}</p>
+                        </CardContent>
+                      </Card>
+                    </RevealSection>
+                  ) : isGenerating ? (
+                    <Skeleton className="h-32 w-full" />
+                  ) : null}
+                  {!displayData.recommendedMvp && !displayData.pricingSuggestion && !isGenerating && (
+                    <Card>
+                      <CardContent className="py-12 text-center text-muted-foreground">
+                        {t("noMvp")}
                       </CardContent>
                     </Card>
-                  </RevealSection>
-                ) : isGenerating ? (
-                  <Skeleton className="h-32 w-full" />
-                ) : null}
-                {displayData.pricingSuggestion ? (
-                  <RevealSection visible>
-                    <Card className="border-l-4 border-l-amber-400">
-                      <CardHeader>
-                        <CardTitle className="text-base">{t("pricingSuggestion")}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-sm leading-relaxed whitespace-pre-wrap">{displayData.pricingSuggestion}</p>
-                      </CardContent>
-                    </Card>
-                  </RevealSection>
-                ) : isGenerating ? (
-                  <Skeleton className="h-32 w-full" />
-                ) : null}
-                {!displayData.recommendedMvp && !displayData.pricingSuggestion && !isGenerating && (
-                  <Card>
-                    <CardContent className="py-12 text-center text-muted-foreground">
-                      {t("noMvp")}
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
+                  )}
+                </div>
+              )}
             </TabsContent>
           </Tabs>
         </RevealSection>
@@ -870,39 +917,60 @@ export default function AnalysisDetailPage() {
       {/* AI-Ready Prompt — Pro only */}
       {isCompleted && (
         <RevealSection visible>
-          {canGenerateAiPrompt ? (
-            <div className="space-y-3">
-              {isSuperAdmin && (
-                <div className="flex justify-end">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={handleRegeneratePrompt}
-                    disabled={regeneratingPrompt}
-                  >
-                    {regeneratingPrompt ? (
-                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    ) : (
-                      <RefreshCw className="h-4 w-4 mr-2" />
-                    )}
-                    {regeneratingPrompt
-                      ? t("aiPromptRegenerating")
-                      : t("aiPromptRegenerate")}
-                  </Button>
-                </div>
-              )}
+          {canGenerateAiPrompt ? (() => {
+            const MAX_PROMPT_GENERATIONS = 3;
+            const promptCount = analysis.aiPromptCount ?? 0;
+            const remaining = MAX_PROMPT_GENERATIONS - promptCount;
+            const canGenerate = isSuperAdmin || remaining > 0;
+            const showButton = canGenerate && (isSuperAdmin || !displayData.aiPrompt || remaining > 0);
 
-              {displayData.aiPrompt ? (
-                <AiPromptCard prompt={displayData.aiPrompt} />
-              ) : (
-                <Card>
-                  <CardContent className="py-8 text-center text-muted-foreground">
-                    {t("aiPromptEmptyDesc")}
-                  </CardContent>
-                </Card>
-              )}
-            </div>
-          ) : (
+            return (
+              <div className="space-y-3">
+                {showButton && (
+                  <div className="flex items-center justify-end">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={handleRegeneratePrompt}
+                      disabled={regeneratingPrompt}
+                    >
+                      {regeneratingPrompt ? (
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      ) : (
+                        <RefreshCw className="h-4 w-4 mr-2" />
+                      )}
+                      {regeneratingPrompt
+                        ? t("aiPromptRegenerating")
+                        : displayData.aiPrompt
+                          ? t("aiPromptRegenerate")
+                          : t("aiPromptGenerate")}
+                      {!isSuperAdmin && !regeneratingPrompt && (
+                        <Badge variant="secondary" className="ml-2 text-xs">
+                          {remaining}
+                        </Badge>
+                      )}
+                    </Button>
+                  </div>
+                )}
+
+                {displayData.aiPrompt ? (
+                  <AiPromptCard prompt={displayData.aiPrompt} />
+                ) : !canGenerate ? (
+                  <Card>
+                    <CardContent className="py-8 text-center text-muted-foreground">
+                      {t("aiPromptLimitReached")}
+                    </CardContent>
+                  </Card>
+                ) : (
+                  <Card>
+                    <CardContent className="py-8 text-center text-muted-foreground">
+                      {t("aiPromptEmptyNoPrompt")}
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            );
+          })() : (
             <Card className="relative overflow-hidden border-2 border-dashed border-violet-300 dark:border-violet-800 bg-gradient-to-r from-violet-500/5 via-fuchsia-500/5 to-amber-500/5">
               <CardContent className="flex flex-col items-center gap-4 py-10">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 text-violet-500">
