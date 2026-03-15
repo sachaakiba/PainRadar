@@ -86,6 +86,7 @@ export type RecurringPhraseData = {
 };
 
 export type PlanId = "free" | "starter" | "pro";
+export type Role = "USER" | "SUPER_ADMIN";
 
 export type PricingPlan = {
   name: string;

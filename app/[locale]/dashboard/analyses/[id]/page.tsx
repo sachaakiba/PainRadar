@@ -311,8 +311,10 @@ export default function AnalysisDetailPage() {
   const router = useRouter();
   const id = params.id as string;
   const [saving, setSaving] = useState(false);
+  const [regeneratingPrompt, setRegeneratingPrompt] = useState(false);
   const [canExport, setCanExport] = useState(false);
   const [canGenerateAiPrompt, setCanGenerateAiPrompt] = useState(false);
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const [streamStarted, setStreamStarted] = useState(false);
 
   const {
@@ -358,10 +360,11 @@ export default function AnalysisDetailPage() {
   }, [isStreaming, streamStarted, streamError, refetch]);
 
   useEffect(() => {
-    getUserPlan().then((plan) => {
+    getUserPlan().then(({ plan, isSuperAdmin }) => {
       const limits = getPlanLimits(plan);
       setCanExport(limits.canExport);
       setCanGenerateAiPrompt(limits.canGenerateAiPrompt);
+      setIsSuperAdmin(isSuperAdmin);
     });
   }, []);
 
@@ -416,6 +419,28 @@ export default function AnalysisDetailPage() {
       toast.error(t("updateFailed"));
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleRegeneratePrompt = async () => {
+    setRegeneratingPrompt(true);
+    try {
+      const res = await fetch(`/api/analyses/${id}/prompt`, {
+        method: "POST",
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        toast.error(data.error ?? t("aiPromptRegenerateFailed"));
+        return;
+      }
+
+      toast.success(t("aiPromptRegenerated"));
+      await refetch();
+    } catch {
+      toast.error(t("aiPromptRegenerateFailed"));
+    } finally {
+      setRegeneratingPrompt(false);
     }
   };
 
@@ -845,8 +870,38 @@ export default function AnalysisDetailPage() {
       {/* AI-Ready Prompt — Pro only */}
       {isCompleted && (
         <RevealSection visible>
-          {canGenerateAiPrompt && displayData.aiPrompt ? (
-            <AiPromptCard prompt={displayData.aiPrompt} />
+          {canGenerateAiPrompt ? (
+            <div className="space-y-3">
+              {isSuperAdmin && (
+                <div className="flex justify-end">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={handleRegeneratePrompt}
+                    disabled={regeneratingPrompt}
+                  >
+                    {regeneratingPrompt ? (
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    ) : (
+                      <RefreshCw className="h-4 w-4 mr-2" />
+                    )}
+                    {regeneratingPrompt
+                      ? t("aiPromptRegenerating")
+                      : t("aiPromptRegenerate")}
+                  </Button>
+                </div>
+              )}
+
+              {displayData.aiPrompt ? (
+                <AiPromptCard prompt={displayData.aiPrompt} />
+              ) : (
+                <Card>
+                  <CardContent className="py-8 text-center text-muted-foreground">
+                    {t("aiPromptEmptyDesc")}
+                  </CardContent>
+                </Card>
+              )}
+            </div>
           ) : (
             <Card className="relative overflow-hidden border-2 border-dashed border-violet-300 dark:border-violet-800 bg-gradient-to-r from-violet-500/5 via-fuchsia-500/5 to-amber-500/5">
               <CardContent className="flex flex-col items-center gap-4 py-10">

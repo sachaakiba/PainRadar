@@ -41,3 +41,5 @@ prisma/*.db
 .cursor
 .claude
 .env.local
+.env.prod
+/scripts

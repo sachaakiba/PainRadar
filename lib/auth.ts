@@ -67,7 +67,9 @@ export const auth = betterAuth({
   user: {
     additionalFields: {
       locale: { type: "string", required: false },
+      role: { type: "string", required: false },
       plan: { type: "string", required: false },
+      planManagedManually: { type: "boolean", required: false },
       stripeCustomerId: { type: "string", required: false },
       stripeSubscriptionId: { type: "string", required: false },
       planExpiresAt: { type: "date", required: false },
