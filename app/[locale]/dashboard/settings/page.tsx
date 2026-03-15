@@ -49,6 +49,7 @@ export default function SettingsPage() {
   const [isPending, startTransition] = useTransition();
   const [selectedLocale, setSelectedLocale] = useState(locale);
   const [userPlan, setUserPlan] = useState<PlanId | null>(null);
+  const [hideBillingUI, setHideBillingUI] = useState(false);
   const [isPortalPending, setIsPortalPending] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -58,10 +59,12 @@ export default function SettingsPage() {
 
   const fetchPlan = useCallback(async () => {
     try {
-      const plan = await getUserPlan();
+      const { plan, hideBillingUI: hide } = await getUserPlan();
       setUserPlan(plan);
+      setHideBillingUI(hide);
     } catch {
       setUserPlan("free");
+      setHideBillingUI(false);
     }
   }, []);
 
@@ -243,7 +246,7 @@ export default function SettingsPage() {
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3">
-                  {userPlan !== "pro" && (
+                  {userPlan !== "pro" && !hideBillingUI && (
                     <Button
                       onClick={() => router.push("/pricing")}
                       className="w-fit"
@@ -251,7 +254,7 @@ export default function SettingsPage() {
                       {t("upgradeCta")}
                     </Button>
                   )}
-                  {userPlan !== "free" && (
+                  {userPlan !== "free" && !hideBillingUI && (
                     <Button
                       variant="outline"
                       onClick={handleManageSubscription}

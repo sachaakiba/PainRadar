@@ -16,14 +16,8 @@ export const signInSchema = z.object({
 });
 
 export const analysisSchema = z.object({
-  query: z
-    .string()
-    .min(3, "Query must be at least 3 characters")
-    .max(200, "Query must be at most 200 characters"),
-  topic: z
-    .string()
-    .min(2, "Topic must be at least 2 characters")
-    .max(100, "Topic must be at most 100 characters"),
+  query: z.string().min(3, "Query must be at least 3 characters"),
+  topic: z.string().min(2, "Topic must be at least 2 characters"),
   audience: z.string().max(100).optional(),
 });
 
