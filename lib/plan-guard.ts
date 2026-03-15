@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import type { PlanId } from "@/types";
 
-const PLAN_IDS: PlanId[] = ["free", "hobbyist", "founder"];
+const PLAN_IDS: PlanId[] = ["free", "starter", "explorer", "founder"];
 
 export function normalizePlan(plan: string | null): PlanId {
   if (plan && PLAN_IDS.includes(plan as PlanId)) return plan as PlanId;

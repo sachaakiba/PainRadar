@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
 import { GoogleSignInButton } from "@/components/auth/google-button";
+import { PasswordInput } from "@/components/ui/password-input";
 
 export default function SignInPage() {
   const t = useTranslations("auth");
@@ -120,8 +121,7 @@ export default function SignInPage() {
                 <FormItem>
                   <FormLabel className="label-sm">{t("password")}</FormLabel>
                   <FormControl>
-                    <Input
-                      type="password"
+                    <PasswordInput
                       placeholder={t("passwordPlaceholder")}
                       autoComplete="current-password"
                       disabled={isSubmitting}

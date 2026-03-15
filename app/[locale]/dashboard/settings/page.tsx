@@ -110,22 +110,26 @@ export default function SettingsPage() {
   }
 
   const planLabel =
-    userPlan === "hobbyist"
-      ? t("hobbyistPlan")
-      : userPlan === "founder"
-        ? t("founderPlan")
-        : userPlan === "free"
-          ? t("freePlan")
-          : "";
+    userPlan === "starter"
+      ? t("starterPlan")
+      : userPlan === "explorer"
+        ? t("explorerPlan")
+        : userPlan === "founder"
+          ? t("founderPlan")
+          : userPlan === "free"
+            ? t("freePlan")
+            : "";
 
   const planDesc =
-    userPlan === "hobbyist"
-      ? t("hobbyistPlanDesc")
-      : userPlan === "founder"
-        ? t("founderPlanDesc")
-        : userPlan === "free"
-          ? t("freePlanDesc")
-          : "";
+    userPlan === "starter"
+      ? t("starterPlanDesc")
+      : userPlan === "explorer"
+        ? t("explorerPlanDesc")
+        : userPlan === "founder"
+          ? t("founderPlanDesc")
+          : userPlan === "free"
+            ? t("freePlanDesc")
+            : "";
 
   return (
     <div className="space-y-10">

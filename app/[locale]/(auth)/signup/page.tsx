@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/card";
 import { Loader2, Mail } from "lucide-react";
 import { GoogleSignInButton } from "@/components/auth/google-button";
+import { PasswordInput } from "@/components/ui/password-input";
 
 export default function SignUpPage() {
   const t = useTranslations("auth");
@@ -37,6 +38,7 @@ export default function SignUpPage() {
       name: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
@@ -197,9 +199,26 @@ export default function SignUpPage() {
                 <FormItem>
                   <FormLabel className="label-sm">{t("password")}</FormLabel>
                   <FormControl>
-                    <Input
-                      type="password"
+                    <PasswordInput
                       placeholder={t("passwordPlaceholder")}
+                      autoComplete="new-password"
+                      disabled={isSubmitting}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="label-sm">{t("confirmPassword")}</FormLabel>
+                  <FormControl>
+                    <PasswordInput
+                      placeholder={t("confirmPasswordPlaceholder")}
                       autoComplete="new-password"
                       disabled={isSubmitting}
                       {...field}
