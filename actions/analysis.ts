@@ -4,8 +4,7 @@ import { db } from "@/lib/db";
 import { requireSession } from "@/lib/auth-server";
 import { analysisSchema } from "@/lib/validations";
 import {
-  checkAnalysisLimit,
-  checkSaveLimit,
+  checkCredits,
   getPlanLimitError,
   type PlanLimitErrorType,
 } from "@/lib/plan-guard";
@@ -43,8 +42,8 @@ export async function createAnalysis(formData: {
     const { query, topic, audience } = parsed.data;
     const session = await requireSession();
 
-    const limitCheck = await checkAnalysisLimit(session.user.id);
-    if (!limitCheck.allowed) {
+    const creditCheck = await checkCredits(session.user.id);
+    if (!creditCheck.allowed) {
       const user = await db.user.findUnique({
         where: { id: session.user.id },
         select: { locale: true },
@@ -52,7 +51,7 @@ export async function createAnalysis(formData: {
       const locale = (user?.locale as Locale) || "en";
       return {
         success: false,
-        error: getPlanLimitError(limitCheck.error as PlanLimitErrorType, locale),
+        error: getPlanLimitError(creditCheck.error as PlanLimitErrorType, locale),
       };
     }
 
@@ -118,20 +117,6 @@ export async function toggleSaveAnalysis(
   });
   if (!analysis || analysis.userId !== session.user.id) {
     throw new Error("Analysis not found");
-  }
-  if (!analysis.saved) {
-    const saveCheck = await checkSaveLimit(session.user.id);
-    if (!saveCheck.allowed) {
-      const user = await db.user.findUnique({
-        where: { id: session.user.id },
-        select: { locale: true },
-      });
-      const locale = (user?.locale as Locale) || "en";
-      return {
-        success: false,
-        error: getPlanLimitError("save_limit", locale),
-      };
-    }
   }
   const updated = await db.analysis.update({
     where: { id },

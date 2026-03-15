@@ -22,6 +22,7 @@ model User {
   locale                String    @default("en")
   role                  Role      @default(USER)
   plan                  String    @default("free")
+  credits               Int       @default(2)
   planManagedManually   Boolean   @default(false)
   stripeCustomerId      String?   @unique
   stripeSubscriptionId  String?   @unique
@@ -99,6 +100,7 @@ model Analysis {
   pricingSuggestion   String?  @db.Text
   seoSummary          String?  @db.Text
   aiPrompt            String?  @db.Text
+  aiPromptCount       Int      @default(0)
   saved               Boolean  @default(false)
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt

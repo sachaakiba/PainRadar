@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition, useEffect, useCallback } from "react";
+import { useState, useTransition, useEffect, useRef } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/routing";
 import { useSearchParams } from "next/navigation";
@@ -8,7 +8,10 @@ import { useTheme } from "next-themes";
 import { useSession } from "@/lib/auth-client";
 import { updateUserLocale } from "@/actions/locale";
 import { getUserPlan } from "@/actions/user";
-import { saveLocaleToStorage, localeLabels } from "@/components/locale-switcher";
+import {
+  saveLocaleToStorage,
+  localeLabels,
+} from "@/components/locale-switcher";
 import { toast } from "sonner";
 import {
   Card,
@@ -31,6 +34,7 @@ import {
 import { Loader2, Sun, Moon, Monitor } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { PlanId } from "@/types";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const themeOptions = [
   { value: "light", icon: Sun },
@@ -44,41 +48,56 @@ export default function SettingsPage() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const queryClient = useQueryClient();
   const { theme, setTheme } = useTheme();
   const { data: session } = useSession();
   const [isPending, startTransition] = useTransition();
   const [selectedLocale, setSelectedLocale] = useState(locale);
-  const [userPlan, setUserPlan] = useState<PlanId | null>(null);
-  const [hideBillingUI, setHideBillingUI] = useState(false);
-  const [isPortalPending, setIsPortalPending] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const fetchPlan = useCallback(async () => {
-    try {
-      const { plan, hideBillingUI: hide } = await getUserPlan();
-      setUserPlan(plan);
-      setHideBillingUI(hide);
-    } catch {
-      setUserPlan("free");
-      setHideBillingUI(false);
-    }
+  const {
+    data: userPlanData,
+    isLoading: isPlanLoading,
+    refetch: refetchUserPlan,
+  } = useQuery({
+    queryKey: ["user-plan"],
+    queryFn: getUserPlan,
+  });
+
+  const successHandled = useRef(false);
+  const retryTimers = useRef<NodeJS.Timeout[]>([]);
+
+  useEffect(() => {
+    return () => {
+      retryTimers.current.forEach(clearTimeout);
+    };
   }, []);
 
   useEffect(() => {
-    fetchPlan();
-  }, [fetchPlan]);
+    if (searchParams.get("success") !== "true" || successHandled.current) return;
+    successHandled.current = true;
 
-  useEffect(() => {
-    if (searchParams.get("success") === "true") {
-      toast.success(t("upgradeSuccess"));
-      router.replace(pathname);
-      fetchPlan();
-    }
-  }, [searchParams, t, router, pathname, fetchPlan]);
+    toast.success(t("purchaseSuccess"));
+    router.replace(pathname);
+
+    const refreshCredits = () => {
+      queryClient.invalidateQueries({ queryKey: ["user-plan"] });
+      refetchUserPlan();
+    };
+
+    refreshCredits();
+    retryTimers.current.push(setTimeout(refreshCredits, 2000));
+    retryTimers.current.push(setTimeout(refreshCredits, 5000));
+    retryTimers.current.push(setTimeout(refreshCredits, 10000));
+  }, [searchParams, t, router, pathname, queryClient, refetchUserPlan]);
+
+  const userPlan: PlanId | null = userPlanData?.plan ?? null;
+  const credits: number | null = userPlanData?.credits ?? null;
+  const hideBillingUI = userPlanData?.hideBillingUI ?? false;
 
   function handleLocaleChange(newLocale: string) {
     setSelectedLocale(newLocale);
@@ -90,37 +109,20 @@ export default function SettingsPage() {
     });
   }
 
-  async function handleManageSubscription() {
-    setIsPortalPending(true);
-    try {
-      const res = await fetch("/api/stripe/portal", { method: "POST" });
-      const data = await res.json();
-      if (!res.ok || !data.url) {
-        toast.error(data.error ?? t("somethingWentWrong"));
-        return;
-      }
-      window.location.href = data.url;
-    } catch {
-      toast.error(t("somethingWentWrong"));
-    } finally {
-      setIsPortalPending(false);
-    }
-  }
-
   const planLabel =
-    userPlan === "starter"
-      ? t("starterPlan")
-      : userPlan === "pro"
-        ? t("proPlan")
+    userPlan === "hobbyist"
+      ? t("hobbyistPlan")
+      : userPlan === "founder"
+        ? t("founderPlan")
         : userPlan === "free"
           ? t("freePlan")
           : "";
 
   const planDesc =
-    userPlan === "starter"
-      ? t("starterPlanDesc")
-      : userPlan === "pro"
-        ? t("proPlanDesc")
+    userPlan === "hobbyist"
+      ? t("hobbyistPlanDesc")
+      : userPlan === "founder"
+        ? t("founderPlanDesc")
         : userPlan === "free"
           ? t("freePlanDesc")
           : "";
@@ -142,7 +144,9 @@ export default function SettingsPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name" className="label-sm">{t("name")}</Label>
+              <Label htmlFor="name" className="label-sm">
+                {t("name")}
+              </Label>
               <Input
                 id="name"
                 value={session?.user?.name ?? ""}
@@ -151,7 +155,9 @@ export default function SettingsPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email" className="label-sm">{t("email")}</Label>
+              <Label htmlFor="email" className="label-sm">
+                {t("email")}
+              </Label>
               <Input
                 id="email"
                 type="email"
@@ -216,7 +222,12 @@ export default function SettingsPage() {
                     className="flex items-center gap-2"
                   >
                     <Icon className="h-4 w-4" />
-                    {t(`theme${value.charAt(0).toUpperCase() + value.slice(1)}` as "themeLight" | "themeDark" | "themeSystem")}
+                    {t(
+                      `theme${value.charAt(0).toUpperCase() + value.slice(1)}` as
+                        | "themeLight"
+                        | "themeDark"
+                        | "themeSystem",
+                    )}
                   </Button>
                 ))}
               </div>
@@ -230,7 +241,7 @@ export default function SettingsPage() {
             <CardDescription>{t("currentPlanDesc")}</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
-            {userPlan === null ? (
+            {isPlanLoading || userPlan === null || credits === null ? (
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-3">
                   <Skeleton className="h-6 w-20 rounded-full" />
@@ -242,32 +253,27 @@ export default function SettingsPage() {
               <>
                 <div className="flex items-center gap-3">
                   <Badge variant="coral">{planLabel}</Badge>
-                  <span className="text-sm text-muted-foreground">{planDesc}</span>
+                  <span className="text-sm text-muted-foreground">
+                    {planDesc}
+                  </span>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3">
-                  {userPlan !== "pro" && !hideBillingUI && (
+                <div className="flex items-center gap-3">
+                  <span className="stat-number text-2xl text-foreground">
+                    {credits}
+                  </span>
+                </div>
+
+                {!hideBillingUI && (
+                  <div className="flex flex-wrap items-center gap-3">
                     <Button
                       onClick={() => router.push("/pricing")}
                       className="w-fit"
                     >
                       {t("upgradeCta")}
                     </Button>
-                  )}
-                  {userPlan !== "free" && !hideBillingUI && (
-                    <Button
-                      variant="outline"
-                      onClick={handleManageSubscription}
-                      disabled={isPortalPending}
-                      className="w-fit"
-                    >
-                      {isPortalPending ? (
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      ) : null}
-                      {t("manageSubscription")}
-                    </Button>
-                  )}
-                </div>
+                  </div>
+                )}
               </>
             )}
           </CardContent>

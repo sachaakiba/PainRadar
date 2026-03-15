@@ -3,11 +3,13 @@ import { requireSession } from "@/lib/auth-server";
 import { stripe } from "@/lib/stripe";
 import { db } from "@/lib/db";
 import { sendErrorAlert } from "@/lib/error-alert";
-import type { PlanId } from "@/types";
 
-const PLAN_PRICE_IDS: Record<Exclude<PlanId, "free">, string | undefined> = {
-  starter: process.env.STRIPE_STARTER_PRICE_ID,
-  pro: process.env.STRIPE_PRO_PRICE_ID,
+type PackId = "single" | "hobbyist" | "founder";
+
+const PACK_PRICE_IDS: Record<PackId, string | undefined> = {
+  single: process.env.STRIPE_SINGLE_PRICE_ID,
+  hobbyist: process.env.STRIPE_HOBBYIST_PRICE_ID,
+  founder: process.env.STRIPE_FOUNDER_PRICE_ID,
 };
 
 export async function POST(request: Request) {
@@ -20,19 +22,22 @@ export async function POST(request: Request) {
     userId = session.user.id;
 
     const body = await request.json();
-    const planId = body?.planId as "starter" | "pro" | undefined;
+    const planId = body?.planId as PackId | undefined;
 
-    if (!planId || (planId !== "starter" && planId !== "pro")) {
+    if (
+      !planId ||
+      (planId !== "single" && planId !== "hobbyist" && planId !== "founder")
+    ) {
       return NextResponse.json(
-        { error: "Invalid planId. Use 'starter' or 'pro'." },
+        { error: "Invalid planId. Use 'single', 'hobbyist' or 'founder'." },
         { status: 400 }
       );
     }
 
-    priceId = PLAN_PRICE_IDS[planId];
+    priceId = PACK_PRICE_IDS[planId];
     if (!priceId) {
       return NextResponse.json(
-        { error: "Stripe price not configured for this plan." },
+        { error: "Stripe price not configured for this pack." },
         { status: 500 }
       );
     }
@@ -70,13 +75,12 @@ export async function POST(request: Request) {
 
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
     const sessionStripe = await stripe.checkout.sessions.create({
-      mode: "subscription",
+      mode: "payment",
       customer: customerId,
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${baseUrl}/dashboard/settings?success=true`,
       cancel_url: `${baseUrl}/dashboard/settings`,
-      metadata: { userId: session.user.id },
-      subscription_data: { metadata: { userId: session.user.id } },
+      metadata: { userId: session.user.id, packId: planId },
     });
 
     const url = sessionStripe.url;

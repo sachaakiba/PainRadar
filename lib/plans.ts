@@ -3,29 +3,25 @@ import type { PlanId } from "@/types";
 export const PLAN_LIMITS: Record<
   PlanId,
   {
-    analysesPerMonth: number;
-    maxSavedAnalyses: number;
     canExport: boolean;
     canGenerateAiPrompt: boolean;
+    fullAnalysis: boolean;
   }
 > = {
   free: {
-    analysesPerMonth: 3,
-    maxSavedAnalyses: 3,
     canExport: false,
     canGenerateAiPrompt: false,
+    fullAnalysis: false,
   },
-  starter: {
-    analysesPerMonth: 50,
-    maxSavedAnalyses: -1,
-    canExport: true,
-    canGenerateAiPrompt: false,
-  },
-  pro: {
-    analysesPerMonth: -1,
-    maxSavedAnalyses: -1,
+  hobbyist: {
     canExport: true,
     canGenerateAiPrompt: true,
+    fullAnalysis: true,
+  },
+  founder: {
+    canExport: true,
+    canGenerateAiPrompt: true,
+    fullAnalysis: true,
   },
 } as const;
 

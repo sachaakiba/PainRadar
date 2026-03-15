@@ -85,19 +85,20 @@ export type RecurringPhraseData = {
   createdAt: Date;
 };
 
-export type PlanId = "free" | "starter" | "pro";
+export type PlanId = "free" | "hobbyist" | "founder";
+export type PricingTierId = "free" | "single" | "hobbyist" | "founder";
 export type Role = "USER" | "SUPER_ADMIN";
 
 export type PricingPlan = {
   name: string;
+  planId: PricingTierId;
   price: string;
-  period?: string;
+  badge?: string;
   description: string;
+  credits: number;
   features: string[];
   cta: string;
   highlighted?: boolean;
-  planId?: PlanId;
-  priceId?: string;
 };
 
 export type UseCase = {
