@@ -7,13 +7,13 @@ import { PACK_CREDITS } from "@/config/pricing";
 import { normalizePlan } from "@/lib/plan-guard";
 import type { PlanId } from "@/types";
 
-const TIER_RANK: Record<PlanId, number> = { free: 0, hobbyist: 1, founder: 2 };
+const TIER_RANK: Record<PlanId, number> = { free: 0, starter: 1, explorer: 2, founder: 3 };
 
-type PackId = "single" | "hobbyist" | "founder";
+type PackId = "starter" | "explorer" | "founder";
 
 function packFromPriceId(priceId: string): PackId | null {
-  if (priceId === process.env.STRIPE_SINGLE_PRICE_ID) return "single";
-  if (priceId === process.env.STRIPE_HOBBYIST_PRICE_ID) return "hobbyist";
+  if (priceId === process.env.STRIPE_STARTER_PRICE_ID) return "starter";
+  if (priceId === process.env.STRIPE_EXPLORER_PRICE_ID) return "explorer";
   if (priceId === process.env.STRIPE_FOUNDER_PRICE_ID) return "founder";
   return null;
 }
@@ -79,7 +79,7 @@ export async function POST(request: Request) {
         });
 
         const currentPlan = normalizePlan(currentUser?.plan ?? null);
-        const targetPlan: PlanId = packId === "founder" ? "founder" : "hobbyist";
+        const targetPlan: PlanId = packId;
         const newPlan =
           TIER_RANK[targetPlan] >= TIER_RANK[currentPlan] ? targetPlan : currentPlan;
 

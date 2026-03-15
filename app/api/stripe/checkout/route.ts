@@ -4,11 +4,11 @@ import { stripe } from "@/lib/stripe";
 import { db } from "@/lib/db";
 import { sendErrorAlert } from "@/lib/error-alert";
 
-type PackId = "single" | "hobbyist" | "founder";
+type PackId = "starter" | "explorer" | "founder";
 
 const PACK_PRICE_IDS: Record<PackId, string | undefined> = {
-  single: process.env.STRIPE_SINGLE_PRICE_ID,
-  hobbyist: process.env.STRIPE_HOBBYIST_PRICE_ID,
+  starter: process.env.STRIPE_STARTER_PRICE_ID,
+  explorer: process.env.STRIPE_EXPLORER_PRICE_ID,
   founder: process.env.STRIPE_FOUNDER_PRICE_ID,
 };
 
@@ -26,10 +26,10 @@ export async function POST(request: Request) {
 
     if (
       !planId ||
-      (planId !== "single" && planId !== "hobbyist" && planId !== "founder")
+      (planId !== "starter" && planId !== "explorer" && planId !== "founder")
     ) {
       return NextResponse.json(
-        { error: "Invalid planId. Use 'single', 'hobbyist' or 'founder'." },
+        { error: "Invalid planId. Use 'starter', 'explorer' or 'founder'." },
         { status: 400 }
       );
     }

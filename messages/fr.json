@@ -121,40 +121,20 @@
     "title": "Tarification simple et transparente",
     "subtitle": "1 crédit = 1 analyse complète. Pas d'abonnement. Payez une seule fois.",
     "mostPopular": "Le plus populaire",
-    "bestValue": "Meilleur rapport",
     "oneTime": "paiement unique",
-    "creditsIncluded": "{count} crédits inclus",
+    "creditsLabel": "crédits",
     "free": {
       "name": "Gratuit",
       "price": "0 €",
-      "badge": "",
       "description": "Parfait pour tester la puissance du radar.",
       "features": ["2 crédits offerts à l'inscription", "Détection de base des points de douleur", "Score d'opportunité"],
       "cta": "Commencer (Gratuit)"
     },
-    "single": {
-      "name": "Crédit unique",
-      "price": "3,99 €",
-      "badge": "paiement unique",
-      "description": "Lancez une analyse complète immédiatement.",
-      "features": ["1 crédit d'analyse complète", "Prompt IA généré", "Idées de produits & MVP", "Suggestions de mots-clés SEO", "Canaux d'acquisition ciblés", "Export des données (PDF / JSON)"],
-      "cta": "Obtenir 1 crédit"
-    },
-    "hobbyist": {
-      "name": "Pack Hobbyist",
-      "price": "15 €",
-      "badge": "paiement unique",
-      "description": "Pour explorer plusieurs niches ce week-end.",
-      "features": ["10 crédits d'analyse complète", "Prompt IA généré", "Idées de produits & MVP", "Suggestions de mots-clés SEO", "Canaux d'acquisition ciblés", "Export des données (PDF / JSON)", "Les crédits n'expirent jamais"],
-      "cta": "Obtenir 10 crédits"
-    },
-    "founder": {
-      "name": "Pack Founder",
-      "price": "39 €",
-      "badge": "meilleur rapport",
-      "description": "Pour les créateurs qui veulent valider en profondeur.",
-      "features": ["35 crédits d'analyse complète", "Prompt IA généré", "Idées de produits & MVP", "Suggestions de mots-clés SEO", "Canaux d'acquisition ciblés", "Export des données (PDF / JSON)", "Accès en priorité aux nouvelles fonctionnalités", "Les crédits n'expirent jamais"],
-      "cta": "Obtenir 35 crédits"
+    "credits": {
+      "name": "Crédits",
+      "description": "Choisissez votre pack et commencez à valider vos idées aujourd'hui.",
+      "features": ["Analyse complète avec insights IA", "Prompt IA prêt à l'emploi généré", "Idées de produits & suggestions MVP", "Recommandations de mots-clés SEO", "Canaux d'acquisition ciblés", "Export des données (PDF / JSON)", "Support email prioritaire", "Les crédits n'expirent jamais"],
+      "cta": "Obtenir {credits} crédits"
     },
     "faqTitle": "FAQ Tarifs",
     "faq": [
@@ -315,10 +295,12 @@
     "currentPlanDesc": "Votre solde de crédits et votre niveau",
     "freePlan": "Gratuit",
     "freePlanDesc": "Forfait gratuit : analyse limitée (score, résumé, pain points uniquement)",
-    "hobbyistPlan": "Hobbyist",
-    "hobbyistPlanDesc": "Forfait payant : analyse complète + prompt IA",
+    "starterPlan": "Starter",
+    "starterPlanDesc": "Forfait payant : analyse complète + prompt IA + export",
+    "explorerPlan": "Explorer",
+    "explorerPlanDesc": "Forfait payant : analyse complète + prompt IA + export + support prioritaire",
     "founderPlan": "Founder",
-    "founderPlanDesc": "Forfait payant : analyse complète + prompt IA + export",
+    "founderPlanDesc": "Forfait payant : analyse complète + prompt IA + export + support dédié",
     "creditsRemaining": "{count} crédits restants",
     "noCreditsLeft": "Plus de crédits",
     "addCredits": "Ajouter",

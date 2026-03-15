@@ -13,7 +13,12 @@ export const PLAN_LIMITS: Record<
     canGenerateAiPrompt: false,
     fullAnalysis: false,
   },
-  hobbyist: {
+  starter: {
+    canExport: true,
+    canGenerateAiPrompt: true,
+    fullAnalysis: true,
+  },
+  explorer: {
     canExport: true,
     canGenerateAiPrompt: true,
     fullAnalysis: true,

@@ -121,40 +121,20 @@
     "title": "Simple, transparent pricing",
     "subtitle": "1 credit = 1 full analysis. No subscription. Pay once.",
     "mostPopular": "Most Popular",
-    "bestValue": "Best Value",
     "oneTime": "one-time",
-    "creditsIncluded": "{count} credits included",
+    "creditsLabel": "credits",
     "free": {
       "name": "Free",
       "price": "$0",
-      "badge": "",
       "description": "Perfect to test the radar's power.",
       "features": ["2 credits included at signup", "Basic pain point detection", "Opportunity scoring"],
       "cta": "Start Discovering (Free)"
     },
-    "single": {
-      "name": "Single Credit",
-      "price": "$3.99",
-      "badge": "one-time",
-      "description": "Run one full analysis right now.",
-      "features": ["1 full analysis credit", "AI-ready prompt generated", "Product ideas & MVP", "SEO keyword suggestions", "Targeted acquisition channels", "Export data (PDF / JSON)"],
-      "cta": "Get 1 Credit"
-    },
-    "hobbyist": {
-      "name": "Hobbyist Pack",
-      "price": "$15",
-      "badge": "one-time",
-      "description": "Explore several niches this weekend.",
-      "features": ["10 full analysis credits", "AI-ready prompt generated", "Product ideas & MVP", "SEO keyword suggestions", "Targeted acquisition channels", "Export data (PDF / JSON)", "Credits never expire"],
-      "cta": "Get 10 Credits"
-    },
-    "founder": {
-      "name": "Founder Pack",
-      "price": "$39",
-      "badge": "best value",
-      "description": "For creators who want to validate in depth.",
-      "features": ["35 full analysis credits", "AI-ready prompt generated", "Product ideas & MVP", "SEO keyword suggestions", "Targeted acquisition channels", "Export data (PDF / JSON)", "Priority access to new features", "Credits never expire"],
-      "cta": "Get 35 Credits"
+    "credits": {
+      "name": "Credits",
+      "description": "Choose your pack and start validating ideas today.",
+      "features": ["Full analysis with AI insights", "AI-ready prompt generated", "Product ideas & MVP suggestions", "SEO keyword recommendations", "Targeted acquisition channels", "Export data (PDF / JSON)", "Priority email support", "Credits never expire"],
+      "cta": "Get {credits} Credits"
     },
     "faqTitle": "Pricing FAQ",
     "faq": [
@@ -315,10 +295,12 @@
     "currentPlanDesc": "Your credit balance and plan tier",
     "freePlan": "Free",
     "freePlanDesc": "Free tier: limited analysis (score, summary, pain points only)",
-    "hobbyistPlan": "Hobbyist",
-    "hobbyistPlanDesc": "Paid tier: full analysis + AI prompt",
+    "starterPlan": "Starter",
+    "starterPlanDesc": "Paid tier: full analysis + AI prompt + export",
+    "explorerPlan": "Explorer",
+    "explorerPlanDesc": "Paid tier: full analysis + AI prompt + export + priority support",
     "founderPlan": "Founder",
-    "founderPlanDesc": "Paid tier: full analysis + AI prompt + export",
+    "founderPlanDesc": "Paid tier: full analysis + AI prompt + export + dedicated support",
     "creditsRemaining": "{count} credits remaining",
     "noCreditsLeft": "No credits left",
     "addCredits": "Add",

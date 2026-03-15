@@ -85,8 +85,8 @@ export type RecurringPhraseData = {
   createdAt: Date;
 };
 
-export type PlanId = "free" | "hobbyist" | "founder";
-export type PricingTierId = "free" | "single" | "hobbyist" | "founder";
+export type PlanId = "free" | "starter" | "explorer" | "founder";
+export type PricingTierId = "free" | "starter" | "explorer" | "founder";
 export type Role = "USER" | "SUPER_ADMIN";
 
 export type PricingPlan = {
