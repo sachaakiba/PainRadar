@@ -3,6 +3,7 @@
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 export function CTASection() {
   const t = useTranslations("cta");
@@ -14,15 +15,14 @@ export function CTASection() {
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             {t("title")}
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            {t("subtitle")}
-          </p>
-          <Button size="lg" asChild className="mt-8">
-            <Link href="/signup">{t("button")}</Link>
+          <p className="mt-4 text-lg text-muted-foreground">{t("subtitle")}</p>
+          <Button size="lg" asChild className="mt-8 gap-2">
+            <Link href="/signup">
+              {t("button")}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </Button>
-          <p className="mt-4 text-sm text-muted-foreground">
-            {t("noCard")}
-          </p>
+          <p className="mt-4 text-sm text-muted-foreground">{t("noCard")}</p>
         </div>
       </div>
     </section>

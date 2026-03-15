@@ -15,16 +15,17 @@
     "darkMode": "Dark mode"
   },
   "hero": {
-    "headline": "Discover real problems people complain about — and turn them into SaaS ideas.",
-    "subheadline": "PainRadar analyzes discussions and reveals recurring pain points, product opportunities and SEO angles.",
-    "cta": "Start discovering problems",
+    "headline": "Find real SaaS ideas from thousands of user complaints",
+    "subheadline": "PainRadar scans Reddit, forums and reviews to discover real problems people are begging to solve — then turns them into validated product opportunities.",
+    "cta": "Find a profitable SaaS idea",
     "secondaryCta": "See example analysis",
-    "previewQuery": "invoicing for freelancers",
-    "previewScore": "Score: 87",
-    "previewPain1": "Spending hours chasing clients for late payments with no automated reminders",
-    "previewPain2": "Manual invoice creation eats into billable time",
-    "previewPain3": "Lack of professional branding on invoices",
-    "previewSuggested": "Suggested: A lightweight invoicing app with smart payment reminders, client-specific terms, and Stripe integration."
+    "exampleRedditLabel": "Reddit complaint",
+    "exampleRedditQuote": "I hate tracking invoices in spreadsheets. I spend more time chasing payments than doing actual work.",
+    "exampleProblemLabel": "Problem detected",
+    "exampleProblemText": "Freelancers struggle with manual invoice tracking and late payment follow-ups.",
+    "exampleIdeaLabel": "SaaS opportunity",
+    "exampleIdeaText": "Automated invoice tracker for freelancers with smart payment reminders.",
+    "exampleCaption": "Real analysis from PainRadar — generated in under 30 seconds"
   },
   "benefits": {
     "title": "Everything you need to validate your next idea",
@@ -175,11 +176,46 @@
       { "q": "Will you add more data sources?", "a": "Yes. We're actively working on integrating more sources including Reddit API, G2, Capterra, and niche forums." }
     ]
   },
+  "productDemo": {
+    "title": "From problem to product in 30 seconds",
+    "subtitle": "From topic to validated SaaS idea — no manual research needed.",
+    "step1": "Enter a topic — e.g. \"invoicing for freelancers\"",
+    "step2": "PainRadar scans thousands of discussions",
+    "step3": "Pain points detected and scored",
+    "step4": "SaaS ideas generated with opportunity scores",
+    "step5": "Get an AI-ready prompt to start building your SaaS instantly",
+    "videoPlaceholder": "Product demo video coming soon — stay tuned!"
+  },
+  "whyThisWorks": {
+    "title": "Why PainRadar finds real opportunities",
+    "subtitle": "We don't guess. We analyze what real people say when they're frustrated.",
+    "feature1Title": "Thousands of real discussions",
+    "feature1Desc": "PainRadar analyzes thousands of real user discussions from Reddit, forums and reviews to detect patterns of recurring frustrations.",
+    "feature2Title": "Patterns = market opportunities",
+    "feature2Desc": "When the same complaint appears across dozens of threads, it's not a one-off — it's a market signal worth building for.",
+    "feature3Title": "Scored and prioritized",
+    "feature3Desc": "Every opportunity is scored on demand, urgency, competition and monetization potential — so you focus on what matters.",
+    "punchline": "Recurring patterns in real complaints = validated market opportunities."
+  },
+  "socialProof": {
+    "badge": "Trusted by builders",
+    "title": "Used by indie founders and SaaS builders",
+    "testimonial1Text": "I found my SaaS idea in 5 minutes. What used to take weeks of Reddit scrolling now takes seconds.",
+    "testimonial1Author": "Alex M.",
+    "testimonial1Role": "Indie Hacker",
+    "testimonial2Text": "The opportunity scoring alone is worth it. I finally have data to back up my gut feelings about what to build.",
+    "testimonial2Author": "Sarah K.",
+    "testimonial2Role": "SaaS Founder",
+    "testimonial3Text": "PainRadar showed me pain points I never would have found manually. Already building my MVP based on the insights.",
+    "testimonial3Author": "James R.",
+    "testimonial3Role": "Solo Developer",
+    "usedBy": "Featured on"
+  },
   "cta": {
-    "title": "Ready to discover your next SaaS idea?",
+    "title": "Ready to find your next profitable SaaS idea?",
     "subtitle": "Join founders who validate ideas with real data, not guesswork.",
-    "button": "Start for free",
-    "noCard": "No credit card required"
+    "button": "Generate a SaaS idea — free",
+    "noCard": "No credit card required · 2 free analyses"
   },
   "auth": {
     "createAccount": "Create your account",
@@ -190,6 +226,8 @@
     "emailPlaceholder": "you@example.com",
     "password": "Password",
     "passwordPlaceholder": "••••••••",
+    "confirmPassword": "Confirm password",
+    "confirmPasswordPlaceholder": "••••••••",
     "createButton": "Create account",
     "creating": "Creating account...",
     "alreadyHaveAccount": "Already have an account?",

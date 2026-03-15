@@ -4,13 +4,12 @@ import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { getScoreBg } from "@/lib/utils";
+import { ArrowRight, MessageSquare, Zap, Lightbulb } from "lucide-react";
 
 export function Hero() {
   const t = useTranslations("hero");
   return (
-    <section className="relative overflow-hidden px-4 pt-24 pb-32 sm:px-6 sm:pt-32 sm:pb-40 lg:px-8">
-      {/* Background gradient orbs */}
+    <section className="relative overflow-hidden px-4 pt-24 pb-20 sm:px-6 sm:pt-32 sm:pb-28 lg:px-8">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary/5 blur-3xl" />
         <div className="absolute top-1/2 -left-40 h-96 w-96 rounded-full bg-emerald-500/5 blur-3xl" />
@@ -41,8 +40,11 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
           >
-            <Button size="lg" asChild className="w-full sm:w-auto">
-              <Link href="/signup">{t("cta")}</Link>
+            <Button size="lg" asChild className="w-full sm:w-auto gap-2">
+              <Link href="/signup">
+                {t("cta")}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </Button>
             <Button size="lg" variant="outline" asChild className="w-full sm:w-auto">
               <Link href="/examples/invoicing-freelancers">
@@ -52,41 +54,72 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Preview card */}
+        {/* Live example: Reddit → Problem → SaaS idea */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mx-auto mt-16 max-w-2xl"
+          className="mx-auto mt-16 max-w-3xl"
         >
-          <div className="rounded-xl border border-border/50 bg-card/50 p-6 shadow-2xl shadow-black/5 backdrop-blur-sm dark:border-white/5 dark:bg-white/5">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-md bg-muted px-2 py-1 text-xs font-medium text-muted-foreground">
-                {t("previewQuery")}
-              </span>
-              <span
-                className={`rounded-full px-3 py-1 text-sm font-semibold ${getScoreBg(87)}`}
-              >
-                {t("previewScore")}
-              </span>
-            </div>
-            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-              <li className="flex gap-2">
-                <span className="text-destructive">•</span>
-                {t("previewPain1")}
-              </li>
-              <li className="flex gap-2">
-                <span className="text-destructive">•</span>
-                {t("previewPain2")}
-              </li>
-              <li className="flex gap-2">
-                <span className="text-destructive">•</span>
-                {t("previewPain3")}
-              </li>
-            </ul>
-            <p className="mt-4 text-sm font-medium text-foreground">
-              {t("previewSuggested")}
-            </p>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {/* Reddit complaint */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="rounded-xl border border-orange-500/20 bg-orange-500/5 p-5"
+            >
+              <div className="mb-3 flex items-center gap-2">
+                <MessageSquare className="h-4 w-4 text-orange-400" />
+                <span className="text-xs font-semibold uppercase tracking-wider text-orange-400">
+                  {t("exampleRedditLabel")}
+                </span>
+              </div>
+              <p className="text-sm italic text-foreground/80">
+                &ldquo;{t("exampleRedditQuote")}&rdquo;
+              </p>
+            </motion.div>
+
+            {/* Problem detected */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.7 }}
+              className="rounded-xl border border-primary/20 bg-primary/5 p-5"
+            >
+              <div className="mb-3 flex items-center gap-2">
+                <Zap className="h-4 w-4 text-primary" />
+                <span className="text-xs font-semibold uppercase tracking-wider text-primary">
+                  {t("exampleProblemLabel")}
+                </span>
+              </div>
+              <p className="text-sm text-foreground/80">
+                {t("exampleProblemText")}
+              </p>
+            </motion.div>
+
+            {/* SaaS idea */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.9 }}
+              className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-5"
+            >
+              <div className="mb-3 flex items-center gap-2">
+                <Lightbulb className="h-4 w-4 text-emerald-400" />
+                <span className="text-xs font-semibold uppercase tracking-wider text-emerald-400">
+                  {t("exampleIdeaLabel")}
+                </span>
+              </div>
+              <p className="text-sm font-medium text-foreground/90">
+                {t("exampleIdeaText")}
+              </p>
+            </motion.div>
+          </div>
+          <div className="mt-3 flex justify-center">
+            <span className="text-xs text-muted-foreground">
+              {t("exampleCaption")}
+            </span>
           </div>
         </motion.div>
       </div>

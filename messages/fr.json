@@ -15,16 +15,17 @@
     "darkMode": "Mode sombre"
   },
   "hero": {
-    "headline": "Découvrez les vrais problèmes dont les gens se plaignent — et transformez-les en idées SaaS.",
-    "subheadline": "PainRadar analyse les discussions et révèle les points de douleur récurrents, les opportunités produit et les angles SEO.",
-    "cta": "Commencez à découvrir des problèmes",
+    "headline": "Trouvez de vraies idées SaaS à partir des problèmes rencontrés par les utilisateurs",
+    "subheadline": "PainRadar scanne Reddit, les forums et les avis pour découvrir les vrais problèmes que les gens veulent voir résolus — puis les transforme en opportunités produit validées.",
+    "cta": "Trouver une idée SaaS rentable",
     "secondaryCta": "Voir un exemple d'analyse",
-    "previewQuery": "facturation pour les freelances",
-    "previewScore": "Score : 87",
-    "previewPain1": "Passer des heures à relancer les clients pour les paiements en retard, sans rappels automatisés",
-    "previewPain2": "La création manuelle de factures grignote le temps facturable",
-    "previewPain3": "L'absence de branding professionnel sur les factures",
-    "previewSuggested": "Suggestion : une application de facturation légère avec rappels de paiement intelligents, conditions par client et intégration Stripe."
+    "exampleRedditLabel": "Plainte Reddit",
+    "exampleRedditQuote": "Je déteste suivre mes factures dans des tableurs. Je passe plus de temps à relancer les paiements qu'à travailler.",
+    "exampleProblemLabel": "Problème détecté",
+    "exampleProblemText": "Les freelances peinent avec le suivi manuel des factures et les relances de paiement.",
+    "exampleIdeaLabel": "Opportunité SaaS",
+    "exampleIdeaText": "Suivi automatisé des factures pour freelances avec rappels de paiement intelligents.",
+    "exampleCaption": "Vraie analyse PainRadar — générée en moins de 30 secondes"
   },
   "benefits": {
     "title": "Tout ce dont vous avez besoin pour valider votre prochaine idée",
@@ -175,11 +176,46 @@
       { "q": "Ajouterez-vous d'autres sources de données ?", "a": "Oui. Nous travaillons activement à intégrer davantage de sources, notamment l'API Reddit, G2, Capterra et des forums spécialisés." }
     ]
   },
+  "productDemo": {
+    "title": "Du problème au produit en 30 secondes",
+    "subtitle": "Du sujet à l'idée SaaS validée — sans recherche manuelle.",
+    "step1": "Saisissez un sujet — ex. « facturation pour freelances »",
+    "step2": "PainRadar analyse des milliers de discussions",
+    "step3": "Points de douleur détectés et scorés",
+    "step4": "Idées SaaS générées avec scores d'opportunité",
+    "step5": "Un prompt IA prêt à l'emploi pour construire votre SaaS immédiatement",
+    "videoPlaceholder": "Vidéo démo produit bientôt disponible — restez à l'écoute !"
+  },
+  "whyThisWorks": {
+    "title": "Pourquoi PainRadar trouve de vraies opportunités",
+    "subtitle": "On ne devine pas. On analyse ce que les gens disent quand ils sont frustrés.",
+    "feature1Title": "Des milliers de discussions réelles",
+    "feature1Desc": "PainRadar analyse des milliers de discussions utilisateurs sur Reddit, les forums et les avis pour détecter les patterns de frustrations récurrentes.",
+    "feature2Title": "Patterns = opportunités marché",
+    "feature2Desc": "Quand la même plainte revient dans des dizaines de fils, ce n'est pas un cas isolé — c'est un signal marché qui mérite un produit.",
+    "feature3Title": "Scoré et priorisé",
+    "feature3Desc": "Chaque opportunité est scorée sur la demande, l'urgence, la concurrence et le potentiel de monétisation — pour se concentrer sur l'essentiel.",
+    "punchline": "Des patterns récurrents dans les vraies plaintes = des opportunités marché validées."
+  },
+  "socialProof": {
+    "badge": "Approuvé par les builders",
+    "title": "Utilisé par des fondateurs indépendants et des builders SaaS",
+    "testimonial1Text": "J'ai trouvé mon idée SaaS en 5 minutes. Ce qui prenait des semaines de scroll Reddit ne prend désormais que quelques secondes.",
+    "testimonial1Author": "Alex M.",
+    "testimonial1Role": "Indie Hacker",
+    "testimonial2Text": "Le scoring d'opportunité seul vaut le coup. J'ai enfin des données pour appuyer mon intuition sur quoi construire.",
+    "testimonial2Author": "Sarah K.",
+    "testimonial2Role": "Fondatrice SaaS",
+    "testimonial3Text": "PainRadar m'a montré des points de douleur que je n'aurais jamais trouvés manuellement. Je construis déjà mon MVP basé sur les insights.",
+    "testimonial3Author": "James R.",
+    "testimonial3Role": "Développeur solo",
+    "usedBy": "Présent sur"
+  },
   "cta": {
-    "title": "Prêt à découvrir votre prochaine idée SaaS ?",
+    "title": "Prêt à trouver votre prochaine idée SaaS rentable ?",
     "subtitle": "Rejoignez les fondateurs qui valident leurs idées avec des données réelles, pas des intuitions.",
-    "button": "Commencer gratuitement",
-    "noCard": "Aucune carte bancaire requise"
+    "button": "Générer une idée SaaS — gratuit",
+    "noCard": "Aucune carte bancaire requise · 2 analyses gratuites"
   },
   "auth": {
     "createAccount": "Créez votre compte",
@@ -190,6 +226,8 @@
     "emailPlaceholder": "vous@exemple.com",
     "password": "Mot de passe",
     "passwordPlaceholder": "••••••••",
+    "confirmPassword": "Confirmer le mot de passe",
+    "confirmPasswordPlaceholder": "••••••••",
     "createButton": "Créer un compte",
     "creating": "Création du compte...",
     "alreadyHaveAccount": "Vous avez déjà un compte ?",
