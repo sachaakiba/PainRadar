@@ -17,7 +17,7 @@ export function ProductDemo() {
     { icon: stepIcons[4], label: t("step5"), highlight: true },
   ];
 
-  const youtubeVideoId = "CHxO_ym7dOk";
+  const youtubeVideoId = "Evq8bQzX13Q";
 
   return (
     <section className="px-4 py-24 sm:px-6 lg:px-8">
