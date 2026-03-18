@@ -17,6 +17,7 @@ import {
   CheckCircle2,
   Sparkles,
   Lock,
+  Share2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,9 +31,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ScoreBreakdown } from "@/components/dashboard/score-breakdown";
 import { PainPointList } from "@/components/dashboard/pain-point-list";
-import { CopyButton } from "@/components/dashboard/copy-button";
 import { ExportMenu } from "@/components/dashboard/export-menu";
 import { AiPromptCard } from "@/components/dashboard/ai-prompt-card";
+import { ShareSocialModal } from "@/components/dashboard/share-social-modal";
 import { absoluteUrl, formatDate, getScoreBg } from "@/lib/utils";
 import { toast } from "sonner";
 import { getUserPlan } from "@/actions/user";
@@ -347,6 +348,7 @@ export default function AnalysisDetailPage() {
   const [fullAnalysis, setFullAnalysis] = useState(false);
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const [streamStarted, setStreamStarted] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
   const creditsInvalidatedRef = useRef(false);
 
   const {
@@ -397,6 +399,19 @@ export default function AnalysisDetailPage() {
       queryClient.invalidateQueries({ queryKey: ["user-plan"] });
     }
   }, [analysis?.status, streamStarted, queryClient]);
+
+  useEffect(() => {
+    if (analysis?.status === "completed" && !isStreaming) {
+      const key = `share-modal-shown-${id}`;
+      if (!localStorage.getItem(key)) {
+        const timer = setTimeout(() => {
+          setShowShareModal(true);
+          localStorage.setItem(key, "true");
+        }, 800);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [analysis?.status, isStreaming, id]);
 
   useEffect(() => {
     getUserPlan().then(({ plan, isSuperAdmin: isAdmin }) => {
@@ -576,12 +591,14 @@ export default function AnalysisDetailPage() {
               )}
               <span className="ml-1">{analysis.saved ? t("saved") : t("save")}</span>
             </Button>
-            <CopyButton
-              text={absoluteUrl(`/dashboard/analyses/${id}`)}
+            <Button
               variant="outline"
               size="sm"
-              label={t("share")}
-            />
+              onClick={() => setShowShareModal(true)}
+            >
+              <Share2 className="h-4 w-4" />
+              <span className="ml-1">{t("share")}</span>
+            </Button>
             <ExportMenu
               data={analysis}
               shareUrl={absoluteUrl(`/dashboard/analyses/${id}`)}
@@ -1009,6 +1026,21 @@ export default function AnalysisDetailPage() {
             </div>
           </CardContent>
         </Card>
+      )}
+
+      {isCompleted && (
+        <ShareSocialModal
+          isOpen={showShareModal}
+          onClose={() => setShowShareModal(false)}
+          analysis={{
+            id: analysis.id,
+            topic: analysis.topic,
+            opportunityScore: analysis.opportunityScore,
+            demandScore: analysis.demandScore,
+            urgencyScore: analysis.urgencyScore,
+            painPoints: analysis.painPoints,
+          }}
+        />
       )}
     </div>
   );

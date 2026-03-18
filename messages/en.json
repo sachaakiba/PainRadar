@@ -410,7 +410,22 @@
     "aiPromptExpand": "Show full prompt",
     "aiPromptCollapse": "Collapse",
     "aiPromptHint": "Paste this into Cursor, Claude, ChatGPT, or any AI coding assistant to start building.",
-    "aiPromptUpgradeDesc": "Get a paid credit pack to receive a ready-to-use AI prompt for each analysis. Copy it into Cursor, Claude, or ChatGPT to instantly start building your product."
+    "aiPromptUpgradeDesc": "Get a paid credit pack to receive a ready-to-use AI prompt for each analysis. Copy it into Cursor, Claude, or ChatGPT to instantly start building your product.",
+    "shareModalTitle": "This one's too good to keep to yourself",
+    "shareModalDesc": "Share this analysis — let your network decide if it's worth building.",
+    "shareModalPainCount": "{count, plural, one {# real pain point identified} other {# real pain points identified}}",
+    "shareOnTwitter": "Twitter",
+    "shareOnLinkedIn": "LinkedIn",
+    "shareOnFacebook": "Facebook",
+    "shareOnReddit": "Reddit",
+    "shareLater": "Maybe later",
+    "sharePreviewBadge": "Analysis Preview",
+    "viewFullAnalysis": "View full analysis",
+    "shareSignupFree": "Sign up free to run your own analyses",
+    "shareLockedTitle": "Full Analysis Locked",
+    "shareLockedDesc": "Sign up to access product ideas, SEO keywords, acquisition channels, and the complete analysis.",
+    "shareCtaHint": "Want to discover opportunities like this?",
+    "shareMorePainPoints": "...and {count} more pain points in the full analysis"
   },
   "features": {
     "pageTitle": "Features",

@@ -410,7 +410,22 @@
     "aiPromptExpand": "Voir le prompt complet",
     "aiPromptCollapse": "Réduire",
     "aiPromptHint": "Collez ce prompt dans Cursor, Claude, ChatGPT ou n'importe quel assistant IA pour commencer à construire.",
-    "aiPromptUpgradeDesc": "Achetez un pack de crédits pour obtenir un prompt IA prêt à l'emploi pour chaque analyse. Copiez-le dans Cursor, Claude ou ChatGPT pour commencer à construire votre produit instantanément."
+    "aiPromptUpgradeDesc": "Achetez un pack de crédits pour obtenir un prompt IA prêt à l'emploi pour chaque analyse. Copiez-le dans Cursor, Claude ou ChatGPT pour commencer à construire votre produit instantanément.",
+    "shareModalTitle": "Trop bien pour garder ça pour toi",
+    "shareModalDesc": "Partage cette analyse — laisse ton réseau juger si ça vaut le coup de builder.",
+    "shareModalPainCount": "{count, plural, one {# vrai pain point identifié} other {# vrais pain points identifiés}}",
+    "shareOnTwitter": "Twitter",
+    "shareOnLinkedIn": "LinkedIn",
+    "shareOnFacebook": "Facebook",
+    "shareOnReddit": "Reddit",
+    "shareLater": "Plus tard",
+    "sharePreviewBadge": "Aperçu d'analyse",
+    "viewFullAnalysis": "Voir l'analyse complète",
+    "shareSignupFree": "Inscrivez-vous gratuitement pour lancer vos propres analyses",
+    "shareLockedTitle": "Analyse complète verrouillée",
+    "shareLockedDesc": "Inscrivez-vous pour accéder aux idées produit, mots-clés SEO, canaux d'acquisition et à l'analyse complète.",
+    "shareCtaHint": "Vous voulez découvrir des opportunités comme celle-ci ?",
+    "shareMorePainPoints": "...et {count} autres points de douleur dans l'analyse complète"
   },
   "features": {
     "pageTitle": "Fonctionnalités",
