@@ -122,6 +122,7 @@
     "subtitle": "1 crédit = 1 analyse complète. Pas d'abonnement. Payez une seule fois.",
     "mostPopular": "Le plus populaire",
     "oneTime": "paiement unique",
+    "lifetime": "accès à vie",
     "creditsLabel": "crédits",
     "free": {
       "name": "Gratuit",
@@ -136,12 +137,20 @@
       "features": ["Analyse complète avec insights IA", "Prompt IA prêt à l'emploi généré", "Idées de produits & suggestions MVP", "Recommandations de mots-clés SEO", "Canaux d'acquisition ciblés", "Export des données (PDF / JSON)", "Support email prioritaire", "Les crédits n'expirent jamais"],
       "cta": "Obtenir {credits} crédits"
     },
+    "founder": {
+      "name": "Founder",
+      "badge": "Accès à vie",
+      "description": "Accès illimité pour toujours. Payez une seule fois.",
+      "features": ["Analyses illimitées — pour toujours", "Prompt IA prêt à l'emploi généré", "Idées de produits & suggestions MVP", "Recommandations de mots-clés SEO", "Canaux d'acquisition ciblés", "Export des données (PDF / JSON)", "Accès prioritaire aux nouvelles fonctionnalités", "Canal de support dédié"],
+      "cta": "Obtenir l'accès à vie"
+    },
     "faqTitle": "FAQ Tarifs",
     "faq": [
       { "q": "Les crédits expirent-ils ?", "a": "Non. Vos crédits n'expirent jamais. Utilisez-les à votre rythme." },
       { "q": "Y a-t-il un essai gratuit ?", "a": "Vous recevez 2 crédits gratuits à l'inscription — aucune carte bancaire requise." },
       { "q": "Puis-je acheter d'autres crédits plus tard ?", "a": "Oui. Vous pouvez acheter n'importe quel pack à tout moment pour obtenir plus de crédits." },
-      { "q": "Quelle est la différence entre crédits gratuits et payants ?", "a": "Les crédits gratuits donnent une analyse de base (score, résumé, pain points). Les crédits payants débloquent l'analyse complète incluant mots-clés SEO, idées produit, canaux d'acquisition et prompts IA." }
+      { "q": "Quelle est la différence entre crédits gratuits et payants ?", "a": "Les crédits gratuits donnent une analyse de base (score, résumé, pain points). Les crédits payants débloquent l'analyse complète incluant mots-clés SEO, idées produit, canaux d'acquisition et prompts IA." },
+      { "q": "Que comprend l'offre Founder ?", "a": "L'offre Founder vous donne un accès illimité aux analyses pour toujours. C'est un paiement unique — pas de crédits à suivre, aucune limite." }
     ]
   },
   "faq": {
@@ -304,6 +313,8 @@
     "creditsRemaining": "{count} crédits restants",
     "noCreditsLeft": "Plus de crédits",
     "addCredits": "Ajouter",
+    "founderUnlimited": "Illimité",
+    "founderLifetime": "Offre Founder — accès à vie",
     "planStatusFree": "Forfait gratuit (fonctionnalités limitées)",
     "planStatusPaid": "Forfait payant (fonctionnalités complètes)",
     "buyCredits": "Acheter des crédits",

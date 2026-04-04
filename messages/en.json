@@ -122,10 +122,11 @@
     "subtitle": "1 credit = 1 full analysis. No subscription. Pay once.",
     "mostPopular": "Most Popular",
     "oneTime": "one-time",
+    "lifetime": "lifetime access",
     "creditsLabel": "credits",
     "free": {
       "name": "Free",
-      "price": "$0",
+      "price": "0 €",
       "description": "Perfect to test the radar's power.",
       "features": ["2 credits included at signup", "Basic pain point detection", "Opportunity scoring"],
       "cta": "Start Discovering (Free)"
@@ -136,12 +137,20 @@
       "features": ["Full analysis with AI insights", "AI-ready prompt generated", "Product ideas & MVP suggestions", "SEO keyword recommendations", "Targeted acquisition channels", "Export data (PDF / JSON)", "Priority email support", "Credits never expire"],
       "cta": "Get {credits} Credits"
     },
+    "founder": {
+      "name": "Founder",
+      "badge": "Lifetime Access",
+      "description": "Unlimited access forever. Pay once, use forever.",
+      "features": ["Unlimited analyses — forever", "AI-ready prompt generated", "Product ideas & MVP suggestions", "SEO keyword recommendations", "Targeted acquisition channels", "Export data (PDF / JSON)", "Priority access to new features", "Dedicated support channel"],
+      "cta": "Get Lifetime Access"
+    },
     "faqTitle": "Pricing FAQ",
     "faq": [
       { "q": "Do credits expire?", "a": "No. Your credits never expire. Use them at your own pace." },
       { "q": "Is there a free trial?", "a": "You get 2 free credits when you sign up — no credit card needed." },
       { "q": "Can I buy more credits later?", "a": "Yes. You can purchase any pack at any time to get more credits." },
-      { "q": "What's the difference between free and paid credits?", "a": "Free credits give you basic analysis (score, summary, pain points). Paid credits unlock the full analysis including SEO keywords, product ideas, acquisition channels, and AI prompts." }
+      { "q": "What's the difference between free and paid credits?", "a": "Free credits give you basic analysis (score, summary, pain points). Paid credits unlock the full analysis including SEO keywords, product ideas, acquisition channels, and AI prompts." },
+      { "q": "What does the Founder plan include?", "a": "The Founder plan gives you unlimited analyses forever. It's a one-time payment — no credits to track, no limits." }
     ]
   },
   "faq": {
@@ -304,6 +313,8 @@
     "creditsRemaining": "{count} credits remaining",
     "noCreditsLeft": "No credits left",
     "addCredits": "Add",
+    "founderUnlimited": "Unlimited",
+    "founderLifetime": "Founder plan — lifetime access",
     "planStatusFree": "Free plan (limited features)",
     "planStatusPaid": "Paid plan (full features)",
     "buyCredits": "Buy credits",

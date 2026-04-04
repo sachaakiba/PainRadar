@@ -10,7 +10,7 @@ export const pricingPlans: PricingPlan[] = [
   {
     name: "Free",
     planId: "free",
-    price: "$0",
+    price: "0 €",
     description: "Perfect to test the radar's power.",
     credits: 2,
     features: [
@@ -23,7 +23,7 @@ export const pricingPlans: PricingPlan[] = [
   {
     name: "Starter",
     planId: "starter",
-    price: "$9",
+    price: "9 €",
     badge: "one-time",
     description: "Launch your first product ideas.",
     credits: 5,
@@ -41,7 +41,7 @@ export const pricingPlans: PricingPlan[] = [
   {
     name: "Explorer",
     planId: "explorer",
-    price: "$19",
+    price: "19 €",
     badge: "most popular",
     description: "Explore multiple niches and validate faster.",
     credits: 15,
@@ -61,12 +61,12 @@ export const pricingPlans: PricingPlan[] = [
   {
     name: "Founder",
     planId: "founder",
-    price: "$49",
-    badge: "best value",
-    description: "For serious founders validating multiple ideas.",
-    credits: 50,
+    price: "49 €",
+    badge: "lifetime access",
+    description: "Unlimited access forever. Pay once, use forever.",
+    credits: -1,
     features: [
-      "50 full analysis credits",
+      "Unlimited analyses — forever",
       "AI-ready prompt generated",
       "Product ideas & MVP",
       "SEO keyword suggestions",
@@ -74,8 +74,7 @@ export const pricingPlans: PricingPlan[] = [
       "Export data (PDF / JSON)",
       "Priority access to new features",
       "Dedicated support channel",
-      "Credits never expire",
     ],
-    cta: "Get 50 Credits",
+    cta: "Get Lifetime Access",
   },
 ];

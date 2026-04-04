@@ -14,7 +14,7 @@ import { absoluteUrl } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Simple credit-based pricing for PainRadar. Start free with 2 credits. Buy 1 credit for $5, the Hobbyist Pack (10 credits, $15), or Founder Pack (35 credits, $39) — one-time payment, no subscription.",
+    "Simple pricing for PainRadar. Start free with 2 credits. Starter (5 credits, 9 €), Explorer (15 credits, 19 €), or Founder (unlimited access, 49 €) — one-time payment, no subscription.",
 };
 
 export default async function PricingPage() {
@@ -54,28 +54,28 @@ export default async function PricingPage() {
         "@type": "Offer",
         name: "Free",
         price: "0",
-        priceCurrency: "USD",
+        priceCurrency: "EUR",
         priceValidUntil: "2026-12-31",
       },
       {
         "@type": "Offer",
-        name: "Single Credit",
-        price: "5",
-        priceCurrency: "USD",
+        name: "Starter",
+        price: "9",
+        priceCurrency: "EUR",
         priceValidUntil: "2026-12-31",
       },
       {
         "@type": "Offer",
-        name: "Hobbyist Pack",
-        price: "15",
-        priceCurrency: "USD",
+        name: "Explorer",
+        price: "19",
+        priceCurrency: "EUR",
         priceValidUntil: "2026-12-31",
       },
       {
         "@type": "Offer",
-        name: "Founder Pack",
-        price: "39",
-        priceCurrency: "USD",
+        name: "Founder (Lifetime Access)",
+        price: "49",
+        priceCurrency: "EUR",
         priceValidUntil: "2026-12-31",
       },
     ],

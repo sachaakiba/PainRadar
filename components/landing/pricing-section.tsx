@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
 import { useSession } from "@/lib/auth-client";
 import { toast } from "sonner";
-import { Check, Loader2, Sparkles } from "lucide-react";
+import { Check, Crown, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,12 +16,11 @@ import {
 import { cn } from "@/lib/utils";
 
 const creditPacks = [
-  { id: "starter" as const, credits: 5, price: "$9", priceEur: "9 €", popular: false },
-  { id: "explorer" as const, credits: 15, price: "$19", priceEur: "19 €", popular: true },
-  { id: "founder" as const, credits: 50, price: "$49", priceEur: "49 €", popular: false },
+  { id: "starter" as const, credits: 5, price: "9 €", popular: false },
+  { id: "explorer" as const, credits: 15, price: "19 €", popular: true },
 ] as const;
 
-type CreditPackId = (typeof creditPacks)[number]["id"];
+type CreditPackId = (typeof creditPacks)[number]["id"] | "founder";
 
 export function PricingSection() {
   const t = useTranslations("pricing");
@@ -30,6 +29,7 @@ export function PricingSection() {
   const { data: session, isPending: isSessionLoading } = useSession();
   const [selectedPack, setSelectedPack] = useState<CreditPackId>("explorer");
   const [isPurchasing, setIsPurchasing] = useState(false);
+  const [isPurchasingFounder, setIsPurchasingFounder] = useState(false);
 
   const isLoggedIn = !!session?.user;
   const currentPack = creditPacks.find((p) => p.id === selectedPack)!;
@@ -42,7 +42,7 @@ export function PricingSection() {
     }
   }
 
-  async function handlePurchase() {
+  async function handlePurchase(planId: CreditPackId = selectedPack) {
     if (isSessionLoading) return;
 
     if (!isLoggedIn) {
@@ -50,12 +50,15 @@ export function PricingSection() {
       return;
     }
 
-    setIsPurchasing(true);
+    const isFounder = planId === "founder";
+    if (isFounder) setIsPurchasingFounder(true);
+    else setIsPurchasing(true);
+
     try {
       const res = await fetch("/api/stripe/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ planId: selectedPack }),
+        body: JSON.stringify({ planId }),
       });
       const data = await res.json();
       if (!res.ok || !data.url) {
@@ -66,7 +69,8 @@ export function PricingSection() {
     } catch {
       toast.error(tDashboard("somethingWentWrong"));
     } finally {
-      setIsPurchasing(false);
+      if (isFounder) setIsPurchasingFounder(false);
+      else setIsPurchasing(false);
     }
   }
 
@@ -80,7 +84,7 @@ export function PricingSection() {
           <p className="mt-4 text-lg text-muted-foreground">{t("subtitle")}</p>
         </div>
 
-        <div className="mx-auto mt-14 grid max-w-4xl gap-8 md:grid-cols-2">
+        <div className="mx-auto mt-14 grid max-w-5xl gap-8 md:grid-cols-3">
           {/* Free Card */}
           <Card className="card-hover relative flex h-full flex-col border-t-4 border-t-teal-400 bg-card/90 shadow-card-sm">
             <CardHeader className="pb-5 pt-6">
@@ -148,7 +152,7 @@ export function PricingSection() {
               </p>
 
               {/* Pack Selector */}
-              <div className="mt-6 grid grid-cols-3 gap-2">
+              <div className="mt-6 grid grid-cols-2 gap-2">
                 {creditPacks.map((pack) => (
                   <button
                     key={pack.id}
@@ -220,13 +224,90 @@ export function PricingSection() {
                 variant="default"
                 className="w-full text-base"
                 size="lg"
-                onClick={handlePurchase}
+                onClick={() => handlePurchase()}
                 disabled={isSessionLoading || isPurchasing}
               >
                 {isSessionLoading || isPurchasing ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : null}
                 {t("credits.cta", { credits: currentPack.credits })}
+              </Button>
+            </CardFooter>
+          </Card>
+
+          {/* Founder Lifetime Card */}
+          <Card className="card-hover relative flex h-full flex-col border-t-4 border-t-amber-500 bg-amber-500/[0.04] shadow-card-lg">
+            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+              <span className="rounded-pill bg-amber-500 px-4 py-1 text-[11px] font-bold tracking-wide text-white">
+                {t("founder.badge")}
+              </span>
+            </div>
+            <CardHeader className="pb-5 pt-6">
+              <h3 className="font-display text-[22px] font-bold leading-tight text-foreground">
+                {t("founder.name")}
+              </h3>
+              <div className="mt-3 flex items-end gap-2">
+                <span className="font-display text-5xl leading-none text-foreground">
+                  49 €
+                </span>
+                <span className="rounded-full border border-border/60 bg-secondary/50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  {t("lifetime")}
+                </span>
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                {t("founder.description")}
+              </p>
+            </CardHeader>
+            <CardContent className="flex-1">
+              <ul className="space-y-2.5">
+                {(t.raw("founder.features") as string[]).map((feature) => {
+                  const isUnlimited = /illimit|unlimited|infini/i.test(feature);
+                  return (
+                    <li
+                      key={feature}
+                      className={cn(
+                        "flex items-start gap-3 rounded-lg px-2 py-1.5 text-sm leading-snug",
+                        isUnlimited && "bg-amber-500/10"
+                      )}
+                    >
+                      <div
+                        className={cn(
+                          "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full",
+                          isUnlimited ? "bg-amber-500/20" : "bg-teal-500/20"
+                        )}
+                      >
+                        {isUnlimited ? (
+                          <Crown className="h-3 w-3 text-amber-300" />
+                        ) : (
+                          <Check className="h-3 w-3 text-teal-300" />
+                        )}
+                      </div>
+                      <span
+                        className={cn(
+                          isUnlimited
+                            ? "font-semibold text-amber-100"
+                            : "text-foreground/90"
+                        )}
+                      >
+                        {feature}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </CardContent>
+            <CardFooter className="pt-5">
+              <Button
+                variant="default"
+                className="w-full bg-amber-500 text-base hover:bg-amber-600"
+                size="lg"
+                onClick={() => handlePurchase("founder")}
+                disabled={isSessionLoading || isPurchasingFounder}
+              >
+                {isSessionLoading || isPurchasingFounder ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : null}
+                {t("founder.cta")}
               </Button>
             </CardFooter>
           </Card>
