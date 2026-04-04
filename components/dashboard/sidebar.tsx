@@ -155,29 +155,42 @@ export function DashboardSidebar() {
               </div>
             ) : (
               <div className="mt-1 space-y-2">
-                <p className="text-sm font-semibold text-primary tabular-nums">
-                  {(userPlan?.credits ?? 0).toString()}
-                </p>
-                <p className="text-[11px] text-white/80">
-                  {userPlan?.plan === "free"
-                    ? t("planStatusFree")
-                    : t("planStatusPaid")}
-                </p>
-                <p className="text-xs text-sidebar-foreground">
-                  {userPlan?.credits && userPlan.credits > 0
-                    ? t("creditsRemaining", { count: userPlan.credits })
-                    : t("noCreditsLeft")}
-                </p>
-                <Button
-                  asChild
-                  size="sm"
-                  variant="outline"
-                  className="h-8 w-full border-white/20 bg-transparent text-white hover:bg-white/10"
-                >
-                  <Link href="/pricing" onClick={() => setMobileOpen(false)}>
-                    {t("addCredits")}
-                  </Link>
-                </Button>
+                {userPlan?.plan === "founder" ? (
+                  <>
+                    <p className="text-sm font-semibold text-coral-400">
+                      {t("founderUnlimited")}
+                    </p>
+                    <p className="text-[11px] text-white/80">
+                      {t("founderLifetime")}
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-sm font-semibold text-primary tabular-nums">
+                      {(userPlan?.credits ?? 0).toString()}
+                    </p>
+                    <p className="text-[11px] text-white/80">
+                      {userPlan?.plan === "free"
+                        ? t("planStatusFree")
+                        : t("planStatusPaid")}
+                    </p>
+                    <p className="text-xs text-sidebar-foreground">
+                      {userPlan?.credits && userPlan.credits > 0
+                        ? t("creditsRemaining", { count: userPlan.credits })
+                        : t("noCreditsLeft")}
+                    </p>
+                    <Button
+                      asChild
+                      size="sm"
+                      variant="outline"
+                      className="h-8 w-full border-white/20 bg-transparent text-white hover:bg-white/10"
+                    >
+                      <Link href="/pricing" onClick={() => setMobileOpen(false)}>
+                        {t("addCredits")}
+                      </Link>
+                    </Button>
+                  </>
+                )}
               </div>
             )}
           </div>

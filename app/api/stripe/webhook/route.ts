@@ -83,10 +83,15 @@ export async function POST(request: Request) {
         const newPlan =
           TIER_RANK[targetPlan] >= TIER_RANK[currentPlan] ? targetPlan : currentPlan;
 
+        // Founder plan: no credit increment needed (unlimited access)
+        const creditUpdate = packId === "founder"
+          ? {}
+          : { credits: { increment: PACK_CREDITS[packId] } };
+
         await db.user.update({
           where: { id: userId },
           data: {
-            credits: { increment: PACK_CREDITS[packId] },
+            ...creditUpdate,
             plan: newPlan,
             stripeCustomerId: customerId,
           },

@@ -34,6 +34,9 @@ export async function checkCredits(userId: string): Promise<LimitCheckResult> {
   const info = await getUserCreditInfo(userId);
   if (!info) return { allowed: false, error: "unauthorized", upgradeRequired: true };
 
+  // Founder plan has unlimited access
+  if (info.plan === "founder") return { allowed: true };
+
   if (info.credits <= 0) {
     return { allowed: false, error: "no_credits", upgradeRequired: true };
   }
@@ -41,6 +44,10 @@ export async function checkCredits(userId: string): Promise<LimitCheckResult> {
 }
 
 export async function consumeCredit(userId: string): Promise<void> {
+  // Founder plan has unlimited access — never deduct credits
+  const info = await getUserCreditInfo(userId);
+  if (info?.plan === "founder") return;
+
   await db.user.update({
     where: { id: userId },
     data: { credits: { decrement: 1 } },
