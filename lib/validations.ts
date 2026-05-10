@@ -37,7 +37,15 @@ export const contactSchema = z.object({
     .max(5000, "Message must be at most 5000 characters"),
 });
 
+export const feedbackSchema = z.object({
+  message: z
+    .string()
+    .min(10, "Feedback must be at least 10 characters")
+    .max(5000, "Feedback must be at most 5000 characters"),
+});
+
 export type SignUpInput = z.infer<typeof signUpSchema>;
 export type SignInInput = z.infer<typeof signInSchema>;
 export type AnalysisInput = z.infer<typeof analysisSchema>;
 export type ContactInput = z.infer<typeof contactSchema>;
+export type FeedbackInput = z.infer<typeof feedbackSchema>;

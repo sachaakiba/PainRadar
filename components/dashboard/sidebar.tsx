@@ -8,6 +8,7 @@ import {
   Search,
   Bookmark,
   Settings,
+  Shield,
   LogOut,
   Menu,
   X,
@@ -26,6 +27,7 @@ const iconMap = {
   Search,
   Bookmark,
   Settings,
+  Shield,
 } as const;
 
 const links = [
@@ -33,6 +35,7 @@ const links = [
   { href: "/dashboard/analyses", labelKey: "analyses", icon: "Search" },
   { href: "/dashboard/saved", labelKey: "saved", icon: "Bookmark" },
   { href: "/dashboard/settings", labelKey: "settings", icon: "Settings" },
+  { href: "/dashboard/admin", labelKey: "admin", icon: "Shield", superAdminOnly: true },
 ];
 
 export function DashboardSidebar() {
@@ -107,7 +110,9 @@ export function DashboardSidebar() {
           </Link>
 
           <nav className="flex flex-1 flex-col gap-1">
-            {links.map((link) => {
+            {links
+              .filter((link) => !link.superAdminOnly || userPlan?.isSuperAdmin)
+              .map((link) => {
               const Icon = iconMap[link.icon as keyof typeof iconMap];
               const isActive = pathname === link.href;
               const isSaved = link.href === "/dashboard/saved";
