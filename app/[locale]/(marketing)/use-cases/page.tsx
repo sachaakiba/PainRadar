@@ -17,8 +17,9 @@ export const metadata: Metadata = {
 
 const slugToKey: Record<string, string> = {
   "indie-hackers": "indieHackers",
-  "agencies": "agencies",
-  "startups": "startups",
+  agencies: "agencies",
+  freelancers: "freelancers",
+  startups: "startups",
 };
 
 export default async function UseCasesPage() {

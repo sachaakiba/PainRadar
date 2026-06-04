@@ -38,6 +38,7 @@ import { toast } from "sonner";
 import { getUserPlan } from "@/actions/user";
 import { getPlanLimits } from "@/lib/plans";
 import { analysisOutputSchema, type AnalysisOutput } from "@/lib/analysis-schema";
+import { isGenerationLockStale } from "@/lib/analysis-generation";
 
 interface PainPoint {
   id: string;
@@ -85,6 +86,7 @@ interface Analysis {
   query: string;
   topic: string;
   status: string;
+  generationStartedAt: string | null;
   opportunityScore: number;
   demandScore: number;
   urgencyScore: number;
@@ -376,11 +378,20 @@ export default function AnalysisDetailPage() {
   );
 
   useEffect(() => {
-    if (analysis?.status === "generating" && !streamStarted) {
-      setStreamStarted(true);
-      submit({});
+    if (analysis?.status !== "generating" || streamStarted) return;
+
+    const lockActive =
+      analysis.generationStartedAt &&
+      !isGenerationLockStale(analysis.generationStartedAt);
+
+    if (lockActive) {
+      const poll = setInterval(() => refetch(), 3000);
+      return () => clearInterval(poll);
     }
-  }, [analysis?.status, streamStarted, submit]);
+
+    setStreamStarted(true);
+    submit({});
+  }, [analysis?.status, analysis?.generationStartedAt, streamStarted, submit, refetch]);
 
   useEffect(() => {
     if (!isStreaming && streamStarted && !streamError) {
@@ -421,9 +432,10 @@ export default function AnalysisDetailPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: "generating" }),
       });
+      setStreamStarted(false);
+      await refetch();
       setStreamStarted(true);
       submit({});
-      refetch();
     } catch {
       toast.error(t("updateFailed"));
     }

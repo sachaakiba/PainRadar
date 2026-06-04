@@ -73,6 +73,7 @@ export async function PATCH(
 
   if (body.status === "generating" && analysis.status === "failed") {
     updateData.status = "generating";
+    updateData.generationStartedAt = null;
     updateData.summary = "";
     updateData.opportunityScore = 0;
     updateData.demandScore = 0;

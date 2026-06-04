@@ -7,9 +7,17 @@ import { buildAnalysisPrompt } from "@/lib/analysis-prompt";
 import { fetchRedditPosts, formatRedditDataForPrompt } from "@/lib/reddit";
 import { getPlanLimits } from "@/lib/plans";
 import { consumeCredit } from "@/lib/plan-guard";
+import { generationLockStaleBefore } from "@/lib/analysis-generation";
 import type { PlanId } from "@/types";
 
 export const maxDuration = 120;
+
+async function markAnalysisFailed(id: string) {
+  await db.analysis.update({
+    where: { id },
+    data: { status: "failed", generationStartedAt: null },
+  });
+}
 
 export async function POST(
   _request: Request,
@@ -22,16 +30,29 @@ export async function POST(
 
   const { id } = await params;
 
+  const lock = await db.analysis.updateMany({
+    where: {
+      id,
+      userId: session.user.id,
+      status: "generating",
+      OR: [
+        { generationStartedAt: null },
+        { generationStartedAt: { lt: generationLockStaleBefore() } },
+      ],
+    },
+    data: { generationStartedAt: new Date() },
+  });
+
+  if (lock.count === 0) {
+    return new Response("Generation already in progress", { status: 409 });
+  }
+
   const analysis = await db.analysis.findFirst({
     where: { id, userId: session.user.id },
   });
 
   if (!analysis) {
     return new Response("Not found", { status: 404 });
-  }
-
-  if (analysis.status !== "generating") {
-    return new Response("Analysis is not in generating state", { status: 400 });
   }
 
   const user = await db.user.findUnique({
@@ -67,10 +88,7 @@ export async function POST(
     prompt: prompt.user,
     onFinish: async ({ object }) => {
       if (!object) {
-        await db.analysis.update({
-          where: { id },
-          data: { status: "failed" },
-        });
+        await markAnalysisFailed(id);
         return;
       }
 
@@ -80,6 +98,7 @@ export async function POST(
             where: { id },
             data: {
               status: "completed",
+              generationStartedAt: null,
               summary: object.summary,
               opportunityScore: Math.round(object.opportunityScore),
               demandScore: Math.round(object.demandScore),
@@ -169,10 +188,7 @@ export async function POST(
 
         await consumeCredit(session.user.id);
       } catch {
-        await db.analysis.update({
-          where: { id },
-          data: { status: "failed" },
-        });
+        await markAnalysisFailed(id);
       }
     },
   });

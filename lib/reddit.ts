@@ -19,15 +19,17 @@ export interface RedditComment {
   author: string;
 }
 
-async function redditFetch(url: string): Promise<Response> {
+const REDDIT_MAX_RETRIES = 3;
+
+async function redditFetch(url: string, attempt = 0): Promise<Response> {
   const res = await fetch(url, {
     headers: { "User-Agent": REDDIT_USER_AGENT },
   });
 
-  if (res.status === 429) {
+  if (res.status === 429 && attempt < REDDIT_MAX_RETRIES) {
     const retryAfter = parseInt(res.headers.get("Retry-After") ?? "5", 10);
     await new Promise((r) => setTimeout(r, retryAfter * 1000));
-    return redditFetch(url);
+    return redditFetch(url, attempt + 1);
   }
 
   if (!res.ok) {
