@@ -4,6 +4,7 @@ export const siteConfig = {
     "Find real pain points people are complaining about — and turn them into SaaS ideas. PainRadar analyzes discussions and reveals recurring pain points, product opportunities and SEO angles.",
   url: process.env.NEXT_PUBLIC_APP_URL || "https://painradar.com",
   ogImage: "/og.png",
+  icon: "/icon.png",
   links: {
     twitter: "https://twitter.com/painradar",
     github: "https://github.com/painradar",
