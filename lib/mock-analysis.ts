@@ -20,17 +20,20 @@ function pickFrom<T>(arr: T[], key: string): T {
 }
 
 /**
- * Pick N items from array (deterministic, no duplicates)
+ * Pick N items from array (deterministic, no duplicates).
+ * Uses Fisher-Yates shuffle with a seeded PRNG to guarantee O(arr.length)
+ * termination even when n === arr.length.
  */
 function pickNFrom<T>(arr: T[], key: string, n: number): T[] {
-  const indices: number[] = [];
-  let seed = hashStr(key);
-  while (indices.length < n && indices.length < arr.length) {
-    const idx = Math.floor(seed * arr.length) % arr.length;
-    if (!indices.includes(idx)) indices.push(idx);
+  const count = Math.min(n, arr.length);
+  const indices = Array.from({ length: arr.length }, (_, i) => i);
+  let seed = Math.floor(hashStr(key) * 233280);
+  for (let i = indices.length - 1; i > 0; i--) {
     seed = (seed * 9301 + 49297) % 233280;
+    const j = seed % (i + 1);
+    [indices[i], indices[j]] = [indices[j], indices[i]];
   }
-  return indices.map((i) => arr[i]);
+  return indices.slice(0, count).map((i) => arr[i]);
 }
 
 export type MockPainPoint = {
