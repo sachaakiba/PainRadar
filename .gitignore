@@ -43,3 +43,5 @@ prisma/*.db
 .env.local
 .env.prod
 /scripts
+
+/html

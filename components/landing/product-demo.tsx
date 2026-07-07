@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { Search, Radio, AlertTriangle, Rocket, Wand2 } from "lucide-react";
 
@@ -8,6 +8,9 @@ const stepIcons = [Search, Radio, AlertTriangle, Rocket, Wand2] as const;
 
 export function ProductDemo() {
   const t = useTranslations("productDemo");
+  const locale = useLocale();
+  const videoSrc =
+    locale === "fr" ? "/fr/pain-radar-demo.mp4" : "/en/pain-radar-demo.mp4";
 
   const steps = [
     { icon: stepIcons[0], label: t("step1") },
@@ -16,8 +19,6 @@ export function ProductDemo() {
     { icon: stepIcons[3], label: t("step4") },
     { icon: stepIcons[4], label: t("step5"), highlight: true },
   ];
-
-  const youtubeVideoId = "Evq8bQzX13Q";
 
   return (
     <section className="px-4 py-24 sm:px-6 lg:px-8">
@@ -68,7 +69,6 @@ export function ProductDemo() {
           </div>
         </div>
 
-        {/* YouTube video embed with autoplay */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -77,12 +77,15 @@ export function ProductDemo() {
           className="relative mx-auto mt-12 max-w-5xl overflow-hidden rounded-xl border border-border/50 shadow-2xl shadow-black/10"
         >
           <div className="aspect-video">
-            <iframe
-              className="h-full w-full"
-              src={`https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&mute=1&loop=1&playlist=${youtubeVideoId}&controls=0&modestbranding=1&rel=0&showinfo=0&fs=0&playsinline=1`}
-              title="PainRadar Product Demo"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
+            <video
+              key={videoSrc}
+              className="h-full w-full object-cover"
+              src={videoSrc}
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls
             />
           </div>
         </motion.div>
