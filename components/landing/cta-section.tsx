@@ -12,7 +12,7 @@ export function CTASection() {
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
       <div className="container mx-auto max-w-7xl">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          <h2 className="font-display text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
             {t("title")}
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">{t("subtitle")}</p>

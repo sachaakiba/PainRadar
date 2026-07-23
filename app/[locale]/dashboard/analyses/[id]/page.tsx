@@ -251,12 +251,12 @@ function RevealSection({ children, visible }: { children: React.ReactNode; visib
 
 function LockedOverlay({ t, tDashboard, router }: { t: (key: string) => string; tDashboard: (key: string) => string; router: ReturnType<typeof useRouter> }) {
   return (
-    <Card className="relative overflow-hidden border-2 border-dashed border-amber-300 dark:border-amber-800 bg-gradient-to-r from-amber-500/5 via-coral-500/5 to-teal-500/5">
+    <Card className="relative overflow-hidden border border-dashed border-primary/40 bg-primary/[0.04]">
       <CardContent className="flex flex-col items-center gap-4 py-10">
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500/20 to-coral-500/20 text-amber-500">
+        <div className="flex h-12 w-12 items-center justify-center rounded-md bg-primary-tint text-primary">
           <div className="relative">
             <Sparkles className="h-6 w-6" />
-            <Lock className="h-3 w-3 absolute -bottom-1 -right-1 text-amber-700 dark:text-amber-300" />
+            <Lock className="h-3 w-3 absolute -bottom-1 -right-1 text-primary" />
           </div>
         </div>
         <div className="text-center space-y-1.5">
@@ -267,7 +267,6 @@ function LockedOverlay({ t, tDashboard, router }: { t: (key: string) => string; 
         </div>
         <Button
           size="sm"
-          className="bg-gradient-to-r from-amber-600 to-coral-600 hover:from-amber-700 hover:to-coral-700 text-white"
           onClick={() => router.push("/pricing")}
         >
           {t("unlockNow")}
@@ -983,12 +982,12 @@ export default function AnalysisDetailPage() {
               </div>
             );
           })() : (
-            <Card className="relative overflow-hidden border-2 border-dashed border-violet-300 dark:border-violet-800 bg-gradient-to-r from-violet-500/5 via-fuchsia-500/5 to-amber-500/5">
+            <Card className="relative overflow-hidden border border-dashed border-primary/40 bg-primary/[0.04]">
               <CardContent className="flex flex-col items-center gap-4 py-10">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 text-violet-500">
+                <div className="flex h-12 w-12 items-center justify-center rounded-md bg-primary-tint text-primary">
                   <div className="relative">
                     <Sparkles className="h-6 w-6" />
-                    <Lock className="h-3 w-3 absolute -bottom-1 -right-1 text-violet-700 dark:text-violet-300" />
+                    <Lock className="h-3 w-3 absolute -bottom-1 -right-1 text-primary" />
                   </div>
                 </div>
                 <div className="text-center space-y-1.5">
@@ -999,7 +998,6 @@ export default function AnalysisDetailPage() {
                 </div>
                 <Button
                   size="sm"
-                  className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-white"
                   onClick={() => router.push("/dashboard/settings")}
                 >
                   {tDashboard("upgradeNow")}

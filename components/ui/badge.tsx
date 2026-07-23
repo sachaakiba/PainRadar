@@ -15,12 +15,20 @@ const badgeVariants = cva(
           "border-transparent bg-destructive text-destructive-foreground",
         outline:
           "border-border/80 text-foreground",
+        accent:
+          "border-transparent bg-primary-tint text-primary",
+        success:
+          "border-transparent bg-score-high-tint text-score-high",
+        warning:
+          "border-transparent bg-score-mid-tint text-score-mid",
+        danger:
+          "border-transparent bg-score-low-tint text-score-low",
         coral:
-          "border-transparent bg-coral-100 text-coral-700 dark:bg-coral-900/30 dark:text-coral-400",
+          "border-transparent bg-coral-100 text-coral-700",
         teal:
-          "border-transparent bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400",
+          "border-transparent bg-teal-100 text-teal-700",
         amber:
-          "border-transparent bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+          "border-transparent bg-amber-100 text-amber-700",
       },
     },
     defaultVariants: {

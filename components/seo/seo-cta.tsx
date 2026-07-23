@@ -17,7 +17,7 @@ export function SeoCta({ title, subtitle, buttonLabel, href = "/signup", classNa
         "rounded-xl border border-border/50 bg-gradient-to-b from-muted/30 to-muted/10 px-6 py-12 text-center sm:px-8 sm:py-16"
       }
     >
-      <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">{title}</h2>
+      <h2 className="font-display text-2xl font-medium tracking-tight text-foreground sm:text-3xl">{title}</h2>
       {subtitle && <p className="mt-2 text-muted-foreground">{subtitle}</p>}
       <Button asChild size="lg" className="mt-6">
         <Link href={href}>{buttonLabel}</Link>

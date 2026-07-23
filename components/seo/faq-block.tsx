@@ -27,7 +27,7 @@ export function FaqBlock({ title, items, pagePath, className }: FaqBlockProps) {
 
   return (
     <section className={className} aria-labelledby="faq-heading">
-      <h2 id="faq-heading" className="text-2xl font-bold tracking-tight text-foreground mb-6">
+      <h2 id="faq-heading" className="font-display text-2xl font-medium tracking-tight text-foreground mb-6">
         {title}
       </h2>
       <JsonLd data={faqJsonLd} />

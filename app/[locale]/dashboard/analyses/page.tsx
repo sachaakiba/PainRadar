@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { SearchForm } from "@/components/dashboard/search-form";
-import { AnalysisCard } from "@/components/dashboard/analysis-card";
+import { AnalysesTable } from "@/components/dashboard/analyses-table";
 import type { AnalysisCardData } from "@/components/dashboard/analysis-card";
 import { Search } from "lucide-react";
 
@@ -25,7 +25,7 @@ export default function AnalysesPage() {
   return (
     <div className="space-y-10">
       <div className="fade-up fade-up-1">
-        <h1 className="font-display text-3xl font-bold tracking-tight">
+        <h1 className="font-display text-3xl font-medium tracking-tight">
           {t("searchTitle")}
         </h1>
         <p className="mt-2 text-muted-foreground">{t("searchDesc")}</p>
@@ -42,17 +42,15 @@ export default function AnalysesPage() {
           ))}
         </div>
       ) : analyses.length === 0 ? (
-        <div className="fade-up fade-up-3 rounded-2xl border-2 border-dashed border-border/60 p-16 text-center">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-coral-500/10">
-            <Search className="h-6 w-6 text-coral-500" />
+        <div className="fade-up fade-up-3 rounded-lg border border-dashed border-border bg-card p-16 text-center">
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-md bg-primary-tint">
+            <Search className="h-6 w-6 text-primary" />
           </div>
           <p className="text-muted-foreground">{t("noAnalysesYet")}</p>
         </div>
       ) : (
-        <div className="space-y-3 fade-up fade-up-3">
-          {analyses.map((analysis) => (
-            <AnalysisCard key={analysis.id} analysis={analysis} />
-          ))}
+        <div className="fade-up fade-up-3">
+          <AnalysesTable analyses={analyses} />
         </div>
       )}
     </div>

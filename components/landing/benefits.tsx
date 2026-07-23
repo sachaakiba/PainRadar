@@ -26,7 +26,7 @@ export function Benefits() {
     <section className="border-t border-border/50 bg-muted/20 px-4 py-24 sm:px-6 lg:px-8">
       <div className="container mx-auto max-w-7xl">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          <h2 className="font-display text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
             {t("title")}
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">

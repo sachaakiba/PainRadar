@@ -4,13 +4,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { ArrowRight } from "lucide-react";
 import { exampleAnalyses } from "@/config/examples";
-import { cn } from "@/lib/utils";
-
-function getScoreBadge(score: number) {
-  if (score >= 80) return "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
-  if (score >= 60) return "bg-yellow-500/10 text-yellow-400 border-yellow-500/20";
-  return "bg-orange-500/10 text-orange-400 border-orange-500/20";
-}
+import { ScoreBadge } from "@/components/ui/score-badge";
 
 const slugToKey: Record<string, string> = {
   "invoicing-freelancers": "invoicingFreelancers",
@@ -27,7 +21,7 @@ export function ExampleCards() {
     <section className="py-24 px-4">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="font-display text-3xl font-medium tracking-tight sm:text-4xl">
             {t("title")}
           </h2>
           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -42,23 +36,16 @@ export function ExampleCards() {
               <Link
                 key={example.slug}
                 href={`/examples/${example.slug}`}
-                className="group relative rounded-xl border border-border/50 bg-card p-6 transition-all duration-300 hover:border-border hover:shadow-lg hover:shadow-primary/5"
+                className="group relative rounded-lg border border-border bg-card p-6 shadow-card-xs transition-shadow duration-200 hover:shadow-card-md"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
                     <p className="text-sm text-muted-foreground mb-1">{t("analysis")}</p>
-                    <h3 className="font-semibold text-lg leading-tight group-hover:text-primary transition-colors">
+                    <h3 className="font-display text-lg font-medium leading-snug group-hover:text-primary transition-colors">
                       {t(`exampleItems.${key}.query`)}
                     </h3>
                   </div>
-                  <span
-                    className={cn(
-                      "ml-3 inline-flex items-center rounded-full border px-2.5 py-1 text-sm font-bold tabular-nums",
-                      getScoreBadge(example.opportunityScore)
-                    )}
-                  >
-                    {example.opportunityScore}
-                  </span>
+                  <ScoreBadge score={example.opportunityScore} size="sm" className="ml-3" />
                 </div>
 
                 <div className="mb-4">

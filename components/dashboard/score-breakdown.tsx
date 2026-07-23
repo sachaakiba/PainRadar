@@ -13,17 +13,15 @@ export interface ScoreScores {
 }
 
 function getBarColor(score: number) {
-  if (score >= 80) return "[&>div>*]:!bg-teal-400";
-  if (score >= 60) return "[&>div>*]:!bg-amber-400";
-  if (score >= 40) return "[&>div>*]:!bg-coral-400";
-  return "[&>div>*]:!bg-red-500";
+  if (score >= 80) return "[&>div>*]:!bg-score-high";
+  if (score >= 55) return "[&>div>*]:!bg-score-mid";
+  return "[&>div>*]:!bg-score-low";
 }
 
 function getScoreTextColor(score: number) {
-  if (score >= 80) return "text-teal-500";
-  if (score >= 60) return "text-amber-500";
-  if (score >= 40) return "text-coral-500";
-  return "text-red-500";
+  if (score >= 80) return "text-score-high";
+  if (score >= 55) return "text-score-mid";
+  return "text-score-low";
 }
 
 const labelKeys: Record<keyof ScoreScores, string> = {

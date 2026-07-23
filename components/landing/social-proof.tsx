@@ -20,7 +20,7 @@ export function SocialProof() {
           <p className="text-sm font-semibold uppercase tracking-wider text-primary">
             {t("badge")}
           </p>
-          <h2 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          <h2 className="mt-2 font-display text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
             {t("title")}
           </h2>
         </div>
@@ -29,7 +29,7 @@ export function SocialProof() {
           {testimonials.map((item, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}

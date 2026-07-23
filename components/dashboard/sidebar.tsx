@@ -83,14 +83,14 @@ export function DashboardSidebar() {
 
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-40 bg-ink-900/35 lg:hidden"
           onClick={() => setMobileOpen(false)}
         />
       )}
 
       <aside
         className={cn(
-          "fixed left-0 top-0 z-40 flex h-screen w-60 flex-col bg-sidebar",
+          "fixed left-0 top-0 z-40 flex h-screen w-60 flex-col border-r border-border bg-sidebar",
           "transition-transform duration-200 ease-in-out lg:translate-x-0",
           mobileOpen ? "translate-x-0" : "-translate-x-full",
         )}
@@ -98,13 +98,13 @@ export function DashboardSidebar() {
         <div className="flex flex-1 flex-col px-4 pt-16 pb-4 lg:pt-6">
           <Link
             href="/dashboard"
-            className="flex items-center gap-3 px-3 py-2 mb-8"
+            className="flex items-center gap-2.5 px-3 py-2 mb-8"
             onClick={() => setMobileOpen(false)}
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-coral-500/15">
-              <Radar className="h-5 w-5 text-coral-400" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary-tint">
+              <Radar className="h-5 w-5 text-primary" />
             </div>
-            <span className="font-display text-lg font-bold text-white">
+            <span className="font-display text-xl font-medium text-foreground">
               PainRadar
             </span>
           </Link>
@@ -122,24 +122,21 @@ export function DashboardSidebar() {
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
-                    "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150",
+                    "group relative flex items-center gap-3 rounded-md px-3 py-2.5 text-sm transition-colors duration-150",
                     isActive
-                      ? "bg-coral-500/12 text-white"
-                      : "text-sidebar-foreground hover:bg-sidebar-hover hover:text-white",
+                      ? "bg-secondary font-semibold text-foreground"
+                      : "font-medium text-muted-foreground hover:bg-secondary/60 hover:text-foreground",
                   )}
                 >
-                  {isActive && (
-                    <span className="absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 rounded-r-full bg-coral-500 transition-transform origin-center" />
-                  )}
                   <Icon
                     className={cn(
                       "h-4 w-4 shrink-0",
-                      isActive && "text-coral-400",
+                      isActive ? "text-primary" : "text-muted-foreground",
                     )}
                   />
                   <span className="flex-1">{t(link.labelKey)}</span>
                   {isSaved && savedCount !== null && savedCount > 0 && (
-                    <span className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-coral-500/20 px-1.5 text-xs font-semibold text-coral-400 tabular-nums">
+                    <span className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-secondary px-1.5 font-mono text-xs text-muted-foreground tabular-nums">
                       {savedCount > 99 ? "99+" : savedCount}
                     </span>
                   )}
@@ -148,38 +145,38 @@ export function DashboardSidebar() {
             })}
           </nav>
 
-          <div className="mb-4 rounded-xl border border-white/10 bg-white/5 px-3 py-2.5">
-            <p className="text-[10px] uppercase tracking-wider text-sidebar-foreground">
+          <div className="mb-4 rounded-md border border-border bg-secondary/40 px-3 py-2.5">
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">
               {t("currentPlan")}
             </p>
             {isUserPlanLoading ? (
               <div className="mt-2 space-y-2">
-                <Skeleton className="h-6 w-14 bg-white/10" />
-                <Skeleton className="h-4 w-28 bg-white/10" />
-                <Skeleton className="h-8 w-full bg-white/10" />
+                <Skeleton className="h-6 w-14" />
+                <Skeleton className="h-4 w-28" />
+                <Skeleton className="h-8 w-full" />
               </div>
             ) : (
               <div className="mt-1 space-y-2">
                 {userPlan?.plan === "founder" ? (
                   <>
-                    <p className="text-sm font-semibold text-coral-400">
+                    <p className="text-sm font-semibold text-primary">
                       {t("founderUnlimited")}
                     </p>
-                    <p className="text-[11px] text-white/80">
+                    <p className="text-[11px] text-muted-foreground">
                       {t("founderLifetime")}
                     </p>
                   </>
                 ) : (
                   <>
-                    <p className="text-sm font-semibold text-primary tabular-nums">
+                    <p className="font-mono text-sm font-medium text-primary tabular-nums">
                       {(userPlan?.credits ?? 0).toString()}
                     </p>
-                    <p className="text-[11px] text-white/80">
+                    <p className="text-[11px] text-muted-foreground">
                       {userPlan?.plan === "free"
                         ? t("planStatusFree")
                         : t("planStatusPaid")}
                     </p>
-                    <p className="text-xs text-sidebar-foreground">
+                    <p className="text-xs text-muted-foreground">
                       {userPlan?.credits && userPlan.credits > 0
                         ? t("creditsRemaining", { count: userPlan.credits })
                         : t("noCreditsLeft")}
@@ -188,7 +185,7 @@ export function DashboardSidebar() {
                       asChild
                       size="sm"
                       variant="outline"
-                      className="h-8 w-full border-white/20 bg-transparent text-white hover:bg-white/10"
+                      className="h-8 w-full"
                     >
                       <Link href="/pricing" onClick={() => setMobileOpen(false)}>
                         {t("addCredits")}
@@ -200,11 +197,11 @@ export function DashboardSidebar() {
             )}
           </div>
 
-          <div className="space-y-3 pt-4 border-t border-white/8">
+          <div className="space-y-3 pt-4 border-t border-border">
             <div className="flex items-center gap-3 px-3">
-              <Avatar className="h-9 w-9 ring-2 ring-white/10">
+              <Avatar className="h-9 w-9">
                 <AvatarImage src={session?.user?.image ?? undefined} />
-                <AvatarFallback className="bg-coral-500/20 text-coral-300 text-sm font-bold">
+                <AvatarFallback className="bg-primary-tint text-primary text-sm font-semibold">
                   {session?.user?.name
                     ?.split(" ")
                     .map((n) => n[0])
@@ -214,17 +211,17 @@ export function DashboardSidebar() {
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1 overflow-hidden">
-                <p className="truncate text-sm font-semibold text-white">
+                <p className="truncate text-sm font-semibold text-foreground">
                   {session?.user?.name ?? t("user")}
                 </p>
-                <p className="truncate text-xs text-sidebar-foreground">
+                <p className="truncate text-xs text-muted-foreground">
                   {session?.user?.email ?? ""}
                 </p>
               </div>
             </div>
             <button
               onClick={handleSignOut}
-              className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-sidebar-foreground transition-colors hover:bg-sidebar-hover hover:text-white"
+              className="flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary/60 hover:text-foreground"
             >
               <LogOut className="h-4 w-4" />
               {t("signOut")}

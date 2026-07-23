@@ -33,13 +33,11 @@ export function AiPromptCard({ prompt }: AiPromptCardProps) {
   const hasMoreContent = lines.length > 12;
 
   return (
-    <Card className="relative overflow-hidden border-2 border-transparent bg-gradient-to-r from-violet-500/10 via-fuchsia-500/10 to-amber-500/10 dark:from-violet-500/5 dark:via-fuchsia-500/5 dark:to-amber-500/5">
-      <div className="absolute inset-0 rounded-[inherit] border-2 border-transparent [background:linear-gradient(var(--card),var(--card))_padding-box,linear-gradient(135deg,hsl(var(--color-primary)),hsl(270,80%,60%),hsl(var(--color-accent-2)))_border-box] pointer-events-none" />
-
+    <Card className="relative overflow-hidden">
       <CardHeader className="relative">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-lg shadow-violet-500/25">
+            <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-tint text-primary">
               <Sparkles className="h-5 w-5" />
             </div>
             <div>
@@ -48,14 +46,8 @@ export function AiPromptCard({ prompt }: AiPromptCardProps) {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Badge variant="secondary" className="bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300 border-0">
-              {t("aiPromptReady")}
-            </Badge>
-            <Button
-              size="sm"
-              onClick={handleCopy}
-              className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-white shadow-md shadow-violet-500/20 transition-all duration-200 hover:shadow-lg hover:shadow-violet-500/30"
-            >
+            <Badge variant="accent">{t("aiPromptReady")}</Badge>
+            <Button size="sm" onClick={handleCopy}>
               {copied ? (
                 <Check className="h-4 w-4 mr-1.5" />
               ) : (
@@ -68,14 +60,14 @@ export function AiPromptCard({ prompt }: AiPromptCardProps) {
       </CardHeader>
 
       <CardContent className="relative">
-        <div className="rounded-xl bg-slate-950 dark:bg-black/60 p-5 font-mono text-sm text-slate-300 leading-relaxed overflow-hidden relative">
+        <div className="relative overflow-hidden rounded-md border border-border bg-secondary/60 p-5 font-mono text-sm leading-relaxed text-foreground/80">
           <pre className="whitespace-pre-wrap break-words overflow-x-hidden">
             {expanded ? prompt : previewLines}
             {!expanded && hasMoreContent && "…"}
           </pre>
 
           {!expanded && hasMoreContent && (
-            <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-slate-950 dark:from-black/60 to-transparent pointer-events-none" />
+            <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-secondary to-transparent pointer-events-none" />
           )}
         </div>
 

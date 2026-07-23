@@ -14,7 +14,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { AnalysisCard } from "@/components/dashboard/analysis-card";
+import { AnalysesTable } from "@/components/dashboard/analyses-table";
 
 interface AnalysisSummary {
   id: string;
@@ -66,10 +66,9 @@ export default function DashboardPage() {
   return (
     <div className="space-y-10">
       <div className="fade-up fade-up-1">
-        <h1 className="font-display text-3xl font-bold tracking-tight">
+        <h1 className="font-display text-3xl font-medium tracking-tight">
           {t("welcome")}
-          {session?.user?.name ? `, ${session.user.name.split(" ")[0]}` : ""}{" "}
-          <span className="inline-block animate-bounce-click">👋</span>
+          {session?.user?.name ? `, ${session.user.name.split(" ")[0]}` : ""}
         </h1>
         <p className="mt-2 text-muted-foreground">
           {t("overviewDesc")}
@@ -107,7 +106,7 @@ export default function DashboardPage() {
       <div className="grid gap-8 lg:grid-cols-3">
         <div className="lg:col-span-2 fade-up fade-up-5">
           <div className="flex items-center justify-between mb-5">
-            <h2 className="font-display text-lg font-bold">{t("recentAnalyses")}</h2>
+            <h2 className="font-display text-xl font-medium">{t("recentAnalyses")}</h2>
             <Button asChild size="sm">
               <Link href="/dashboard/analyses">
                 <Search className="mr-2 h-4 w-4" />
@@ -139,16 +138,12 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
           ) : (
-            <div className="space-y-3">
-              {analyses.slice(0, 5).map((a) => (
-                <AnalysisCard key={a.id} analysis={a} />
-              ))}
-            </div>
+            <AnalysesTable analyses={analyses.slice(0, 5)} />
           )}
         </div>
 
         <div className="fade-up fade-up-6">
-          <Card className="border-t-4 border-t-teal-400 dark:border-t-teal-500">
+          <Card>
             <CardHeader>
               <CardTitle className="text-base">{t("quickStats")}</CardTitle>
             </CardHeader>

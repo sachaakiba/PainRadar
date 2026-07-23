@@ -5,7 +5,8 @@ import { Link } from "@/i18n/routing";
 import { Bookmark, Loader2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { cn, formatDate, getScoreBg } from "@/lib/utils";
+import { ScoreBadge } from "@/components/ui/score-badge";
+import { formatDate } from "@/lib/utils";
 
 export interface AnalysisCardData {
   id: string;
@@ -24,7 +25,7 @@ export function AnalysisCard({ analysis }: { analysis: AnalysisCardData }) {
 
   return (
     <Link href={`/dashboard/analyses/${analysis.id}`} className="block">
-      <Card className="card-hover group border-border/40 hover:border-coral-300/40 dark:hover:border-coral-500/30">
+      <Card className="card-hover group hover:border-ink-200">
         <CardContent className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
@@ -32,7 +33,7 @@ export function AnalysisCard({ analysis }: { analysis: AnalysisCardData }) {
                 {analysis.topic || analysis.query}
               </p>
               {analysis.saved && (
-                <Bookmark className="h-4 w-4 shrink-0 fill-coral-500 text-coral-500" />
+                <Bookmark className="h-4 w-4 shrink-0 fill-primary text-primary" />
               )}
             </div>
             <p className="mt-1 truncate text-sm text-muted-foreground">
@@ -52,15 +53,7 @@ export function AnalysisCard({ analysis }: { analysis: AnalysisCardData }) {
               {t("failed")}
             </Badge>
           ) : (
-            <Badge
-              variant="secondary"
-              className={cn(
-                "w-fit text-sm font-bold tabular-nums",
-                getScoreBg(analysis.opportunityScore)
-              )}
-            >
-              {analysis.opportunityScore}
-            </Badge>
+            <ScoreBadge score={analysis.opportunityScore} size="sm" className="w-fit" />
           )}
         </CardContent>
       </Card>

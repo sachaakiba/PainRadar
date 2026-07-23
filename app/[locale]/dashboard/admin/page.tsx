@@ -7,6 +7,14 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  DataTable,
+  DataTableBody,
+  DataTableCell,
+  DataTableHead,
+  DataTableHeader,
+  DataTableRow,
+} from "@/components/ui/data-table";
 import { getUserPlan } from "@/actions/user";
 import { formatDate } from "@/lib/utils";
 
@@ -87,11 +95,11 @@ export default function AdminPage() {
   return (
     <div className="space-y-8">
       <div className="fade-up fade-up-1">
-        <h1 className="font-display text-3xl font-bold tracking-tight">{t("adminTitle")}</h1>
+        <h1 className="font-display text-3xl font-medium tracking-tight">{t("adminTitle")}</h1>
         <p className="mt-2 text-muted-foreground">{t("adminDesc")}</p>
       </div>
 
-      <Card className="fade-up fade-up-2 border-l-4 border-l-coral-500">
+      <Card className="fade-up fade-up-2">
         <CardHeader>
           <CardTitle className="text-base">{t("adminRelanceTitle")}</CardTitle>
           <CardDescription>{t("adminRelanceDesc")}</CardDescription>
@@ -110,50 +118,72 @@ export default function AdminPage() {
         </CardContent>
       </Card>
 
-      <Card className="fade-up fade-up-3">
-        <CardHeader>
-          <CardTitle className="text-base">{t("adminUsersTitle")}</CardTitle>
-          <CardDescription>{t("adminUsersDesc")}</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          {isUsersLoading ? (
-            <div className="space-y-3">
-              {[1, 2, 3, 4].map((row) => (
-                <Skeleton key={row} className="h-20 w-full" />
-              ))}
-            </div>
-          ) : (
-            users?.map((user) => (
-              <div
-                key={user.id}
-                className="rounded-xl border border-border/60 bg-background/60 p-4 hover:-translate-y-0.5 transition-transform"
-              >
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="font-medium">{user.name}</p>
-                  <div className="flex items-center gap-2">
-                    <Badge variant={user.role === "SUPER_ADMIN" ? "default" : "secondary"}>
+      <div className="fade-up fade-up-3 space-y-4">
+        <div>
+          <h2 className="font-display text-xl font-medium">{t("adminUsersTitle")}</h2>
+          <p className="mt-1 text-sm text-muted-foreground">{t("adminUsersDesc")}</p>
+        </div>
+
+        {isUsersLoading ? (
+          <Skeleton className="h-64 w-full rounded-lg" />
+        ) : users?.length === 0 ? (
+          <div className="rounded-lg border border-dashed border-border bg-card p-16 text-center">
+            <p className="text-sm text-muted-foreground">{t("adminNoUsers")}</p>
+          </div>
+        ) : (
+          <DataTable>
+            <DataTableHeader>
+              <tr>
+                <DataTableHead>{t("name")}</DataTableHead>
+                <DataTableHead>{t("email")}</DataTableHead>
+                <DataTableHead>{t("colRole")}</DataTableHead>
+                <DataTableHead>{t("colStatus")}</DataTableHead>
+                <DataTableHead>{t("language")}</DataTableHead>
+                <DataTableHead>{t("colPlan")}</DataTableHead>
+                <DataTableHead className="text-right">{t("colCredits")}</DataTableHead>
+                <DataTableHead className="text-right">{t("colJoined")}</DataTableHead>
+              </tr>
+            </DataTableHeader>
+            <DataTableBody>
+              {users?.map((user) => (
+                <DataTableRow key={user.id}>
+                  <DataTableCell
+                    className="max-w-[200px] truncate text-sm font-semibold text-foreground"
+                    title={user.name}
+                  >
+                    {user.name}
+                  </DataTableCell>
+                  <DataTableCell className="whitespace-nowrap text-[13px] text-muted-foreground">
+                    {user.email}
+                  </DataTableCell>
+                  <DataTableCell className="whitespace-nowrap">
+                    <Badge variant={user.role === "SUPER_ADMIN" ? "accent" : "secondary"}>
                       {user.role}
                     </Badge>
-                    <Badge variant={user.emailVerified ? "secondary" : "outline"}>
+                  </DataTableCell>
+                  <DataTableCell className="whitespace-nowrap">
+                    <Badge variant={user.emailVerified ? "success" : "outline"}>
                       {user.emailVerified ? t("adminVerified") : t("adminUnverified")}
                     </Badge>
-                  </div>
-                </div>
-                <p className="mt-1 text-sm text-muted-foreground">{user.email}</p>
-                <div className="mt-3 flex flex-wrap gap-3 text-xs text-muted-foreground">
-                  <span>{t("adminLocale", { locale: user.locale })}</span>
-                  <span>{t("adminPlan", { plan: user.plan })}</span>
-                  <span>{t("adminCredits", { credits: user.credits })}</span>
-                  <span>{t("adminJoined", { date: formatDate(user.createdAt) })}</span>
-                </div>
-              </div>
-            ))
-          )}
-          {!isUsersLoading && users?.length === 0 ? (
-            <p className="text-sm text-muted-foreground">{t("adminNoUsers")}</p>
-          ) : null}
-        </CardContent>
-      </Card>
+                  </DataTableCell>
+                  <DataTableCell className="whitespace-nowrap text-[13px] uppercase text-muted-foreground">
+                    {user.locale}
+                  </DataTableCell>
+                  <DataTableCell className="whitespace-nowrap text-[13px] text-muted-foreground">
+                    {user.plan}
+                  </DataTableCell>
+                  <DataTableCell className="whitespace-nowrap text-right font-mono text-[13px] tabular-nums text-foreground">
+                    {user.credits}
+                  </DataTableCell>
+                  <DataTableCell className="whitespace-nowrap text-right text-xs text-muted-foreground">
+                    {formatDate(user.createdAt)}
+                  </DataTableCell>
+                </DataTableRow>
+              ))}
+            </DataTableBody>
+          </DataTable>
+        )}
+      </div>
     </div>
   );
 }

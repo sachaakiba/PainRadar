@@ -4,7 +4,6 @@ import { useState, useTransition, useEffect, useRef } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/routing";
 import { useSearchParams } from "next/navigation";
-import { useTheme } from "next-themes";
 import { useSession } from "@/lib/auth-client";
 import { updateUserLocale } from "@/actions/locale";
 import { getUserPlan } from "@/actions/user";
@@ -31,16 +30,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Loader2, Sun, Moon, Monitor } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { PlanId } from "@/types";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-
-const themeOptions = [
-  { value: "light", icon: Sun },
-  { value: "dark", icon: Moon },
-  { value: "system", icon: Monitor },
-] as const;
 
 export default function SettingsPage() {
   const t = useTranslations("dashboard");
@@ -49,15 +42,9 @@ export default function SettingsPage() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const queryClient = useQueryClient();
-  const { theme, setTheme } = useTheme();
   const { data: session } = useSession();
   const [isPending, startTransition] = useTransition();
   const [selectedLocale, setSelectedLocale] = useState(locale);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const {
     data: userPlanData,
@@ -78,7 +65,8 @@ export default function SettingsPage() {
   }, []);
 
   useEffect(() => {
-    if (searchParams.get("success") !== "true" || successHandled.current) return;
+    if (searchParams.get("success") !== "true" || successHandled.current)
+      return;
     successHandled.current = true;
 
     toast.success(t("purchaseSuccess"));
@@ -200,42 +188,6 @@ export default function SettingsPage() {
                 <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
               )}
             </div>
-          </CardContent>
-        </Card>
-
-        <Card className="fade-up fade-up-4">
-          <CardHeader>
-            <CardTitle className="text-base">{t("theme")}</CardTitle>
-            <CardDescription>{t("themeDesc")}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {!mounted ? (
-              <div className="flex gap-2">
-                {[1, 2, 3].map((i) => (
-                  <Skeleton key={i} className="h-10 w-24" />
-                ))}
-              </div>
-            ) : (
-              <div className="flex gap-2">
-                {themeOptions.map(({ value, icon: Icon }) => (
-                  <Button
-                    key={value}
-                    variant={theme === value ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setTheme(value)}
-                    className="flex items-center gap-2"
-                  >
-                    <Icon className="h-4 w-4" />
-                    {t(
-                      `theme${value.charAt(0).toUpperCase() + value.slice(1)}` as
-                        | "themeLight"
-                        | "themeDark"
-                        | "themeSystem",
-                    )}
-                  </Button>
-                ))}
-              </div>
-            )}
           </CardContent>
         </Card>
 

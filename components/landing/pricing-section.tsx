@@ -78,7 +78,7 @@ export function PricingSection() {
     <section className="px-4 py-24 sm:px-6 lg:px-8">
       <div className="container mx-auto max-w-7xl">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          <h2 className="font-display text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
             {t("title")}
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">{t("subtitle")}</p>
@@ -88,7 +88,7 @@ export function PricingSection() {
           {/* Free Card */}
           <Card className="card-hover relative flex h-full flex-col border-t-4 border-t-teal-400 bg-card/90 shadow-card-sm">
             <CardHeader className="pb-5 pt-6">
-              <h3 className="font-display text-[22px] font-bold leading-tight text-foreground">
+              <h3 className="font-display text-[22px] font-semibold leading-tight text-foreground">
                 {t("free.name")}
               </h3>
               <div className="mt-3 flex items-end gap-2">
@@ -107,8 +107,8 @@ export function PricingSection() {
                     key={feature}
                     className="flex items-start gap-3 rounded-lg px-2 py-1.5 text-sm leading-snug"
                   >
-                    <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-500/20">
-                      <Check className="h-3 w-3 text-teal-300" />
+                    <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-score-high-tint">
+                      <Check className="h-3 w-3 text-score-high" />
                     </div>
                     <span className="text-foreground/90">{feature}</span>
                   </li>
@@ -131,12 +131,12 @@ export function PricingSection() {
           {/* Credits Card */}
           <Card className="card-hover relative flex h-full flex-col border-t-4 border-t-coral-500 bg-coral-500/[0.04] shadow-card-lg ring-2 ring-coral-500/30">
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-              <span className="rounded-pill bg-coral-500 px-4 py-1 text-[11px] font-bold tracking-wide text-white">
+              <span className="rounded-pill bg-coral-500 px-4 py-1 text-[11px] font-bold tracking-wide text-white whitespace-nowrap">
                 {t("mostPopular")}
               </span>
             </div>
             <CardHeader className="pb-5 pt-6">
-              <h3 className="font-display text-[22px] font-bold leading-tight text-foreground">
+              <h3 className="font-display text-[22px] font-semibold leading-tight text-foreground">
                 {t("credits.name")}
               </h3>
               <div className="mt-3 flex items-end gap-2">
@@ -166,8 +166,8 @@ export function PricingSection() {
                   >
                     {pack.popular && (
                       <div className="absolute -top-2 left-1/2 -translate-x-1/2">
-                        <span className="rounded-full bg-coral-500 px-2 py-0.5 text-[9px] font-bold text-white">
-                          ⭐
+                        <span className="flex items-center justify-center rounded-full bg-coral-500 p-1 text-white">
+                          <Sparkles className="h-2.5 w-2.5" />
                         </span>
                       </div>
                     )}
@@ -196,19 +196,19 @@ export function PricingSection() {
                       <div
                         className={cn(
                           "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full",
-                          isAiFeature ? "bg-coral-500/20" : "bg-teal-500/20"
+                          isAiFeature ? "bg-primary-tint" : "bg-score-high-tint"
                         )}
                       >
                         {isAiFeature ? (
-                          <Sparkles className="h-3 w-3 text-coral-300" />
+                          <Sparkles className="h-3 w-3 text-primary" />
                         ) : (
-                          <Check className="h-3 w-3 text-teal-300" />
+                          <Check className="h-3 w-3 text-score-high" />
                         )}
                       </div>
                       <span
                         className={cn(
                           isAiFeature
-                            ? "font-semibold text-coral-100"
+                            ? "font-semibold text-primary"
                             : "text-foreground/90"
                         )}
                       >
@@ -238,12 +238,12 @@ export function PricingSection() {
           {/* Founder Lifetime Card */}
           <Card className="card-hover relative flex h-full flex-col border-t-4 border-t-amber-500 bg-amber-500/[0.04] shadow-card-lg">
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-              <span className="rounded-pill bg-amber-500 px-4 py-1 text-[11px] font-bold tracking-wide text-white">
+              <span className="rounded-pill bg-amber-500 px-4 py-1 text-[11px] font-bold tracking-wide text-white whitespace-nowrap">
                 {t("founder.badge")}
               </span>
             </div>
             <CardHeader className="pb-5 pt-6">
-              <h3 className="font-display text-[22px] font-bold leading-tight text-foreground">
+              <h3 className="font-display text-[22px] font-semibold leading-tight text-foreground">
                 {t("founder.name")}
               </h3>
               <div className="mt-3 flex items-end gap-2">
@@ -273,19 +273,19 @@ export function PricingSection() {
                       <div
                         className={cn(
                           "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full",
-                          isUnlimited ? "bg-amber-500/20" : "bg-teal-500/20"
+                          isUnlimited ? "bg-score-mid-tint" : "bg-score-high-tint"
                         )}
                       >
                         {isUnlimited ? (
-                          <Crown className="h-3 w-3 text-amber-300" />
+                          <Crown className="h-3 w-3 text-score-mid" />
                         ) : (
-                          <Check className="h-3 w-3 text-teal-300" />
+                          <Check className="h-3 w-3 text-score-high" />
                         )}
                       </div>
                       <span
                         className={cn(
                           isUnlimited
-                            ? "font-semibold text-amber-100"
+                            ? "font-semibold text-score-mid"
                             : "text-foreground/90"
                         )}
                       >

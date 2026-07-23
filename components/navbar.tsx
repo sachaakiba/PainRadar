@@ -6,8 +6,10 @@ import { useState, useEffect } from "react";
 import { Radar, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { LocaleSwitcher, LocaleSwitcherButton } from "@/components/locale-switcher";
-import { ThemeToggle, ThemeToggleButton } from "@/components/theme-toggle";
+import {
+  LocaleSwitcher,
+  LocaleSwitcherButton,
+} from "@/components/locale-switcher";
 import { useSession } from "@/lib/auth-client";
 import {
   Dialog,
@@ -43,10 +45,10 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-50 border-b transition-colors duration-300",
         scrolled
-          ? "backdrop-blur-xl border-border/40 bg-background/90"
-          : "border-transparent bg-transparent"
+          ? "border-border bg-background/90 backdrop-blur-sm"
+          : "border-transparent bg-background/60",
       )}
     >
       <nav className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -54,7 +56,7 @@ export function Navbar() {
           <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-coral-500/15">
             <Radar className="h-4 w-4 text-coral-500" aria-hidden />
           </div>
-          <span className="font-display text-lg font-bold tracking-tight">
+          <span className="font-display text-xl font-medium tracking-tight">
             PainRadar
           </span>
         </Link>
@@ -65,8 +67,8 @@ export function Navbar() {
               key={href}
               href={href}
               className={cn(
-                "text-sm font-semibold transition-colors hover:text-coral-500",
-                pathname === href ? "text-foreground" : "text-muted-foreground"
+                "text-sm font-medium transition-colors hover:text-foreground",
+                pathname === href ? "text-foreground" : "text-muted-foreground",
               )}
             >
               {label}
@@ -76,7 +78,6 @@ export function Navbar() {
 
         <div className="hidden items-center gap-2 md:flex">
           <LocaleSwitcher />
-          <ThemeToggle />
           {isSessionLoading ? (
             <>
               <Skeleton className="h-9 w-20" />
@@ -105,7 +106,7 @@ export function Navbar() {
             </Button>
           </DialogTrigger>
           <DialogContent
-            className="max-w-[calc(100vw-2rem)] border-2 border-border/50 bg-card/98 backdrop-blur-xl sm:max-w-md rounded-2xl"
+            className="max-w-[calc(100vw-2rem)] sm:max-w-md"
             showClose={true}
           >
             <DialogHeader>
@@ -123,10 +124,10 @@ export function Navbar() {
                   href={href}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
-                    "rounded-xl px-4 py-3 text-base font-semibold transition-colors",
+                    "rounded-md px-4 py-3 text-base font-medium transition-colors",
                     pathname === href
-                      ? "bg-coral-500/10 text-coral-500"
-                      : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                      ? "bg-primary-tint text-primary"
+                      : "text-muted-foreground hover:bg-secondary hover:text-foreground",
                   )}
                 >
                   {label}
@@ -135,11 +136,6 @@ export function Navbar() {
               <div className="my-3 h-px bg-border/60" />
               <div className="flex flex-col gap-2">
                 <LocaleSwitcherButton />
-                <ThemeToggleButton
-                  lightLabel={t("lightMode")}
-                  darkLabel={t("darkMode")}
-                  onToggle={() => setMobileOpen(false)}
-                />
                 {isSessionLoading ? (
                   <>
                     <Skeleton className="h-10 w-full" />
@@ -147,7 +143,10 @@ export function Navbar() {
                   </>
                 ) : isLoggedIn ? (
                   <Button asChild>
-                    <Link href="/dashboard" onClick={() => setMobileOpen(false)}>
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setMobileOpen(false)}
+                    >
                       {t("dashboard")}
                     </Link>
                   </Button>
