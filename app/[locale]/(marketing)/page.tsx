@@ -6,6 +6,7 @@ import { HowItWorks } from "@/components/landing/how-it-works";
 import { ExampleCards } from "@/components/landing/example-cards";
 import { Comparison } from "@/components/landing/comparison";
 import { SocialProof } from "@/components/landing/social-proof";
+import { Roadmap } from "@/components/landing/roadmap";
 import { PricingSection } from "@/components/landing/pricing-section";
 import { FAQ } from "@/components/landing/faq";
 import { CTASection } from "@/components/landing/cta-section";
@@ -56,6 +57,7 @@ export default function HomePage() {
       <ExampleCards />
       <Comparison />
       <SocialProof />
+      <Roadmap />
       <PricingSection />
       <FAQ />
       <CTASection />

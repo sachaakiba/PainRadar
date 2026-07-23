@@ -13,10 +13,10 @@ Analyze the real Reddit discussions provided for the given topic/niche and produ
 
 ## Data source rules
 
-- **Primary source:** The Reddit content in the user message is the ground truth. Quote real usernames, subreddit names, and specific complaints.
-- **Pain points:** Each pain point must be anchored in at least one real quote or post. No invented or generic pain points. Prefer pain points that appear in multiple threads or with high engagement.
-- **URLs and handles:** For every pain point, set \`sourceUrl\` to the actual Reddit post URL when available (e.g. https://reddit.com/r/sub/comments/...). Set \`authorHandle\` to the Reddit username of the person who expressed that pain. Set \`sourceName\` to the subreddit (e.g. r/Entrepreneur).
-- **Sparse data:** If the provided Reddit data is thin, you may augment with reasoned inference but must state in the summary that the analysis was partially extrapolated and from which parts of the data.
+- **Primary source:** The discussions in the user message (from Reddit, forums, and review sites) are the ground truth. Quote real usernames, community/site names, and specific complaints.
+- **Pain points:** Each pain point must be anchored in at least one real quote or post from the provided sources. No invented or generic pain points. Prefer pain points that appear across multiple sources or with high engagement.
+- **URLs and handles:** For every pain point, set \`sourceUrl\` to the actual URL of the source it came from (use the exact URLs provided — do NOT invent URLs). Set \`sourceType\` to \`reddit\`, \`forum\`, or \`review\` based on the source. Set \`sourceName\` to the community or site (e.g. r/Entrepreneur, G2, an indie hackers forum). Set \`authorHandle\` to the username when the source provides one.
+- **Sparse data:** If the provided data is thin, you may augment with reasoned inference but must state explicitly in the summary that the analysis was partially extrapolated and from which parts of the data.
 
 ---
 
@@ -74,10 +74,10 @@ Analyser les vraies discussions Reddit fournies pour le sujet/niche donné et pr
 
 ## Règles sur les sources de données
 
-- **Source principale :** Le contenu Reddit dans le message utilisateur est la référence. Cite de vrais pseudos, noms de subreddits et plaintes précises.
-- **Points de douleur :** Chaque point de douleur doit s'appuyer sur au moins une vraie citation ou un vrai post. Pas de points de douleur inventés ou génériques. Privilégie ceux qui apparaissent dans plusieurs fils ou avec un fort engagement.
-- **URLs et handles :** Pour chaque point de douleur, renseigne \`sourceUrl\` avec l’URL réelle du post Reddit quand c’est possible (ex. https://reddit.com/r/sub/comments/...). Renseigne \`authorHandle\` avec le pseudo Reddit de la personne qui exprime la douleur. Renseigne \`sourceName\` avec le subreddit (ex. r/Entrepreneur).
-- **Données limitées :** Si les données Reddit fournies sont maigres, tu peux compléter par de l’inférence raisonnée, mais tu dois indiquer dans le résumé que l’analyse est en partie extrapolée et à partir de quelles données.
+- **Source principale :** Les discussions du message utilisateur (issues de Reddit, forums et sites d'avis) sont la référence. Cite de vrais pseudos, noms de communautés/sites et plaintes précises.
+- **Points de douleur :** Chaque point de douleur doit s'appuyer sur au moins une vraie citation ou un vrai post des sources fournies. Pas de points de douleur inventés ou génériques. Privilégie ceux qui apparaissent dans plusieurs sources ou avec un fort engagement.
+- **URLs et handles :** Pour chaque point de douleur, renseigne \`sourceUrl\` avec l’URL réelle de la source d'où il provient (utilise exactement les URLs fournies — n'invente PAS d'URL). Renseigne \`sourceType\` avec \`reddit\`, \`forum\` ou \`review\` selon la source. Renseigne \`sourceName\` avec la communauté ou le site (ex. r/Entrepreneur, G2, un forum indie hackers). Renseigne \`authorHandle\` avec le pseudo quand la source en fournit un.
+- **Données limitées :** Si les données fournies sont maigres, tu peux compléter par de l’inférence raisonnée, mais tu dois indiquer explicitement dans le résumé que l’analyse est en partie extrapolée et à partir de quelles données.
 
 ---
 
@@ -243,7 +243,7 @@ export function buildAnalysisPrompt(
       ? `Analyse le sujet/niche suivant : "${topic}"
 ${audienceContext}
 
-Voici les vraies discussions Reddit collectées sur ce sujet :
+Voici les vraies discussions collectées sur ce sujet (Reddit, forums, avis) :
 
 ---
 ${redditData}
@@ -253,7 +253,7 @@ Produis une analyse de marché complète basée sur ces données réelles. Ident
       : `Analyze the following topic/niche: "${topic}"
 ${audienceContext}
 
-Here are real Reddit discussions collected on this topic:
+Here are real discussions collected on this topic (Reddit, forums, reviews):
 
 ---
 ${redditData}

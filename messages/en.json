@@ -153,6 +153,17 @@
       { "q": "What does the Founder plan include?", "a": "The Founder plan gives you unlimited analyses forever. It's a one-time payment — no credits to track, no limits." }
     ]
   },
+  "roadmap": {
+    "badge": "Coming soon",
+    "title": "On the roadmap",
+    "subtitle": "What we're building next to help you find and validate opportunities faster.",
+    "items": [
+      { "title": "Radar — monitoring & alerts", "desc": "Track a niche and get a weekly digest of the new pain points as they emerge." },
+      { "title": "Validate your idea", "desc": "Paste your own idea and get evidence of demand, real objections, and a go/no-go score." },
+      { "title": "Competitor review mining", "desc": "Analyze a competitor's reviews on G2, Capterra or Trustpilot to surface feature gaps." },
+      { "title": "Shareable reports", "desc": "Publish a clean, public version of any analysis to share with your team or audience." }
+    ]
+  },
   "faq": {
     "title": "Frequently asked questions",
     "items": [
@@ -161,8 +172,8 @@
       { "q": "How accurate is the opportunity scoring?", "a": "Our scoring combines demand signals, urgency indicators, competition analysis, and monetization potential into a composite score. It's a directional guide, not a guarantee." },
       { "q": "Can I export my analyses?", "a": "Yes. You can export analyses as JSON files or copy them to your clipboard. PDF export is coming soon." },
       { "q": "Is there a free plan?", "a": "Yes! You get 2 free credits when you sign up. No credit card required." },
-      { "q": "How is this different from regular market research?", "a": "PainRadar automates what would take hours of manual research. Instead of browsing Reddit threads, we surface patterns and quantify opportunities for you." },
-      { "q": "Will you add more data sources?", "a": "Yes. We're actively working on integrating more sources including Reddit API, G2, Capterra, and niche forums." }
+      { "q": "How is this different from regular market research?", "a": "PainRadar automates what would take hours of manual research. Instead of manually browsing forums and communities, we surface patterns and quantify opportunities for you." },
+      { "q": "Which sources does PainRadar analyze?", "a": "We pull real discussions from across the web — Reddit, community forums, and review sites like G2, Capterra and Trustpilot — and we keep adding new sources." }
     ]
   },
   "productDemo": {
@@ -437,8 +448,8 @@
     "painPointsTitle": "Pain Points",
     "generating": "Analyzing...",
     "generatingTitle": "Analysis in progress",
-    "generatingDesc": "We're scanning Reddit discussions and analyzing pain points with AI. This usually takes 20-40 seconds.",
-    "generatingReddit": "Fetching Reddit discussions...",
+    "generatingDesc": "We're scanning real discussions across Reddit, forums and review sites, and analyzing pain points with AI. This usually takes 20-40 seconds.",
+    "generatingReddit": "Fetching real discussions...",
     "generatingAI": "Analyzing with AI...",
     "failed": "Analysis failed",
     "failedDesc": "Something went wrong during the analysis. Please try again.",

@@ -153,6 +153,17 @@
       { "q": "Que comprend l'offre Founder ?", "a": "L'offre Founder vous donne un accès illimité aux analyses pour toujours. C'est un paiement unique — pas de crédits à suivre, aucune limite." }
     ]
   },
+  "roadmap": {
+    "badge": "Bientôt",
+    "title": "Sur la feuille de route",
+    "subtitle": "Ce que nous construisons ensuite pour vous aider à trouver et valider des opportunités plus vite.",
+    "items": [
+      { "title": "Radar — veille & alertes", "desc": "Surveillez une niche et recevez chaque semaine les nouveaux points de douleur dès qu'ils émergent." },
+      { "title": "Validez votre idée", "desc": "Collez votre propre idée et obtenez des preuves de demande, de vraies objections et un score go/no-go." },
+      { "title": "Analyse des avis concurrents", "desc": "Analysez les avis d'un concurrent sur G2, Capterra ou Trustpilot pour repérer les manques de fonctionnalités." },
+      { "title": "Rapports partageables", "desc": "Publiez une version publique et soignée de n'importe quelle analyse à partager avec votre équipe ou audience." }
+    ]
+  },
   "faq": {
     "title": "Questions fréquentes",
     "items": [
@@ -161,8 +172,8 @@
       { "q": "Quelle est la précision du score d'opportunité ?", "a": "Notre score combine les signaux de demande, les indicateurs d'urgence, l'analyse de la concurrence et le potentiel de monétisation en un score composite. C'est un guide directionnel, pas une garantie." },
       { "q": "Puis-je exporter mes analyses ?", "a": "Oui. Vous pouvez exporter les analyses en JSON ou les copier dans votre presse-papiers. L'export PDF arrive bientôt." },
       { "q": "Y a-t-il une offre gratuite ?", "a": "Oui ! Vous recevez 2 crédits gratuits à l'inscription. Aucune carte bancaire requise." },
-      { "q": "En quoi c'est différent d'une étude de marché classique ?", "a": "PainRadar automatise ce qui prendrait des heures de recherche manuelle. Au lieu de parcourir les fils Reddit, nous faisons émerger les tendances et quantifions les opportunités pour vous." },
-      { "q": "Ajouterez-vous d'autres sources de données ?", "a": "Oui. Nous travaillons activement à intégrer davantage de sources, notamment l'API Reddit, G2, Capterra et des forums spécialisés." }
+      { "q": "En quoi c'est différent d'une étude de marché classique ?", "a": "PainRadar automatise ce qui prendrait des heures de recherche manuelle. Au lieu de parcourir manuellement les forums et communautés, nous faisons émerger les tendances et quantifions les opportunités pour vous." },
+      { "q": "Quelles sources PainRadar analyse-t-il ?", "a": "Nous récupérons de vraies discussions sur tout le web — Reddit, forums communautaires et sites d'avis comme G2, Capterra et Trustpilot — et nous ajoutons régulièrement de nouvelles sources." }
     ]
   },
   "productDemo": {
@@ -437,8 +448,8 @@
     "painPointsTitle": "Points de douleur",
     "generating": "Analyse en cours...",
     "generatingTitle": "Analyse en cours",
-    "generatingDesc": "Nous analysons les discussions Reddit et identifions les points de douleur avec l'IA. Cela prend généralement 20 à 40 secondes.",
-    "generatingReddit": "Récupération des discussions Reddit...",
+    "generatingDesc": "Nous analysons de vraies discussions sur Reddit, les forums et les sites d'avis, et identifions les points de douleur avec l'IA. Cela prend généralement 20 à 40 secondes.",
+    "generatingReddit": "Récupération de vraies discussions...",
     "generatingAI": "Analyse par IA en cours...",
     "failed": "Échec de l'analyse",
     "failedDesc": "Une erreur est survenue pendant l'analyse. Veuillez réessayer.",

@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { openai } from "@/lib/openai";
 import { analysisOutputSchema, analysisOutputWithPromptSchema } from "@/lib/analysis-schema";
 import { buildAnalysisPrompt } from "@/lib/analysis-prompt";
-import { fetchRedditPosts, formatRedditDataForPrompt } from "@/lib/reddit";
+import { fetchDiscussions, formatDiscussionsForPrompt } from "@/lib/discovery";
 import { getPlanLimits } from "@/lib/plans";
 import { consumeCredit } from "@/lib/plan-guard";
 import { generationLockStaleBefore } from "@/lib/analysis-generation";
@@ -63,19 +63,39 @@ export async function POST(
   const plan = (user?.plan as PlanId) || "free";
   const { canGenerateAiPrompt } = getPlanLimits(plan);
 
-  let redditData: string;
+  // Retrieve real discussions. If none are found (or the provider fails), fail
+  // the analysis WITHOUT consuming a credit — never let the model fabricate
+  // pain points from thin air. The credit is only consumed later in onFinish,
+  // so returning here leaves it untouched.
+  let discussionData: string;
   try {
-    const posts = await fetchRedditPosts(analysis.topic, analysis.audience ?? undefined);
-    redditData = formatRedditDataForPrompt(posts);
-  } catch {
-    redditData = "Reddit data could not be fetched. Please base the analysis on your general knowledge about this topic.";
+    const discussions = await fetchDiscussions(
+      analysis.topic,
+      analysis.audience ?? undefined
+    );
+    if (discussions.length === 0) {
+      console.error(
+        `[analysis ${id}] no real discussions found for topic "${analysis.topic}"`
+      );
+      await markAnalysisFailed(id);
+      return new Response("No real discussions found for this topic.", {
+        status: 422,
+      });
+    }
+    discussionData = formatDiscussionsForPrompt(discussions);
+  } catch (err) {
+    console.error(`[analysis ${id}] discussion retrieval failed:`, err);
+    await markAnalysisFailed(id);
+    return new Response("Discussion retrieval failed. No credit was used.", {
+      status: 502,
+    });
   }
 
   const prompt = buildAnalysisPrompt(
     analysis.topic,
     analysis.audience ?? undefined,
     locale,
-    redditData,
+    discussionData,
     canGenerateAiPrompt
   );
 
