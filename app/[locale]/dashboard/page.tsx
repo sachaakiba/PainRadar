@@ -25,6 +25,14 @@ interface AnalysisSummary {
   createdAt: string;
 }
 
+interface AnalysesStats {
+  totalAnalyses: number;
+  savedCount: number;
+  avgScore: number;
+  bestScore: number;
+  thisMonthCount: number;
+}
+
 const statIcons = [BarChart3, Bookmark, TrendingUp];
 const statAccents = [
   "border-l-coral-500",
@@ -36,28 +44,32 @@ export default function DashboardPage() {
   const t = useTranslations("dashboard");
   const { data: session } = useSession();
   const [analyses, setAnalyses] = useState<AnalysisSummary[]>([]);
+  const [stats, setStats] = useState<AnalysesStats | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/analyses")
-      .then((res) => (res.ok ? res.json() : { analyses: [] }))
-      .then((data) => {
-        setAnalyses(data.analyses ?? []);
+    Promise.all([
+      fetch("/api/analyses?sort=date&direction=desc&page=1").then((res) =>
+        res.ok ? res.json() : { analyses: [] }
+      ),
+      fetch("/api/analyses/stats").then((res) => (res.ok ? res.json() : null)),
+    ])
+      .then(([analysesData, statsData]) => {
+        setAnalyses(analysesData.analyses ?? []);
+        setStats(statsData);
       })
-      .catch(() => setAnalyses([]))
+      .catch(() => {
+        setAnalyses([]);
+        setStats(null);
+      })
       .finally(() => setLoading(false));
   }, []);
 
-  const totalAnalyses = analyses.length;
-  const savedCount = analyses.filter((a) => a.saved).length;
-  const avgScore =
-    analyses.length > 0
-      ? Math.round(
-          analyses.reduce((s, a) => s + a.opportunityScore, 0) / analyses.length
-        )
-      : 0;
+  const totalAnalyses = stats?.totalAnalyses ?? 0;
+  const savedCount = stats?.savedCount ?? 0;
+  const avgScore = stats?.avgScore ?? 0;
 
-  const stats = [
+  const statCards = [
     { label: t("totalAnalyses"), value: totalAnalyses },
     { label: t("savedAnalyses"), value: savedCount },
     { label: t("avgScore"), value: avgScore },
@@ -83,7 +95,7 @@ export default function DashboardPage() {
         </div>
       ) : (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {stats.map((stat, i) => {
+          {statCards.map((stat, i) => {
             const Icon = statIcons[i];
             return (
               <Card
@@ -151,20 +163,14 @@ export default function DashboardPage() {
               <div className="flex items-center justify-between">
                 <span className="label-sm">{t("bestScore")}</span>
                 <span className="font-mono text-lg font-bold text-teal-500">
-                  {analyses.length > 0
-                    ? Math.max(...analyses.map((a) => a.opportunityScore))
-                    : "—"}
+                  {stats && stats.totalAnalyses > 0 ? stats.bestScore : "—"}
                 </span>
               </div>
               <div className="h-px bg-border/60" />
               <div className="flex items-center justify-between">
                 <span className="label-sm">{t("thisMonth")}</span>
                 <span className="font-mono text-lg font-bold text-foreground">
-                  {analyses.filter((a) => {
-                    const d = new Date(a.createdAt);
-                    const now = new Date();
-                    return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
-                  }).length}
+                  {stats?.thisMonthCount ?? 0}
                 </span>
               </div>
               <div className="h-px bg-border/60" />

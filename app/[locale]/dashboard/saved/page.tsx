@@ -2,24 +2,57 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { AnalysesTable } from "@/components/dashboard/analyses-table";
+import {
+  AnalysesTable,
+  type SortColumn,
+  type SortDirection,
+} from "@/components/dashboard/analyses-table";
+import {
+  AnalysesPagination,
+  type PaginationInfo,
+} from "@/components/dashboard/analyses-pagination";
 import type { AnalysisCardData } from "@/components/dashboard/analysis-card";
 import { Bookmark } from "lucide-react";
 
 export default function SavedPage() {
   const t = useTranslations("dashboard");
   const [analyses, setAnalyses] = useState<AnalysisCardData[]>([]);
+  const [pagination, setPagination] = useState<PaginationInfo | null>(null);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [sort, setSort] = useState<SortColumn>("date");
+  const [direction, setDirection] = useState<SortDirection>("desc");
 
   useEffect(() => {
-    fetch("/api/analyses?saved=true")
-      .then((res) => (res.ok ? res.json() : { analyses: [] }))
+    setLoading(true);
+    const params = new URLSearchParams({
+      saved: "true",
+      sort,
+      direction,
+      page: String(page),
+    });
+    fetch(`/api/analyses?${params}`)
+      .then((res) => (res.ok ? res.json() : { analyses: [], pagination: null }))
       .then((data) => {
         setAnalyses(data.analyses ?? []);
+        setPagination(data.pagination ?? null);
       })
-      .catch(() => setAnalyses([]))
+      .catch(() => {
+        setAnalyses([]);
+        setPagination(null);
+      })
       .finally(() => setLoading(false));
-  }, []);
+  }, [sort, direction, page]);
+
+  function handleSortChange(column: SortColumn) {
+    if (column === sort) {
+      setDirection((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSort(column);
+      setDirection("desc");
+    }
+    setPage(1);
+  }
 
   return (
     <div className="space-y-10">
@@ -46,8 +79,17 @@ export default function SavedPage() {
           <p className="text-muted-foreground">{t("noSavedYet")}</p>
         </div>
       ) : (
-        <div className="fade-up fade-up-2">
-          <AnalysesTable analyses={analyses} showSavedBadge={false} />
+        <div className="fade-up fade-up-2 space-y-4">
+          <AnalysesTable
+            analyses={analyses}
+            showSavedBadge={false}
+            sort={sort}
+            direction={direction}
+            onSortChange={handleSortChange}
+          />
+          {pagination && (
+            <AnalysesPagination pagination={pagination} onPageChange={setPage} />
+          )}
         </div>
       )}
     </div>

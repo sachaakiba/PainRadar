@@ -53,8 +53,8 @@ export function DashboardSidebar() {
     fetch("/api/analyses?saved=true")
       .then((res) => res.json())
       .then((data) => {
-        if (Array.isArray(data.analyses)) {
-          setSavedCount(data.analyses.length);
+        if (typeof data.pagination?.total === "number") {
+          setSavedCount(data.pagination.total);
         }
       })
       .catch(() => {});

@@ -6,6 +6,9 @@ import { checkCredits, getPlanLimitError, type PlanLimitErrorType } from "@/lib/
 
 export const dynamic = "force-dynamic";
 
+const PAGE_SIZE = 10;
+const SORT_FIELDS = { date: "createdAt", score: "opportunityScore" } as const;
+
 export async function GET(request: Request) {
   const session = await getSession();
   if (!session?.user?.id) {
@@ -15,24 +18,47 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const savedOnly = searchParams.get("saved") === "true";
 
-  const analyses = await db.analysis.findMany({
-    where: {
-      userId: session.user.id,
-      ...(savedOnly ? { saved: true } : {}),
-    },
-    orderBy: { createdAt: "desc" },
-    select: {
-      id: true,
-      query: true,
-      topic: true,
-      opportunityScore: true,
-      saved: true,
-      status: true,
-      createdAt: true,
+  const sortParam = searchParams.get("sort");
+  const sortField = sortParam === "score" ? "score" : "date";
+  const directionParam = searchParams.get("direction");
+  const direction = directionParam === "asc" ? "asc" : "desc";
+
+  const pageParam = Number(searchParams.get("page"));
+  const page = Number.isInteger(pageParam) && pageParam > 0 ? pageParam : 1;
+
+  const where = {
+    userId: session.user.id,
+    ...(savedOnly ? { saved: true } : {}),
+  };
+
+  const [analyses, total] = await Promise.all([
+    db.analysis.findMany({
+      where,
+      orderBy: { [SORT_FIELDS[sortField]]: direction },
+      skip: (page - 1) * PAGE_SIZE,
+      take: PAGE_SIZE,
+      select: {
+        id: true,
+        query: true,
+        topic: true,
+        opportunityScore: true,
+        saved: true,
+        status: true,
+        createdAt: true,
+      },
+    }),
+    db.analysis.count({ where }),
+  ]);
+
+  return NextResponse.json({
+    analyses,
+    pagination: {
+      page,
+      pageSize: PAGE_SIZE,
+      total,
+      totalPages: Math.max(1, Math.ceil(total / PAGE_SIZE)),
     },
   });
-
-  return NextResponse.json({ analyses });
 }
 
 export async function POST(request: Request) {
