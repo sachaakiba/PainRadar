@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link, useRouter } from "@/i18n/routing";
 import { ArrowDown, ArrowUp, ArrowUpDown, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { ScoreBadge } from "@/components/ui/score-badge";
@@ -66,6 +66,7 @@ export function AnalysesTable({
   direction?: SortDirection;
   onSortChange?: (column: SortColumn) => void;
 }) {
+  const router = useRouter();
   const t = useTranslations("dashboard");
   const tAnalysis = useTranslations("analysis");
 
@@ -112,13 +113,28 @@ export function AnalysesTable({
           const isGenerating = analysis.status === "generating";
           const isFailed = analysis.status === "failed";
           return (
-            <DataTableRow key={analysis.id} className="group relative">
+            <DataTableRow
+              key={analysis.id}
+              className="group cursor-pointer"
+              tabIndex={0}
+              onClick={(e) => {
+                if ((e.target as HTMLElement).closest("a")) return;
+                router.push(`/dashboard/analyses/${analysis.id}`);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  router.push(`/dashboard/analyses/${analysis.id}`);
+                }
+              }}
+            >
               <DataTableCell className="max-w-[240px] text-sm font-semibold text-foreground">
                 <div className="flex items-center gap-2">
                   <Link
                     href={`/dashboard/analyses/${analysis.id}`}
                     title={analysis.topic || analysis.query}
-                    className="truncate after:absolute after:inset-0 after:content-[''] group-hover:text-primary"
+                    className="truncate group-hover:text-primary"
+                    onClick={(e) => e.stopPropagation()}
                   >
                     {analysis.topic || analysis.query}
                   </Link>
