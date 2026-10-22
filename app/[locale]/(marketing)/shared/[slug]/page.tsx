@@ -76,7 +76,7 @@ export default async function SharedAnalysisPage({
   }));
 
   return (
-    <div className="container max-w-3xl space-y-8 py-12">
+    <div className="mx-auto max-w-3xl space-y-8 px-4 pb-16 pt-28">
       <div>
         <h1 className="font-display text-2xl font-bold tracking-tight">
           {analysis.topic}
