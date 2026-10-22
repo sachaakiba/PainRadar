@@ -110,7 +110,27 @@ npx prisma studio
 2. Import the project in [Vercel](https://vercel.com).
 3. Add all environment variables from `.env` in the Vercel project settings.
 4. Deploy. Vercel will run `prisma generate` automatically via the `postinstall` script in `package.json`.
-5. After the first deploy, run `npx prisma db push` or apply migrations against your production database if needed.
+
+### Database migrations (rec / prod)
+
+This project has two deployed environments, each backed by its own Neon database:
+
+- **`rec`** — staging branch, deployed by Vercel as the Preview/Branch deployment for the `rec` git branch.
+- **`prod`** — production branch, deployed by Vercel as the Production deployment for the `prod` git branch.
+
+Migrations are **applied automatically on every deploy**: the `build` script runs `prisma migrate deploy` before `next build` (see `package.json`). This means:
+
+- In the Vercel project settings, `DATABASE_URL` and `DIRECT_URL` must be set **per environment** (scope `rec`'s variables to the Preview environment / `rec` branch, and `prod`'s to the Production environment), each pointing at its own Neon database.
+- Any migration committed under `prisma/migrations/` lands on both databases the next time each branch is deployed — no manual step needed.
+- `prisma migrate deploy` only ever applies pending migrations already committed to the repo; it never generates new ones and never prompts, so it's safe to run unattended in CI/CD.
+
+To apply a migration manually (e.g. locally against a specific database, or if a deploy needs to be re-run):
+
+```bash
+DATABASE_URL="<pooled connection string>" DIRECT_URL="<direct connection string>" npm run db:deploy
+```
+
+Use `npx prisma migrate dev` only for local development (it also diffs and creates new migration files); never run it against `rec` or `prod`.
 
 ## Project Structure
 
