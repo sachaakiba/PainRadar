@@ -118,7 +118,17 @@ This project has two deployed environments, each backed by its own Neon database
 - **`rec`** — staging branch, deployed by Vercel as the Preview/Branch deployment for the `rec` git branch.
 - **`prod`** — production branch, deployed by Vercel as the Production deployment for the `prod` git branch.
 
-Migrations are **applied automatically on every deploy**: the `build` script runs `prisma migrate deploy` before `next build` (see `package.json`). This means:
+Migrations are **applied automatically on every deploy**: the `build` script runs `prisma migrate deploy` before `next build` (see `package.json`).
+
+**One-time baseline per database (required first).** The early schema was created with `prisma db push`, so the `rec` and `prod` databases have tables but no `_prisma_migrations` history. `prisma migrate deploy` refuses to run on such a database (error `P3005`), which makes the Vercel build fail. Before the first deploy that includes the migrations folder, run once on each database:
+
+```bash
+DATABASE_URL="<pooled connection string of that database>" DIRECT_URL="<direct connection string of that database>" npm run db:baseline
+```
+
+This marks the three pre-existing migrations as applied, then applies any pending ones. Run it **once** per database (a second run fails because the migrations are already recorded, which is harmless). Run it on `rec`, then on `prod`, before redeploying each branch.
+
+This means:
 
 - In the Vercel project settings, `DATABASE_URL` and `DIRECT_URL` must be set **per environment** (scope `rec`'s variables to the Preview environment / `rec` branch, and `prod`'s to the Production environment), each pointing at its own Neon database.
 - Any migration committed under `prisma/migrations/` lands on both databases the next time each branch is deployed — no manual step needed.
