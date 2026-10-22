@@ -1,5 +1,6 @@
 "use server";
 
+import { randomBytes } from "crypto";
 import { db } from "@/lib/db";
 import { requireSession } from "@/lib/auth-server";
 import { analysisSchema } from "@/lib/validations";
@@ -8,6 +9,8 @@ import {
   getPlanLimitError,
   type PlanLimitErrorType,
 } from "@/lib/plan-guard";
+import { getPlanLimits } from "@/lib/plans";
+import type { PlanId } from "@/types";
 import { revalidatePath } from "next/cache";
 
 type Locale = "en" | "fr";
@@ -96,6 +99,49 @@ export async function getAnalysis(id: string): Promise<AnalysisWithRelations> {
     throw new Error("Analysis not found");
   }
   return analysis;
+}
+
+export async function toggleAnalysisSharing(
+  analysisId: string
+): Promise<
+  | { success: true; isPublic: boolean; shareSlug: string | null }
+  | { success: false; error: string }
+> {
+  try {
+    const session = await requireSession();
+
+    const analysis = await db.analysis.findFirst({
+      where: { id: analysisId, userId: session.user.id },
+      select: { id: true, isPublic: true, shareSlug: true },
+    });
+    if (!analysis) {
+      return { success: false, error: "Analysis not found" };
+    }
+
+    const user = await db.user.findUnique({
+      where: { id: session.user.id },
+      select: { plan: true },
+    });
+    const { canExport } = getPlanLimits((user?.plan as PlanId) || "free");
+    if (!canExport) {
+      return { success: false, error: "Sharing requires a paid plan" };
+    }
+
+    const nextIsPublic = !analysis.isPublic;
+    const shareSlug = analysis.shareSlug ?? randomBytes(12).toString("base64url");
+
+    const updated = await db.analysis.update({
+      where: { id: analysisId },
+      data: { isPublic: nextIsPublic, shareSlug },
+    });
+
+    revalidatePath(`/dashboard/analyses/${analysisId}`);
+
+    return { success: true, isPublic: updated.isPublic, shareSlug: updated.shareSlug };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to update sharing";
+    return { success: false, error: message };
+  }
 }
 
 export async function getSavedAnalyses(): Promise<AnalysisWithRelations[]> {
