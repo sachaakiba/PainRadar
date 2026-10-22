@@ -103,6 +103,8 @@ model Analysis {
   aiPrompt            String?  @db.Text
   aiPromptCount       Int      @default(0)
   saved               Boolean  @default(false)
+  isPublic            Boolean  @default(false)
+  shareSlug           String?  @unique
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 

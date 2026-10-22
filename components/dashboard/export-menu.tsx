@@ -8,6 +8,7 @@ import {
   Link2,
   ChevronDown,
   Lock,
+  Globe,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -29,6 +30,10 @@ interface ExportMenuProps {
   shareUrl?: string;
   filename?: string;
   canExport?: boolean;
+  isPublic?: boolean;
+  publicShareUrl?: string;
+  onToggleSharing?: () => Promise<void> | void;
+  togglingSharing?: boolean;
 }
 
 export function ExportMenu({
@@ -36,9 +41,13 @@ export function ExportMenu({
   shareUrl,
   filename = "analysis.json",
   canExport = true,
+  isPublic = false,
+  publicShareUrl,
+  onToggleSharing,
+  togglingSharing = false,
 }: ExportMenuProps) {
   const t = useTranslations("analysis");
-  const [copied, setCopied] = useState<"json" | "link" | null>(null);
+  const [copied, setCopied] = useState<"json" | "link" | "public" | null>(null);
 
   const jsonString = JSON.stringify(data, null, 2);
 
@@ -73,6 +82,23 @@ export function ExportMenu({
       setTimeout(() => setCopied(null), 2000);
     } catch {
       toast.error(t("copyLinkFailed"));
+    }
+  };
+
+  const handleTogglePublic = async () => {
+    if (!onToggleSharing) return;
+    await onToggleSharing();
+    if (!isPublic && publicShareUrl) {
+      try {
+        await navigator.clipboard.writeText(publicShareUrl);
+        setCopied("public");
+        toast.success(t("publicLinkCopied"));
+        setTimeout(() => setCopied(null), 2000);
+      } catch {
+        // Sharing still toggled even if clipboard copy fails.
+      }
+    } else {
+      toast.success(t("linkUnshared"));
     }
   };
 
@@ -115,6 +141,16 @@ export function ExportMenu({
           <Link2 className="mr-2 h-4 w-4" />
           {copied === "link" ? t("copied") : t("copyLink")}
         </DropdownMenuItem>
+        {onToggleSharing && (
+          <DropdownMenuItem onClick={handleTogglePublic} disabled={togglingSharing}>
+            <Globe className="mr-2 h-4 w-4" />
+            {copied === "public"
+              ? t("copied")
+              : isPublic
+                ? t("makePrivate")
+                : t("makePublic")}
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

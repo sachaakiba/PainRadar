@@ -36,6 +36,7 @@ import { AiPromptCard } from "@/components/dashboard/ai-prompt-card";
 import { absoluteUrl, formatDate, getScoreBg } from "@/lib/utils";
 import { toast } from "sonner";
 import { getUserPlan } from "@/actions/user";
+import { toggleAnalysisSharing } from "@/actions/analysis";
 import { getPlanLimits } from "@/lib/plans";
 import { analysisOutputSchema, type AnalysisOutput } from "@/lib/analysis-schema";
 import { isGenerationLockStale } from "@/lib/analysis-generation";
@@ -99,6 +100,8 @@ interface Analysis {
   aiPrompt?: string | null;
   aiPromptCount: number;
   saved: boolean;
+  isPublic: boolean;
+  shareSlug: string | null;
   createdAt: string;
   painPoints: PainPoint[];
   productIdeas: ProductIdea[];
@@ -342,6 +345,7 @@ export default function AnalysisDetailPage() {
   const queryClient = useQueryClient();
   const id = params.id as string;
   const [saving, setSaving] = useState(false);
+  const [togglingSharing, setTogglingSharing] = useState(false);
   const [regeneratingPrompt, setRegeneratingPrompt] = useState(false);
   const [canExport, setCanExport] = useState(false);
   const [canGenerateAiPrompt, setCanGenerateAiPrompt] = useState(false);
@@ -461,6 +465,23 @@ export default function AnalysisDetailPage() {
       toast.error(t("updateFailed"));
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleToggleSharing = async () => {
+    if (!analysis) return;
+    setTogglingSharing(true);
+    try {
+      const result = await toggleAnalysisSharing(analysis.id);
+      if (result.success) {
+        refetch();
+      } else {
+        toast.error(result.error);
+      }
+    } catch {
+      toast.error(t("updateFailed"));
+    } finally {
+      setTogglingSharing(false);
     }
   };
 
@@ -598,6 +619,12 @@ export default function AnalysisDetailPage() {
               shareUrl={absoluteUrl(`/dashboard/analyses/${id}`)}
               filename={`painradar-${analysis.topic.replace(/\s+/g, "-")}.json`}
               canExport={canExport}
+              isPublic={analysis.isPublic}
+              publicShareUrl={
+                analysis.shareSlug ? absoluteUrl(`/shared/${analysis.shareSlug}`) : undefined
+              }
+              onToggleSharing={canExport ? handleToggleSharing : undefined}
+              togglingSharing={togglingSharing}
             />
           </div>
         )}
