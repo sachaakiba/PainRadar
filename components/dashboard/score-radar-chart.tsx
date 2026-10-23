@@ -1,5 +1,14 @@
 "use client";
 
+import dynamic from "next/dynamic";
+import {
+  Radar,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  ResponsiveContainer,
+  Tooltip,
+} from "recharts";
 import { type ScoreScores } from "./score-breakdown";
 
 const AXES: { key: keyof ScoreScores; label: string }[] = [
@@ -10,131 +19,69 @@ const AXES: { key: keyof ScoreScores; label: string }[] = [
   { key: "monetizationScore", label: "Monetization" },
 ];
 
-const SIZE = 200;
-const CENTER = SIZE / 2;
-const RADIUS = 72;
-const LABEL_OFFSET = 18;
-const N = AXES.length;
-
-function polarToXY(angle: number, r: number) {
-  // Start from top (-90°)
-  const rad = ((angle - 90) * Math.PI) / 180;
-  return {
-    x: CENTER + r * Math.cos(rad),
-    y: CENTER + r * Math.sin(rad),
-  };
-}
-
-function buildPolygon(values: number[], r: number) {
-  return values
-    .map((v, i) => {
-      const { x, y } = polarToXY((i * 360) / N, (v / 100) * r);
-      return `${x},${y}`;
-    })
-    .join(" ");
-}
-
 function getColor(avg: number) {
-  if (avg >= 80) return "var(--score-high, #22c55e)";
-  if (avg >= 55) return "var(--score-mid, #f59e0b)";
-  return "var(--score-low, #ef4444)";
+  if (avg >= 80) return "hsl(142 71% 45%)";  // green
+  if (avg >= 55) return "hsl(38 92% 50%)";   // amber
+  return "hsl(0 72% 51%)";                    // red
 }
 
-export function ScoreRadarChart({ scores }: { scores: ScoreScores }) {
-  const values = AXES.map(({ key }) => scores[key]);
-  const avg = values.reduce((a, b) => a + b, 0) / values.length;
-  const fillColor = getColor(avg);
-
-  // Grid rings at 25, 50, 75, 100
-  const gridRings = [25, 50, 75, 100];
-
+function CustomTooltip({ active, payload }: { active?: boolean; payload?: { payload: { label: string; value: number } }[] }) {
+  if (!active || !payload?.length) return null;
+  const { label, value } = payload[0].payload;
   return (
-    <div className="flex justify-center py-2">
-      <svg
-        viewBox={`0 0 ${SIZE} ${SIZE}`}
-        width={SIZE}
-        height={SIZE}
-        aria-hidden="true"
-        className="overflow-visible"
-      >
-        {/* Grid rings */}
-        {gridRings.map((pct) => (
-          <polygon
-            key={pct}
-            points={buildPolygon(Array(N).fill(pct), RADIUS)}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="0.5"
-            className="text-border opacity-60"
-          />
-        ))}
-
-        {/* Axis lines */}
-        {AXES.map((_, i) => {
-          const outer = polarToXY((i * 360) / N, RADIUS);
-          return (
-            <line
-              key={i}
-              x1={CENTER}
-              y1={CENTER}
-              x2={outer.x}
-              y2={outer.y}
-              stroke="currentColor"
-              strokeWidth="0.5"
-              className="text-border opacity-60"
-            />
-          );
-        })}
-
-        {/* Data polygon */}
-        <polygon
-          points={buildPolygon(values, RADIUS)}
-          fill={fillColor}
-          fillOpacity={0.18}
-          stroke={fillColor}
-          strokeWidth="1.5"
-          strokeLinejoin="round"
-        />
-
-        {/* Data points */}
-        {values.map((v, i) => {
-          const { x, y } = polarToXY((i * 360) / N, (v / 100) * RADIUS);
-          return (
-            <circle
-              key={i}
-              cx={x}
-              cy={y}
-              r={2.5}
-              fill={fillColor}
-            />
-          );
-        })}
-
-        {/* Labels */}
-        {AXES.map(({ label }, i) => {
-          const { x, y } = polarToXY(
-            (i * 360) / N,
-            RADIUS + LABEL_OFFSET
-          );
-          const anchor =
-            x < CENTER - 4 ? "end" : x > CENTER + 4 ? "start" : "middle";
-          return (
-            <text
-              key={i}
-              x={x}
-              y={y}
-              textAnchor={anchor}
-              dominantBaseline="middle"
-              fontSize="9"
-              fill="currentColor"
-              className="text-muted-foreground"
-              fontFamily="inherit"
-            >
-              {label}
-            </text>
-          );
-        })}
-      </svg>
+    <div className="rounded-lg border bg-popover px-3 py-2 text-sm shadow-md">
+      <p className="font-medium">{label}</p>
+      <p className="font-mono text-lg font-bold tabular-nums" style={{ color: getColor(value) }}>
+        {value}
+        <span className="text-xs font-normal text-muted-foreground"> / 100</span>
+      </p>
     </div>
   );
 }
+
+function ScoreRadarChartInner({ scores }: { scores: ScoreScores }) {
+  const data = AXES.map(({ key, label }) => ({
+    label,
+    value: scores[key],
+    fullMark: 100,
+  }));
+
+  const avg = data.reduce((s, d) => s + d.value, 0) / data.length;
+  const color = getColor(avg);
+
+  return (
+    <div className="flex justify-center py-2">
+      <ResponsiveContainer width="100%" height={240}>
+        <RadarChart data={data} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
+          <PolarGrid
+            stroke="currentColor"
+            className="text-border"
+            strokeOpacity={0.4}
+          />
+          <PolarAngleAxis
+            dataKey="label"
+            tick={{ fontSize: 11, fill: "currentColor", className: "text-muted-foreground" }}
+            tickLine={false}
+          />
+          <Radar
+            dataKey="value"
+            stroke={color}
+            fill={color}
+            fillOpacity={0.18}
+            strokeWidth={2}
+            dot={{ r: 3, fill: color, strokeWidth: 0 }}
+            animationBegin={0}
+            animationDuration={600}
+          />
+          <Tooltip content={<CustomTooltip />} cursor={false} />
+        </RadarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
+// SSR-safe: recharts uses browser APIs
+export const ScoreRadarChart = dynamic(
+  () => Promise.resolve(ScoreRadarChartInner),
+  { ssr: false, loading: () => <div className="h-[240px] animate-pulse rounded-lg bg-muted/40" /> }
+);
