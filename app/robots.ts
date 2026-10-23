@@ -1,24 +1,30 @@
 import { MetadataRoute } from "next";
+import { getBaseUrl } from "@/lib/seo";
+
+const AI_CRAWLERS = [
+  "GPTBot",
+  "OAI-SearchBot",
+  "ChatGPT-User",
+  "ClaudeBot",
+  "Claude-SearchBot",
+  "Claude-User",
+  "anthropic-ai",
+  "PerplexityBot",
+  "Perplexity-User",
+  "Google-Extended",
+  "Bingbot",
+  "Applebot-Extended",
+];
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://painradar.com";
+  const baseUrl = getBaseUrl();
+  const disallow = ["/dashboard/", "/api/"];
 
   return {
     rules: [
-      {
-        userAgent: "*",
-        allow: "/",
-        disallow: ["/dashboard/", "/api/"],
-      },
-      // Explicitly allow AI search bots so they can cite painradar.com
-      { userAgent: "GPTBot", allow: "/" },
-      { userAgent: "ChatGPT-User", allow: "/" },
-      { userAgent: "PerplexityBot", allow: "/" },
-      { userAgent: "ClaudeBot", allow: "/" },
-      { userAgent: "anthropic-ai", allow: "/" },
-      { userAgent: "Google-Extended", allow: "/" },
-      { userAgent: "Bingbot", allow: "/" },
-      // Block training-only crawlers (allows search/citation, not training)
+      { userAgent: "*", allow: "/", disallow },
+      { userAgent: AI_CRAWLERS, allow: "/", disallow },
+      // Block training-only crawlers (allows search/citation, not AI training)
       { userAgent: "CCBot", disallow: "/" },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,

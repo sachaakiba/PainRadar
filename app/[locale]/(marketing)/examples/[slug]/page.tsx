@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildSeoMetadata } from "@/lib/seo";
 import { Link } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -62,9 +63,9 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const example = exampleAnalyses.find((e) => e.slug === slug);
   if (!example) return { title: "Example not found" };
   const key = slugToKey[slug];
@@ -74,7 +75,9 @@ export async function generateMetadata({
   const topic = tExamples(`exampleItems.${key}.topic`);
   const summary = tExamples(`exampleItems.${key}.summary`);
   const painPointAnalysis = tExamples("painPointAnalysis");
+  const { alternates } = buildSeoMetadata({ path: `/examples/${slug}`, locale, title: "", description: "" });
   return {
+    alternates,
     title: `${topic} – ${painPointAnalysis} | PainRadar`,
     description: summary,
     openGraph: {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildSeoMetadata } from "@/lib/seo";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { ArrowRight } from "lucide-react";
@@ -8,11 +9,20 @@ import { JsonLd } from "@/components/json-ld";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { absoluteUrl } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: "PainRadar vs Alternatives",
-  description:
-    "How PainRadar compares to manual Reddit research, Google Trends, and survey tools. See why automated pain point discovery beats traditional approaches.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildSeoMetadata({
+    path: "/alternatives",
+    locale,
+    title: "PainRadar vs Alternatives",
+    description:
+      "How PainRadar compares to manual Reddit research, Google Trends, and survey tools. See why automated pain point discovery beats traditional approaches.",
+  });
+}
 
 const slugToKey: Record<string, string> = {
   "manual-research": "manualResearch",

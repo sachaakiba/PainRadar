@@ -1,14 +1,14 @@
 # PainRadar
 
-> PainRadar is a SaaS idea discovery platform that scans Reddit, forums, and review sites to find real customer pain points — and turns them into validated product opportunities.
+> PainRadar is a SaaS idea discovery and validation tool. It analyzes online discussions (Reddit, forums, review sites) to surface recurring customer pain points, scores them as product opportunities, and generates product ideas with SEO angles. Available in English and French.
 
 ## What it does
 
-PainRadar analyzes thousands of online discussions to surface recurring complaints and frustrations. It scores each pain point for demand, urgency, competition, and monetization potential, then generates AI-ready product ideas, SEO keyword opportunities, and targeted acquisition channels — all from a single analysis.
+PainRadar analyzes thousands of real user discussions to detect recurring complaints and frustrations. Each pain point is scored for demand, urgency, competition, and monetization potential — then turned into AI-ready product ideas, SEO keyword opportunities, and acquisition channel recommendations.
 
 ## Who it's for
 
-- Indie hackers and solo founders looking for their next SaaS idea
+- Indie hackers and solo founders looking for validated SaaS ideas
 - Product teams validating new features or pivots
 - Startup founders who want evidence before building
 
@@ -18,7 +18,7 @@ PainRadar analyzes thousands of online discussions to surface recurring complain
 - Opportunity scoring (0–100) across demand, urgency, competition, and monetization
 - AI-generated product ideas with MVP scope and differentiation angles
 - SEO keyword discovery from real customer language
-- Acquisition channel mapping (where your future customers hang out)
+- Acquisition channel mapping
 - Competitive landscape overview
 - Export as JSON or PDF
 
@@ -29,29 +29,38 @@ PainRadar analyzes thousands of online discussions to surface recurring complain
 - **Explorer**: €19 one-time — 15 full analysis credits. Same as Starter plus priority email support.
 - **Founder**: €49 one-time — Unlimited analyses forever. No credits to track. Priority feature access + dedicated support.
 
-Full pricing details: https://painradar.com/pricing
+Full pricing: https://painradar.com/pricing
 
-## Key pages
+## Core pages
 
-- Homepage: https://painradar.com
-- Pricing: https://painradar.com/pricing
-- Features: https://painradar.com/features
-- Use cases: https://painradar.com/use-cases
-- Blog: https://painradar.com/blog
-- Examples: https://painradar.com/examples
-- Alternatives comparison: https://painradar.com/alternatives
+- [Home](https://painradar.com/): what PainRadar does and how it works
+- [Features](https://painradar.com/features): pain point detection, idea validation, SEO insights, opportunity scoring
+- [Pricing](https://painradar.com/pricing): free credits at signup, one-time credit packs, no subscription
+- [Use cases](https://painradar.com/use-cases): indie hackers, agencies, freelancers, startups
+- [Examples](https://painradar.com/examples): sample pain point analyses
+- [Alternatives](https://painradar.com/alternatives): PainRadar vs manual research, Google Trends, survey tools
+
+## Guides & programmatic SEO pages
+
+- [Blog](https://painradar.com/blog): guides on finding SaaS ideas from pain points and Reddit research
+- [Pain point library](https://painradar.com/pain): pain points by problem and audience
+- [SaaS ideas](https://painradar.com/saas-ideas)
+- [Micro SaaS ideas](https://painradar.com/micro-saas-ideas)
+- [Startup validation](https://painradar.com/startup-validation)
+- [Startup ideas from Reddit](https://painradar.com/startup-ideas-from-reddit)
 
 ## Compared to alternatives
 
 | Tool | Focus | Model |
 |------|-------|-------|
-| PainRadar | Pain points → product ideas | One-time credits |
+| PainRadar | Pain points → validated product ideas | One-time credits |
 | Exploding Topics | Search trend detection | Subscription |
 | BigIdeasDB | Review mining | Subscription |
 | GummySearch | Reddit browsing (closed Nov 2025) | Was subscription |
 | IdeaBrowser | Curated ideas | Subscription |
 
-## Contact
+## Notes
 
-- Website: https://painradar.com
-- Twitter/X: https://twitter.com/painradar
+- French versions live under https://painradar.com/fr/
+- Sitemap: https://painradar.com/sitemap.xml
+- Machine-readable pricing: https://painradar.com/pricing.md

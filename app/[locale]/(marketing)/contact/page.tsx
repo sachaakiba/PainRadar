@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildSeoMetadata } from "@/lib/seo";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { JsonLd } from "@/components/json-ld";
 import { absoluteUrl } from "@/lib/utils";
@@ -6,11 +7,20 @@ import { ContactForm } from "@/components/contact-form";
 import { Mail, MessageSquare, Bug } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Get in touch with the PainRadar team. Send us your questions, feedback, or bug reports.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildSeoMetadata({
+    path: "/contact",
+    locale,
+    title: "Contact",
+    description:
+      "Get in touch with the PainRadar team. Send us your questions, feedback, or bug reports.",
+  });
+}
 
 export default async function ContactPage() {
   const t = await getTranslations("contact");

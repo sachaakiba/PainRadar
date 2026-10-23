@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildSeoMetadata } from "@/lib/seo";
 import { Link } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -39,16 +40,18 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const feature = features.find((f) => f.slug === slug);
   if (!feature) return { title: "Feature not found" };
   const key = slugToKey[slug];
   const tFeatures = await getTranslations("features");
   const title = key ? tFeatures(`${key}.title`) : feature.title;
   const description = key ? tFeatures(`${key}.description`) : feature.description;
+  const { alternates } = buildSeoMetadata({ path: `/features/${slug}`, locale, title: "", description: "" });
   return {
+    alternates,
     title: `${title} | PainRadar`,
     description,
     openGraph: {
