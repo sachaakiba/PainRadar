@@ -614,4 +614,45 @@ A need is what someone requires; a pain point is the friction or cost they curre
 ### How many mentions make a pain point valid?
 There is no magic number. Look for the same problem surfacing independently across several sources, with people describing real costs or workarounds.`,
   },
+  {
+    slug: "validate-saas-idea-with-reddit",
+    title: "How to Validate a SaaS Idea With Reddit (Before Writing Code)",
+    description:
+      "A practical 5-step process to validate a SaaS idea using Reddit threads: find the pain, check repetition, study existing tools, test willingness to pay and talk to the people who posted.",
+    date: "2026-10-23",
+    author: "PainRadar Team",
+    readTime: "5 min read",
+    content: `# How to Validate a SaaS Idea With Reddit (Before Writing Code)
+
+**To validate a SaaS idea with Reddit, look for the same problem described independently by several people, check what they already use or pay for, and confirm that existing tools leave a gap.** Reddit works well because people describe problems in their own words, without being prompted by a survey.
+
+## The 5-Step Process
+
+1. **Find the conversations.** Search the subreddits where your target users hang out for phrases like "is there a tool", "alternative to", "how do you handle" and "I hate".
+2. **Check repetition.** One angry post is an anecdote. The same complaint across different threads and different people is a pattern. Keep a simple list of links.
+3. **Study the current workaround.** Spreadsheets, manual copy-paste and stitched-together tools show how much effort people already spend. See [what a real customer pain point looks like](/blog/what-is-a-customer-pain-point).
+4. **Look for willingness to pay.** Note any mention of price, existing subscriptions or hiring someone to do the task. Complaints about a paid tool's pricing are a strong signal.
+5. **Talk to the posters.** Send a short, non-salesy message asking how they solve it today. Reddit's rules and each subreddit's self-promotion policy apply, so ask questions rather than pitch.
+
+## Red Flags
+
+- Only one thread, or one very upvoted post, mentions the problem.
+- People complain but nobody mentions trying to fix it.
+- The audience is not reachable through any identifiable community.
+
+## Doing It Faster
+
+Manual research takes hours per niche. PainRadar analyzes online discussions for you, groups recurring complaints and scores them as opportunities. Browse [example analyses](/examples), read the [Reddit research workflow](/blog/reddit-research-workflow-saas-founders), or see the [startup validation guide](/startup-validation).
+
+## FAQ
+
+### Is Reddit enough to validate a SaaS idea?
+It is a strong starting point for discovering and sizing a problem, but you should still confirm willingness to pay by talking to prospective users or running a small pre-sale.
+
+### How many Reddit threads do I need?
+There is no fixed number. Aim for the same problem showing up independently in several threads from different people, ideally with costs or workarounds mentioned.
+
+### Can I message Reddit users about my idea?
+Yes, if you follow Reddit's rules and the subreddit's policies. Ask about their current process instead of promoting a product.`,
+  },
 ];

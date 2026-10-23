@@ -13,3 +13,14 @@ Backlog:
 1. Base URL mismatch: lib/seo.ts falls back to pain-radar.com, config/site.ts and llms.txt use painradar.com (lib/ is out of scope; confirm NEXT_PUBLIC_APP_URL in Vercel).
 2. Blog posts are English-only; add FR versions/translation, plus Article JSON-LD and FAQPage schema for blog FAQ sections.
 3. Per-locale localized titles/descriptions for static pages (currently English strings on /fr); sitemap hreflang alternates; localized detail-page metadata for pain/* pages.
+
+## 2026-10-23 (run 2)
+Done:
+- Blog post JSON-LD upgraded to BlogPosting (publisher+logo, image, dateModified, inLanguage, mainEntityOfPage).
+- FAQPage JSON-LD auto-generated from "## FAQ" / "### question" sections in blog posts.
+- New post `validate-saas-idea-with-reddit` (answer-first, FAQ, internal links); llms.txt updated.
+
+Backlog:
+1. Base URL mismatch (pain-radar.com vs painradar.com) - lib/ out of scope.
+2. FR versions of blog posts; localized titles/descriptions for static pages; sitemap hreflang alternates.
+3. Add FAQ sections to older blog posts; per-post OG images.

@@ -82,21 +82,57 @@ export default async function BlogPostPage({
 
   const articleJsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: post.title,
     description: post.description,
     author: {
       "@type": "Organization",
       name: post.author,
+      url: absoluteUrl("/"),
     },
+    publisher: {
+      "@type": "Organization",
+      name: "PainRadar",
+      url: absoluteUrl("/"),
+      logo: { "@type": "ImageObject", url: absoluteUrl("/icon.png") },
+    },
+    image: absoluteUrl("/og.png"),
     datePublished: post.date,
+    dateModified: post.date,
+    inLanguage: "en",
+    mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(`/blog/${slug}`) },
     url: absoluteUrl(`/blog/${slug}`),
   };
+
+  // Extract "## FAQ" → "### question" + answer paragraphs into FAQPage schema.
+  const faqSection = post.content.split(/^## FAQ\s*$/m)[1];
+  const faqEntries = faqSection
+    ? faqSection
+        .split(/^### /m)
+        .slice(1)
+        .map((block) => {
+          const [question, ...rest] = block.split("\n");
+          return { question: question.trim(), answer: rest.join(" ").replace(/\s+/g, " ").trim() };
+        })
+        .filter((e) => e.question && e.answer)
+    : [];
+  const faqJsonLd = faqEntries.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqEntries.map((e) => ({
+          "@type": "Question",
+          name: e.question,
+          acceptedAnswer: { "@type": "Answer", text: e.answer },
+        })),
+      }
+    : null;
 
   return (
     <>
       <JsonLd data={breadcrumbJsonLd} />
       <JsonLd data={articleJsonLd} />
+      {faqJsonLd && <JsonLd data={faqJsonLd} />}
       <div className="container mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         <Breadcrumb
           items={[
