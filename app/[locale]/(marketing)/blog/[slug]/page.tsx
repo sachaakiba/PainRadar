@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildSeoMetadata } from "@/lib/seo";
 import { Link } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -19,13 +20,15 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const post = blogPosts.find((p) => p.slug === slug);
   if (!post) return { title: "Post not found" };
   const url = absoluteUrl(`/blog/${slug}`);
+  const { alternates } = buildSeoMetadata({ path: `/blog/${slug}`, locale, title: "", description: "" });
   return {
+    alternates,
     title: `${post.title} | PainRadar Blog`,
     description: post.description,
     openGraph: {

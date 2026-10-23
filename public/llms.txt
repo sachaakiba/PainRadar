@@ -1,0 +1,23 @@
+# PainRadar
+
+> PainRadar is a SaaS idea discovery and validation tool. It analyzes online discussions (Reddit, forums, review sites) to surface recurring customer pain points, scores them as product opportunities, and gives SEO angles for each. Available in English and French.
+
+## Core pages
+- [Home](https://painradar.com/): what PainRadar does and how it works
+- [Features](https://painradar.com/features): pain point detection, idea validation, SEO insights, opportunity scoring
+- [Pricing](https://painradar.com/pricing): free credits at signup, one-time credit packs, no subscription
+- [Use cases](https://painradar.com/use-cases): indie hackers, agencies, freelancers, startups
+- [Examples](https://painradar.com/examples): sample pain point analyses
+- [Alternatives](https://painradar.com/alternatives): PainRadar vs manual research, Google Trends, survey tools
+
+## Guides
+- [Blog](https://painradar.com/blog): guides on finding SaaS ideas from pain points and Reddit research workflows
+- [Pain point library](https://painradar.com/pain): pain points by problem and audience (e.g. invoicing for freelancers)
+- [SaaS ideas](https://painradar.com/saas-ideas)
+- [Micro SaaS ideas](https://painradar.com/micro-saas-ideas)
+- [Startup validation](https://painradar.com/startup-validation)
+- [Startup ideas from Reddit](https://painradar.com/startup-ideas-from-reddit)
+
+## Notes
+- French versions live under https://painradar.com/fr/
+- Sitemap: https://painradar.com/sitemap.xml

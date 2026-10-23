@@ -147,4 +147,63 @@ Research without action is procrastination. Once you've identified a pattern:
 
 Reddit is free, public, and full of people who want to be heard. Your job is to listen—and then build something that makes their lives easier.`,
   },
+  {
+    slug: "what-is-a-customer-pain-point",
+    title: "What Is a Customer Pain Point? Definition, Types and How to Validate One",
+    description:
+      "A customer pain point is a specific, recurring problem a person is motivated to solve. Learn the four types, how to spot them in Reddit threads and reviews, and how to check one is worth building for.",
+    date: "2026-10-23",
+    author: "PainRadar Team",
+    readTime: "6 min read",
+    content: `# What Is a Customer Pain Point? Definition, Types and How to Validate One
+
+**A customer pain point is a specific, recurring problem that a person or business is actively motivated to solve.** It is different from a preference or a vague wish: a pain point has a cost (time, money, stress) and usually leaves a trail, such as a forum post, a bad review or a workaround.
+
+## The Four Types of Pain Points
+
+1. **Financial** – The current solution costs too much, or the problem itself loses money (late invoices, wasted ad spend).
+2. **Productivity** – A task takes longer than it should, often because of manual steps or switching between tools.
+3. **Process** – A workflow is confusing, fragmented or error-prone (onboarding clients, handing off work).
+4. **Support** – People feel unheard or stuck when they hit a problem with a product or vendor.
+
+## How to Recognize a Real Pain Point
+
+A real pain point usually shows at least three of these signals:
+
+- **Repetition** – The same complaint appears across different threads, people and sites.
+- **Emotion** – Words like "hate", "tired of", "nightmare" or "waste of time".
+- **Workarounds** – Spreadsheets, copy-paste routines or duct-taped tools.
+- **Active search** – "Is there a tool that..." or "alternatives to X" threads.
+- **Money mentioned** – People say what they already pay, or what they would pay.
+
+## Where to Find Them
+
+Reddit threads, niche forums and the 2- and 3-star reviews on sites like G2, Capterra or Trustpilot are the richest sources, because the people writing are describing their own problem unprompted. See our guide on [finding SaaS ideas from pain points](/blog/how-to-find-saas-ideas-from-pain-points) and our [Reddit research workflow](/blog/reddit-research-workflow-saas-founders) for a step-by-step process.
+
+## Pain Point vs. Feature Request
+
+A feature request describes a solution ("add a dark mode"). A pain point describes the problem behind it ("I can't use this at night without eye strain"). Build for the problem: several different feature requests often point to the same underlying pain.
+
+## Is It Worth Building For?
+
+Before committing, check:
+
+- Is the audience reachable (a specific subreddit, community or job title)?
+- Do existing tools leave a clear gap, visible in their negative reviews?
+- Is there evidence of willingness to pay?
+- Can a small team ship a first version quickly?
+
+PainRadar automates this: it analyzes online discussions, groups recurring complaints and scores each one as a product opportunity. You can browse [example analyses](/examples) or see how it [compares to manual research](/alternatives/manual-research).
+
+## FAQ
+
+### What is an example of a customer pain point?
+A freelancer who spends hours each month chasing late payments and reconciling invoices in a spreadsheet has a financial and productivity pain point.
+
+### How is a pain point different from a need?
+A need is what someone requires; a pain point is the friction or cost they currently experience in meeting it. Pain is what turns a need into buying behavior.
+
+### How many mentions make a pain point valid?
+There is no magic number. Look for the same problem surfacing independently across several sources, with people describing real costs or workarounds.`,
+  },
 ];

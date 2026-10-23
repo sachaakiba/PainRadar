@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { exampleAnalyses } from "@/config/examples";
 import { useCases } from "@/config/use-cases";
+import { alternatives } from "@/config/alternatives";
 import { features } from "@/config/features";
 import { blogPosts } from "@/content/blog-posts";
 import { SEO_LANDING_PAGES } from "@/content/seo-pages";
@@ -56,6 +57,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   for (const uc of useCases) {
     const path = `/use-cases/${uc.slug}`;
+    entries.push({ url: urlEn(path), lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 });
+    entries.push({ url: urlFr(path), lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 });
+  }
+
+  for (const alt of alternatives) {
+    const path = `/alternatives/${alt.slug}`;
     entries.push({ url: urlEn(path), lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 });
     entries.push({ url: urlFr(path), lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 });
   }

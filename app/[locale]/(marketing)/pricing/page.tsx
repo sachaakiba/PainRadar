@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildSeoMetadata } from "@/lib/seo";
 import { PricingSection } from "@/components/landing/pricing-section";
 import { JsonLd } from "@/components/json-ld";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
@@ -11,11 +12,20 @@ import {
 import { getTranslations } from "next-intl/server";
 import { absoluteUrl } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: "Pricing",
-  description:
-    "Simple pricing for PainRadar. Start free with 2 credits. Starter (5 credits, 9 €), Explorer (15 credits, 19 €), or Founder (unlimited access, 49 €) — one-time payment, no subscription.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildSeoMetadata({
+    path: "/pricing",
+    locale,
+    title: "Pricing",
+    description:
+      "Simple pricing for PainRadar. Start free with 2 credits. Starter (5 credits, 9 €), Explorer (15 credits, 19 €), or Founder (unlimited access, 49 €) — one-time payment, no subscription.",
+  });
+}
 
 export default async function PricingPage() {
   const t = await getTranslations("pricing");
