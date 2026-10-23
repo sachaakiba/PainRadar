@@ -8,9 +8,11 @@ const AI_CRAWLERS = [
   "ClaudeBot",
   "Claude-SearchBot",
   "Claude-User",
+  "anthropic-ai",
   "PerplexityBot",
   "Perplexity-User",
   "Google-Extended",
+  "Bingbot",
   "Applebot-Extended",
 ];
 
@@ -22,6 +24,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       { userAgent: "*", allow: "/", disallow },
       { userAgent: AI_CRAWLERS, allow: "/", disallow },
+      // Block training-only crawlers (allows search/citation, not AI training)
+      { userAgent: "CCBot", disallow: "/" },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
   };

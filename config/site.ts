@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "PainRadar",
   description:
-    "Find real pain points people are complaining about — and turn them into SaaS ideas. PainRadar analyzes discussions and reveals recurring pain points, product opportunities and SEO angles.",
+    "PainRadar scans Reddit, forums, and review sites to find real customer pain points — and turns them into validated SaaS ideas. Get opportunity scores, product ideas, and SEO keywords in seconds.",
   url: process.env.NEXT_PUBLIC_APP_URL || "https://painradar.com",
   ogImage: "/og.png",
   icon: "/icon.png",

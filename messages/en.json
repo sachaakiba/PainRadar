@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "PainRadar - Discover Pain Points & SaaS Ideas",
-    "description": "Discover real problems people complain about — and turn them into SaaS ideas. Analyze discussions and reveal product opportunities."
+    "title": "PainRadar — Find Real SaaS Ideas from Customer Pain Points",
+    "description": "PainRadar scans Reddit, forums, and reviews to find validated pain points and turn them into SaaS ideas. Opportunity scoring, product ideas, and SEO keywords — in seconds."
   },
   "nav": {
     "features": "Features",
@@ -167,13 +167,15 @@
   "faq": {
     "title": "Frequently asked questions",
     "items": [
-      { "q": "What is PainRadar?", "a": "PainRadar is a SaaS idea discovery platform that analyzes online discussions to find recurring pain points, product opportunities, and SEO angles." },
-      { "q": "Where does the data come from?", "a": "We analyze discussions from forums, review sites, and community platforms to extract real complaints and frustrations people are expressing." },
-      { "q": "How accurate is the opportunity scoring?", "a": "Our scoring combines demand signals, urgency indicators, competition analysis, and monetization potential into a composite score. It's a directional guide, not a guarantee." },
-      { "q": "Can I export my analyses?", "a": "Yes. You can export analyses as JSON files or copy them to your clipboard. PDF export is coming soon." },
-      { "q": "Is there a free plan?", "a": "Yes! You get 2 free credits when you sign up. No credit card required." },
-      { "q": "How is this different from regular market research?", "a": "PainRadar automates what would take hours of manual research. Instead of manually browsing forums and communities, we surface patterns and quantify opportunities for you." },
-      { "q": "Which sources does PainRadar analyze?", "a": "We pull real discussions from across the web — Reddit, community forums, and review sites like G2, Capterra and Trustpilot — and we keep adding new sources." }
+      { "q": "What is PainRadar?", "a": "PainRadar is a SaaS idea discovery platform that scans Reddit, forums, and review sites to find real customer pain points — and turns them into validated product opportunities with opportunity scoring, product ideas, and SEO keywords." },
+      { "q": "How does PainRadar find SaaS ideas?", "a": "PainRadar analyzes thousands of real user discussions to detect recurring complaints. Each pain point is scored across demand, urgency, competition, and monetization potential. The result is a prioritized list of validated SaaS ideas you can start building today." },
+      { "q": "Where does the data come from?", "a": "We pull real discussions from Reddit, community forums, and review platforms like G2, Capterra, and Trustpilot — anywhere people express genuine frustrations. New sources are added continuously." },
+      { "q": "Who is PainRadar for?", "a": "PainRadar is built for indie hackers, solo founders, and product teams who want to find validated micro-SaaS or niche SaaS ideas without hours of manual research." },
+      { "q": "How is PainRadar different from Exploding Topics or other tools?", "a": "Exploding Topics tracks search trends. PainRadar tracks pain: the actual complaints people write when they're frustrated. This gives you demand signal plus emotional context — so you know not just what's growing but what's broken and needs solving." },
+      { "q": "How accurate is the opportunity scoring?", "a": "Our scoring combines demand signals, urgency indicators, competition analysis, and monetization potential into a composite score (0–100). It's a directional guide for prioritization, not a guarantee of success." },
+      { "q": "Can I export my analyses?", "a": "Yes. You can export analyses as JSON files or copy them to your clipboard. PDF export is on the roadmap." },
+      { "q": "Is there a free plan?", "a": "Yes — you get 2 free credits at signup. No credit card required. Free credits include basic pain point detection and opportunity scoring." },
+      { "q": "How is this different from manual market research?", "a": "Manual research means hours browsing Reddit and review sites by hand, then organizing findings in a spreadsheet. PainRadar automates the entire pipeline: discovery, clustering, scoring, and product ideation — in under 30 seconds per analysis." }
     ]
   },
   "productDemo": {
