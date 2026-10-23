@@ -1,0 +1,57 @@
+# PainRadar
+
+> PainRadar is a SaaS idea discovery platform that scans Reddit, forums, and review sites to find real customer pain points — and turns them into validated product opportunities.
+
+## What it does
+
+PainRadar analyzes thousands of online discussions to surface recurring complaints and frustrations. It scores each pain point for demand, urgency, competition, and monetization potential, then generates AI-ready product ideas, SEO keyword opportunities, and targeted acquisition channels — all from a single analysis.
+
+## Who it's for
+
+- Indie hackers and solo founders looking for their next SaaS idea
+- Product teams validating new features or pivots
+- Startup founders who want evidence before building
+
+## Key features
+
+- Pain point detection from Reddit, G2, Capterra, Trustpilot, and community forums
+- Opportunity scoring (0–100) across demand, urgency, competition, and monetization
+- AI-generated product ideas with MVP scope and differentiation angles
+- SEO keyword discovery from real customer language
+- Acquisition channel mapping (where your future customers hang out)
+- Competitive landscape overview
+- Export as JSON or PDF
+
+## Pricing
+
+- **Free**: 2 credits at signup, no credit card required. Basic pain point detection + opportunity scoring.
+- **Starter**: €9 one-time — 5 full analysis credits. Includes product ideas, SEO keywords, acquisition channels, AI-ready prompts, export. Credits never expire.
+- **Explorer**: €19 one-time — 15 full analysis credits. Same as Starter plus priority email support.
+- **Founder**: €49 one-time — Unlimited analyses forever. No credits to track. Priority feature access + dedicated support.
+
+Full pricing details: https://painradar.com/pricing
+
+## Key pages
+
+- Homepage: https://painradar.com
+- Pricing: https://painradar.com/pricing
+- Features: https://painradar.com/features
+- Use cases: https://painradar.com/use-cases
+- Blog: https://painradar.com/blog
+- Examples: https://painradar.com/examples
+- Alternatives comparison: https://painradar.com/alternatives
+
+## Compared to alternatives
+
+| Tool | Focus | Model |
+|------|-------|-------|
+| PainRadar | Pain points → product ideas | One-time credits |
+| Exploding Topics | Search trend detection | Subscription |
+| BigIdeasDB | Review mining | Subscription |
+| GummySearch | Reddit browsing (closed Nov 2025) | Was subscription |
+| IdeaBrowser | Curated ideas | Subscription |
+
+## Contact
+
+- Website: https://painradar.com
+- Twitter/X: https://twitter.com/painradar
