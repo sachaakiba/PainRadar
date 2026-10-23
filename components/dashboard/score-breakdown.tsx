@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
+import { ScoreRadarChart } from "./score-radar-chart";
 
 export interface ScoreScores {
   opportunityScore: number;
@@ -37,6 +38,8 @@ export function ScoreBreakdown({ scores }: { scores: ScoreScores }) {
   const entries = Object.entries(scores) as [keyof ScoreScores, number][];
 
   return (
+    <div className="space-y-4">
+      <ScoreRadarChart scores={scores} />
     <div className="grid gap-5 sm:grid-cols-2">
       {entries.map(([key, value]) => (
         <div key={key} className="space-y-2">
@@ -51,6 +54,7 @@ export function ScoreBreakdown({ scores }: { scores: ScoreScores }) {
           </div>
         </div>
       ))}
+    </div>
     </div>
   );
 }
