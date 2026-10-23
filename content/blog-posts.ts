@@ -148,6 +148,98 @@ Research without action is procrastination. Once you've identified a pattern:
 Reddit is free, public, and full of people who want to be heard. Your job is to listen—and then build something that makes their lives easier.`,
   },
   {
+    slug: "gummysearch-alternative",
+    title: "GummySearch Alternatives: Best Tools for Reddit Pain Point Research in 2026",
+    description:
+      "GummySearch shut down in November 2025. Here are the best alternatives for indie hackers and SaaS founders who relied on it to find pain points and product ideas on Reddit.",
+    date: "2026-01-10",
+    author: "PainRadar Team",
+    readTime: "7 min read",
+    content: `# GummySearch Alternatives: Best Tools for Reddit Pain Point Research in 2026
+
+GummySearch was a staple for indie hackers and bootstrapped SaaS founders. It made Reddit audience research easy: you could find pain points, spot frustration patterns, and discover product ideas without hours of manual scrolling. When it shut down in November 2025, thousands of founders had to find a new home for their research workflows.
+
+This guide covers the best alternatives, what each one is good for, and which one is closest to what GummySearch offered.
+
+## Why GummySearch Was Popular
+
+GummySearch worked because it matched the workflow of early-stage founders:
+
+- **Browse by topic** – Find conversations about your niche across multiple relevant subreddits
+- **Spot patterns** – Surface recurring pain points, not just one-off posts
+- **Move fast** – No spreadsheets or manual filtering needed
+- **Lean pricing** – Accessible to bootstrapped founders, not enterprise-priced
+
+When it closed, it didn't leave a single perfect replacement. The alternatives each cover part of the job.
+
+## The Best GummySearch Alternatives
+
+### 1. PainRadar — Best for Pain Point Discovery + Product Ideas
+
+PainRadar is the closest functional successor to GummySearch, and in several ways goes further. It doesn't just surface Reddit complaints: it analyzes Reddit alongside G2, Capterra, Trustpilot, and niche forums, then scores each opportunity and generates product ideas from the results.
+
+**What it does:**
+- Scans Reddit and review sites for complaints around your topic
+- Scores opportunities on demand, urgency, competition, and monetization
+- Generates product ideas, MVP scope, and SEO keywords from the pain points
+- Suggests acquisition channels to reach the audience
+
+**Pricing:** One-time credits (2 free at signup, no card required). Starter €9 / Explorer €19 / Founder €49 lifetime.
+
+**Best for:** Founders who want to go from "pain point" to "build this thing" in one tool.
+
+### 2. Gummy Reddit Search (Manual via Google)
+
+The simplest fallback: Google site search against Reddit.
+
+\`\`\`
+site:reddit.com [your niche] "frustrated" OR "wish there was" OR "alternatives to"
+\`\`\`
+
+**Pros:** Free, no signup, works immediately.
+**Cons:** Time-consuming, no scoring, no pattern detection, easy to miss threads.
+
+**Best for:** One-off research sessions, not a repeatable workflow.
+
+### 3. Exploding Topics — Best for Trend Detection
+
+Exploding Topics shows search categories that are growing faster than average. It's not a Reddit tool—it's a trend tool. But it's useful for spotting *that* a niche is growing before deciding to mine it for pain points.
+
+**Pros:** Good for macro-level category discovery.
+**Cons:** No pain point data, no product ideas, subscription required.
+
+**Best for:** Validating whether a space is worth researching, not the research itself.
+
+### 4. Treendly / Glimpse
+
+Similar to Exploding Topics—trend-detection tools that use Google data. Useful for early signals but don't tell you *why* people are frustrated.
+
+### 5. Apollo + Manual Subreddit Scraping
+
+Apollo (a Reddit client) with manual keyword searches is free but entirely unstructured. Some founders export threads via Reddit's API and run their own analysis.
+
+**Best for:** Developers who want full control and don't mind building their own pipeline.
+
+## What Made GummySearch Special (and Hard to Replace)
+
+GummySearch's real value was **speed to signal**: it took a raw niche keyword and quickly showed you whether there were frustrated people, what they were complaining about, and which subreddits to focus on. Most alternatives require more manual effort to get to the same place.
+
+PainRadar is the closest equivalent that's still active—with the added benefit of cross-referencing Reddit pain with review site complaints, which often reveals the same problem from a different angle.
+
+## Choosing the Right Tool
+
+| Goal | Best tool |
+|---|---|
+| Pain point discovery + product ideas | PainRadar |
+| Reddit-only browsing | Manual Google site search |
+| Trend detection before deep dive | Exploding Topics |
+| Full custom pipeline | Reddit API + your own analysis |
+
+If your workflow was "open GummySearch, enter a niche, find pain points, figure out what to build"—PainRadar replaces that workflow directly, with deeper analysis and no subscription required.
+
+[Try PainRadar free →](/) (2 credits included at signup)`,
+  },
+  {
     slug: "what-is-a-customer-pain-point",
     title: "What Is a Customer Pain Point? Definition, Types and How to Validate One",
     description:
