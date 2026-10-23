@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildSeoMetadata } from "@/lib/seo";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { ArrowRight } from "lucide-react";
@@ -10,11 +11,20 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { absoluteUrl, getScoreBg } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: "Example Analyses",
-  description:
-    "See real PainRadar analyses: invoicing for freelancers, CRM for therapists, scheduling for tutors, and more. Discover how pain point validation works.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildSeoMetadata({
+    path: "/examples",
+    locale,
+    title: "Example Analyses",
+    description:
+      "See real PainRadar analyses: invoicing for freelancers, CRM for therapists, scheduling for tutors, and more. Discover how pain point validation works.",
+  });
+}
 
 const slugToKey: Record<string, string> = {
   "invoicing-freelancers": "invoicingFreelancers",

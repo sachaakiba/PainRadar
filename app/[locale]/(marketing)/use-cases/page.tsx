@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildSeoMetadata } from "@/lib/seo";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { ArrowRight, Users } from "lucide-react";
@@ -9,11 +10,20 @@ import { JsonLd } from "@/components/json-ld";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { absoluteUrl } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: "Use Cases",
-  description:
-    "How PainRadar helps indie hackers, agencies, and startups validate ideas with real pain point data. See which use case fits your needs.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildSeoMetadata({
+    path: "/use-cases",
+    locale,
+    title: "Use Cases",
+    description:
+      "How PainRadar helps indie hackers, agencies, and startups validate ideas with real pain point data. See which use case fits your needs.",
+  });
+}
 
 const slugToKey: Record<string, string> = {
   "indie-hackers": "indieHackers",

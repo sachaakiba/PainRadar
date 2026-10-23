@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildSeoMetadata } from "@/lib/seo";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { JsonLd } from "@/components/json-ld";
 import { absoluteUrl } from "@/lib/utils";
@@ -7,10 +8,20 @@ import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "About",
-  description: "Learn about PainRadar — our mission, how we work, and what we believe.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildSeoMetadata({
+    path: "/about",
+    locale,
+    title: "About",
+    description:
+      "Learn about PainRadar — our mission, how we work, and what we believe.",
+  });
+}
 
 export default async function AboutPage() {
   const t = await getTranslations("about");

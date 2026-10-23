@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildSeoMetadata } from "@/lib/seo";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
@@ -9,11 +10,20 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { formatDate } from "@/lib/utils";
 import { absoluteUrl } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: "Blog",
-  description:
-    "Insights on pain point research, Reddit workflows, and validating SaaS ideas. Learn how to find product ideas from real customer complaints.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildSeoMetadata({
+    path: "/blog",
+    locale,
+    title: "Blog",
+    description:
+      "Insights on pain point research, Reddit workflows, and validating SaaS ideas. Learn how to find product ideas from real customer complaints.",
+  });
+}
 
 export default async function BlogPage() {
   const t = await getTranslations("blog");

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildSeoMetadata } from "@/lib/seo";
 import { Link } from "@/i18n/routing";
 import {
   Crosshair,
@@ -14,11 +15,20 @@ import { JsonLd } from "@/components/json-ld";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { absoluteUrl } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: "Features",
-  description:
-    "Everything you need to validate SaaS ideas: pain point detection, idea validation, SEO insights, and opportunity scoring. Discover what PainRadar can do for you.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildSeoMetadata({
+    path: "/features",
+    locale,
+    title: "Features",
+    description:
+      "Everything you need to validate SaaS ideas: pain point detection, idea validation, SEO insights, and opportunity scoring. Discover what PainRadar can do for you.",
+  });
+}
 
 const iconMap = {
   Crosshair,

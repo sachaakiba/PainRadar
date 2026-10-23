@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildSeoMetadata } from "@/lib/seo";
 import { Link } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -18,12 +19,14 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const alt = alternatives.find((a) => a.slug === slug);
   if (!alt) return { title: "Comparison not found" };
+  const { alternates } = buildSeoMetadata({ path: `/alternatives/${slug}`, locale, title: "", description: "" });
   return {
+    alternates,
     title: `PainRadar vs ${alt.title} | Alternatives`,
     description: alt.description,
     openGraph: {

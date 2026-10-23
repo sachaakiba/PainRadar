@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildSeoMetadata } from "@/lib/seo";
 import { Link } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -19,12 +20,14 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const useCase = useCases.find((u) => u.slug === slug);
   if (!useCase) return { title: "Use case not found" };
+  const { alternates } = buildSeoMetadata({ path: `/use-cases/${slug}`, locale, title: "", description: "" });
   return {
+    alternates,
     title: `${useCase.title} | PainRadar`,
     description: useCase.description,
     openGraph: {
