@@ -24,3 +24,13 @@ Backlog:
 1. Base URL mismatch (pain-radar.com vs painradar.com) - lib/ out of scope.
 2. FR versions of blog posts; localized titles/descriptions for static pages; sitemap hreflang alternates.
 3. Add FAQ sections to older blog posts; per-post OG images.
+
+## 2026-10-24
+Done:
+- FAQ sections (auto-emitted as FAQPage JSON-LD) added to 4 older posts: how-to-find-saas-ideas-from-pain-points, reddit-research-workflow-saas-founders, gummysearch-alternative, micro-saas-ideas-2026 (with internal links).
+- New post `saas-idea-validation-checklist` (answer-first, FAQ, internal links); llms.txt updated.
+
+Backlog:
+1. Base URL mismatch (pain-radar.com vs painradar.com) - lib/ out of scope.
+2. FR versions of blog posts; localized titles/descriptions for static pages; sitemap hreflang alternates.
+3. Per-post OG images; answer-first intro blocks for older posts; comparison posts (e.g. vs Google Trends).

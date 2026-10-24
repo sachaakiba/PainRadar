@@ -73,7 +73,18 @@ Once you've identified a pattern:
 3. **Validate before building** – Post in the same communities: "Would you use X if it did Y?" or run a simple landing page.
 4. **Ship fast** – Don't over-engineer. Get something in front of users and iterate.
 
-The goal isn't to build the perfect product. It's to build something that makes a real problem measurably less painful. Start there.`,
+The goal isn't to build the perfect product. It's to build something that makes a real problem measurably less painful. Start there.
+
+## FAQ
+
+### Where is the best place to find SaaS ideas?
+Places where people describe problems unprompted: Reddit threads, niche forums, and the 2- and 3-star reviews on sites like G2 and Capterra. Look for the same complaint repeated by different people.
+
+### How do I know a pain point is worth building for?
+Check that it repeats across sources, that people mention a workaround or what they pay today, and that you can reach the audience. See [what a customer pain point is](/blog/what-is-a-customer-pain-point) for the signals.
+
+### Can I automate pain point research?
+Partly. Tools like PainRadar group recurring complaints from online discussions and score them as opportunities, but you should still read the original threads before building.`,
   },
   {
     slug: "reddit-research-workflow-saas-founders",
@@ -145,7 +156,18 @@ Research without action is procrastination. Once you've identified a pattern:
 2. **Build a micro-MVP** – The simplest version that addresses the #1 complaint. Not a full product—a focused solution.
 3. **Share your work** – Post a "Show IH" or subreddit-specific "I built this for you" update. The communities that gave you insights will often give you your first users.
 
-Reddit is free, public, and full of people who want to be heard. Your job is to listen—and then build something that makes their lives easier.`,
+Reddit is free, public, and full of people who want to be heard. Your job is to listen—and then build something that makes their lives easier.
+
+## FAQ
+
+### How do I research a SaaS idea on Reddit?
+Pick a handful of subreddits where your target users talk, search for phrases like "alternative to" and "is there a tool", and log recurring complaints with links. Our [validation guide](/blog/validate-saas-idea-with-reddit) covers the full process.
+
+### How often should I review Reddit for pain points?
+A short weekly scan plus a monthly review of your tags is enough to see which complaints are growing.
+
+### Do I need to follow subreddit rules when researching?
+Yes. Reading is fine, but when you reach out or share your work, follow Reddit's rules and each subreddit's self-promotion policy.`,
   },
   {
     slug: "gummysearch-alternative",
@@ -237,7 +259,18 @@ PainRadar is the closest equivalent that's still active—with the added benefit
 
 If your workflow was "open GummySearch, enter a niche, find pain points, figure out what to build"—PainRadar replaces that workflow directly, with deeper analysis and no subscription required.
 
-[Try PainRadar free →](/) (2 credits included at signup)`,
+[Try PainRadar free →](/) (2 credits included at signup)
+
+## FAQ
+
+### What is the best GummySearch alternative?
+It depends on your goal. For pain point discovery and product ideas, PainRadar is built for that workflow; for casual Reddit browsing, Google site search works; for a fully custom pipeline, use the Reddit API. The comparison table above maps each goal to a tool.
+
+### Does PainRadar require a subscription?
+No. PainRadar uses one-time credit packs, and you get 2 free credits at signup. See the [pricing page](/pricing).
+
+### Can I do this research manually instead?
+Yes, but it takes hours per niche. See the [comparison with manual research](/alternatives/manual-research).`,
   },
   {
     slug: "micro-saas-ideas-2026",
@@ -553,7 +586,18 @@ The goal is 10 hours of validation before 100 hours of building.
 
 ---
 
-*This list is updated quarterly. [PainRadar](https://painradar.com) generates new opportunity reports from live Reddit and review data—run your own analysis for any niche.*`,
+*This list is updated quarterly. [PainRadar](https://painradar.com) generates new opportunity reports from live Reddit and review data—run your own analysis for any niche.*
+
+## FAQ
+
+### What makes a good micro SaaS idea?
+A narrow, recurring problem from a reachable audience, where people already pay for a workaround and a small team can ship a first version quickly.
+
+### How do I validate a micro SaaS idea before building?
+Search for the complaint on Reddit and review sites, study what existing tools get wrong, then test interest with a landing page or direct conversations. See the [step-by-step Reddit validation guide](/blog/validate-saas-idea-with-reddit).
+
+### Where can I find more ideas?
+Browse the [micro SaaS ideas library](/micro-saas-ideas) or the [pain point library](/pain).`,
   },
   {
     slug: "what-is-a-customer-pain-point",
@@ -654,5 +698,51 @@ There is no fixed number. Aim for the same problem showing up independently in s
 
 ### Can I message Reddit users about my idea?
 Yes, if you follow Reddit's rules and the subreddit's policies. Ask about their current process instead of promoting a product.`,
+  },
+  {
+    slug: "saas-idea-validation-checklist",
+    title: "SaaS Idea Validation Checklist: 10 Questions to Answer Before You Build",
+    description:
+      "A 10-question checklist to validate a SaaS idea: problem evidence, audience reach, existing alternatives, willingness to pay and a fast first version. Use it before writing code.",
+    date: "2026-10-24",
+    author: "PainRadar Team",
+    readTime: "5 min read",
+    content: `# SaaS Idea Validation Checklist: 10 Questions to Answer Before You Build
+
+**A SaaS idea is validated when you can show a real, recurring problem, a reachable audience, and evidence that people already spend time or money on it.** Use these ten questions as a gate before writing code. If you cannot answer most of them with links or conversations, keep researching.
+
+## The Problem
+
+1. **Can you quote the problem in users' own words?** Collect real sentences from forum threads or reviews, not your paraphrase.
+2. **Does it repeat?** The same complaint from different people across different places is a pattern. See [what makes a real pain point](/blog/what-is-a-customer-pain-point).
+3. **Is there a cost?** Time lost, money wasted or stress. No cost usually means no purchase.
+
+## The Market
+
+4. **Who exactly has the problem?** A job title, a niche or a community you can name.
+5. **Can you reach them?** A subreddit, newsletter, directory or search term they already use.
+6. **What do they use today?** Spreadsheets, manual routines and competing tools all count as alternatives.
+7. **What do people dislike about those tools?** The 2- and 3-star reviews on G2, Capterra or Trustpilot show the gap.
+
+## The Business
+
+8. **Is there willingness to pay?** Look for mentions of current spend, pricing complaints or hiring someone for the task.
+9. **Can you ship a first version quickly?** A narrow version that fixes the top complaint beats a full platform.
+10. **Have you talked to at least a few real users?** Ask how they solve it today before showing a solution. The [Reddit validation guide](/blog/validate-saas-idea-with-reddit) shows how.
+
+## Speeding It Up
+
+PainRadar analyzes online discussions, groups recurring complaints and scores each as an opportunity across demand, urgency, competition and monetization. Browse [example analyses](/examples) or read the [startup validation guide](/startup-validation).
+
+## FAQ
+
+### How long does SaaS idea validation take?
+A focused pass of research and a few user conversations can be done in days, not months. The goal is to spend hours validating before spending weeks building.
+
+### What is the most important validation signal?
+Evidence that people already pay or work around the problem. Complaints alone show annoyance; spending shows priority.
+
+### Do I need a landing page to validate?
+It helps as a second step, once you have evidence from research and conversations, to measure whether the message resonates.`,
   },
 ];
