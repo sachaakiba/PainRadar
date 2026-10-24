@@ -745,4 +745,102 @@ Evidence that people already pay or work around the problem. Complaints alone sh
 ### Do I need a landing page to validate?
 It helps as a second step, once you have evidence from research and conversations, to measure whether the message resonates.`,
   },
+  {
+    slug: "google-trends-vs-pain-point-research",
+    title: "Google Trends vs Pain Point Research: Which Finds Better SaaS Ideas?",
+    description:
+      "Google Trends shows what people search for; pain point research shows what frustrates them. Compare both for SaaS idea discovery and learn when to use each.",
+    date: "2026-10-25",
+    author: "PainRadar Team",
+    readTime: "5 min read",
+    content: `# Google Trends vs Pain Point Research: Which Finds Better SaaS Ideas?
+
+**Google Trends tells you how interest in a topic changes over time; pain point research tells you what problems people are struggling with and why.** Trends is good for timing and demand direction. Pain point research is better for deciding what to build. Most founders get the best results using both, in that order.
+
+## What Google Trends Is Good At
+
+- Showing whether search interest in a keyword is rising, flat or falling.
+- Comparing the relative popularity of terms and regions.
+- Spotting seasonality before you commit to a niche.
+
+## Where Google Trends Falls Short for Idea Discovery
+
+- **It shows interest, not frustration.** A rising search term does not tell you that people are unhappy with the current options.
+- **It has no context.** You see a curve, not the sentences users write about their workflow.
+- **It cannot show gaps.** A popular topic may already be well served by existing tools.
+
+## What Pain Point Research Adds
+
+Pain point research reads real discussions on Reddit, forums and review sites and groups recurring complaints. You get the problem in users' own words, how often it repeats, and what they use today. For the method, see [how to find SaaS ideas from pain points](/blog/how-to-find-saas-ideas-from-pain-points) and [what a customer pain point is](/blog/what-is-a-customer-pain-point).
+
+## A Simple Combined Workflow
+
+1. Use Google Trends to check that a niche is not shrinking.
+2. Research complaints in that niche to find a specific, repeated problem.
+3. Check alternatives and what users dislike about them.
+4. Run the [validation checklist](/blog/saas-idea-validation-checklist) before building.
+
+## Where PainRadar Fits
+
+PainRadar analyzes online discussions, groups recurring complaints and scores each as an opportunity across demand, urgency, competition and monetization. See how it compares in [alternatives](/alternatives) or browse [example analyses](/examples).
+
+## FAQ
+
+### Is Google Trends enough to validate a SaaS idea?
+No. It shows search interest over time, but not whether people are frustrated, what they pay for, or whether existing tools already solve the problem.
+
+### Should I use Google Trends at all?
+Yes, as a quick check on direction and seasonality. Treat it as a filter, not as the source of the idea.
+
+### What is the fastest way to find a real pain point?
+Read recent threads and reviews in your target niche and look for the same complaint appearing from different people.`,
+  },
+  {
+    slug: "how-to-score-a-saas-opportunity",
+    title: "How to Score a SaaS Opportunity: Demand, Urgency, Competition, Monetization",
+    description:
+      "A practical framework to score a SaaS opportunity on four factors: demand, urgency, competition and monetization. Compare ideas objectively before you build.",
+    date: "2026-10-25",
+    author: "PainRadar Team",
+    readTime: "5 min read",
+    content: `# How to Score a SaaS Opportunity: Demand, Urgency, Competition, Monetization
+
+**To score a SaaS opportunity, rate the underlying problem on four factors: demand (how many people have it), urgency (how badly they want it fixed), competition (how well it is already solved) and monetization (whether people will pay).** Scoring each factor from 0 to 10 makes it easier to compare ideas instead of choosing on gut feeling.
+
+## The Four Factors
+
+### Demand
+How often does the problem appear, and across how many places? One thread is an anecdote; the same complaint across communities and review sites is a pattern.
+
+### Urgency
+Is it a daily blocker or a mild annoyance? Words like "wasting hours", "losing clients" or "can't find anything that works" signal urgency.
+
+### Competition
+Are there existing tools, and what do their reviews say? Competition is not always bad: it proves a market exists. Look for gaps in 2- and 3-star reviews.
+
+### Monetization
+Do people already pay, hire help, or mention budget? Business problems tied to revenue or saved time monetize better than hobby problems.
+
+## A Simple Way to Use the Scores
+
+1. List three to five candidate problems.
+2. Score each factor from 0 to 10 using evidence you can link to.
+3. Weight urgency and monetization higher if you want revenue fast.
+4. Pick the best one and run the [validation checklist](/blog/saas-idea-validation-checklist).
+
+## Automating It
+
+PainRadar gives each detected pain point an opportunity score from 0 to 100 across demand, urgency, competition and monetization. See [features](/features) and [example analyses](/examples), or read [validate a SaaS idea with Reddit](/blog/validate-saas-idea-with-reddit) to do it manually.
+
+## FAQ
+
+### What is a good opportunity score?
+There is no universal threshold. Use scores to rank your own candidates and favor the ones with strong urgency and monetization evidence.
+
+### Is low competition always better?
+No. No competition can mean no market. A few existing tools with visible user complaints is often a better sign.
+
+### Can I score an idea without tools?
+Yes. Collect links to real complaints and reviews, then rate each factor by hand using the criteria above.`,
+  },
 ];

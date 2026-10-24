@@ -46,6 +46,8 @@ Full pricing: https://painradar.com/pricing
 - [What is a customer pain point?](https://painradar.com/blog/what-is-a-customer-pain-point): definition, types and validation
 - [Validate a SaaS idea with Reddit](https://painradar.com/blog/validate-saas-idea-with-reddit): 5-step validation process
 - [SaaS idea validation checklist](https://painradar.com/blog/saas-idea-validation-checklist): 10 questions to answer before building
+- [Google Trends vs pain point research](https://painradar.com/blog/google-trends-vs-pain-point-research): when to use each for idea discovery
+- [How to score a SaaS opportunity](https://painradar.com/blog/how-to-score-a-saas-opportunity): demand, urgency, competition, monetization
 - [Pain point library](https://painradar.com/pain): pain points by problem and audience
 - [SaaS ideas](https://painradar.com/saas-ideas)
 - [Micro SaaS ideas](https://painradar.com/micro-saas-ideas)

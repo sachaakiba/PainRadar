@@ -34,3 +34,12 @@ Backlog:
 1. Base URL mismatch (pain-radar.com vs painradar.com) - lib/ out of scope.
 2. FR versions of blog posts; localized titles/descriptions for static pages; sitemap hreflang alternates.
 3. Per-post OG images; answer-first intro blocks for older posts; comparison posts (e.g. vs Google Trends).
+
+## 2026-10-25
+Done:
+- New posts `google-trends-vs-pain-point-research` (comparison, answer-first, FAQ) and `how-to-score-a-saas-opportunity` (scoring framework, FAQ), internally linked; llms.txt updated.
+
+Backlog:
+1. Base URL mismatch (pain-radar.com vs painradar.com) - lib/ out of scope.
+2. FR versions of blog posts; localized titles/descriptions for static pages; sitemap hreflang alternates.
+3. Per-post OG images; answer-first intro blocks for older posts.
