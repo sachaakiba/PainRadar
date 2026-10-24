@@ -43,3 +43,12 @@ Backlog:
 1. Base URL mismatch (pain-radar.com vs painradar.com) - lib/ out of scope.
 2. FR versions of blog posts; localized titles/descriptions for static pages; sitemap hreflang alternates.
 3. Per-post OG images; answer-first intro blocks for older posts.
+
+## 2026-10-24 (run 5)
+Done:
+- New posts `mine-negative-reviews-for-saas-ideas` and `pain-point-vs-feature-request` (answer-first, FAQ -> FAQPage schema, internal links); llms.txt updated.
+
+Backlog:
+1. Base URL mismatch (pain-radar.com vs painradar.com) - lib/ out of scope.
+2. FR versions of blog posts; localized titles/descriptions for static pages; sitemap hreflang alternates.
+3. Per-post OG images; answer-first intro blocks for older posts.

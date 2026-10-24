@@ -48,6 +48,8 @@ Full pricing: https://painradar.com/pricing
 - [SaaS idea validation checklist](https://painradar.com/blog/saas-idea-validation-checklist): 10 questions to answer before building
 - [Google Trends vs pain point research](https://painradar.com/blog/google-trends-vs-pain-point-research): when to use each for idea discovery
 - [How to score a SaaS opportunity](https://painradar.com/blog/how-to-score-a-saas-opportunity): demand, urgency, competition, monetization
+- [Mine negative reviews for SaaS ideas](https://painradar.com/blog/mine-negative-reviews-for-saas-ideas): G2, Capterra, Trustpilot review mining process
+- [Pain point vs feature request](https://painradar.com/blog/pain-point-vs-feature-request): difference and which to build for
 - [Pain point library](https://painradar.com/pain): pain points by problem and audience
 - [SaaS ideas](https://painradar.com/saas-ideas)
 - [Micro SaaS ideas](https://painradar.com/micro-saas-ideas)

@@ -843,4 +843,95 @@ No. No competition can mean no market. A few existing tools with visible user co
 ### Can I score an idea without tools?
 Yes. Collect links to real complaints and reviews, then rate each factor by hand using the criteria above.`,
   },
+  {
+    slug: "mine-negative-reviews-for-saas-ideas",
+    title: "How to Mine Negative Reviews for SaaS Ideas (G2, Capterra, Trustpilot)",
+    description:
+      "Learn how to turn 2- and 3-star software reviews into SaaS ideas: where to look, what patterns matter, and how to check that a gap is worth building for.",
+    date: "2026-10-24",
+    author: "PainRadar Team",
+    readTime: "5 min read",
+    content: `# How to Mine Negative Reviews for SaaS Ideas
+
+**To find SaaS ideas in negative reviews, read the 2- and 3-star reviews of an established tool in your niche, group the complaints by theme, and build for the theme that appears most often and that users say costs them time or money.** Reviews are useful because people describe real problems in their own words, with the exact workaround they currently use.
+
+## Where to Look
+
+- **G2 and Capterra:** structured "what do you dislike" sections make patterns easy to spot.
+- **Trustpilot and app stores:** good for consumer and prosumer tools.
+- **Reddit and forums:** unfiltered complaints, often with the workaround included. See the [Reddit research workflow](/blog/reddit-research-workflow-saas-founders).
+
+## A Five-Step Process
+
+1. **Pick a category with many users**, such as invoicing, scheduling or CRM tools.
+2. **Open the 2- and 3-star reviews.** 1-star reviews are often about billing or support; middle reviews describe what is missing.
+3. **Tag each complaint** (pricing, missing feature, complexity, integration, speed).
+4. **Count repeats.** A theme mentioned by many different reviewers is a pattern, not an anecdote.
+5. **Check the gap**: does the market already have a simpler or cheaper alternative? Then [score the opportunity](/blog/how-to-score-a-saas-opportunity).
+
+## What Makes a Complaint Worth Building For
+
+- It is repeated by different people.
+- It is tied to money, time or lost clients.
+- Users mention a workaround (spreadsheets, copy-paste, manual steps).
+- The incumbent has not fixed it over a long period.
+
+## Doing It Faster
+
+PainRadar detects recurring pain points from sources like Reddit, G2, Capterra and Trustpilot and scores each as an opportunity. See [pain point detection](/features/pain-point-detection) and the [pain point library](/pain).
+
+## FAQ
+
+### Are negative reviews a reliable source of SaaS ideas?
+They are a strong signal when the same complaint repeats across many reviewers. A single review is only an anecdote.
+
+### Should I copy a competitor's missing feature?
+Not blindly. Check that people would switch or pay for it, using the [validation checklist](/blog/saas-idea-validation-checklist).
+
+### Do I need a tool to do this?
+No. You can do it by hand with a spreadsheet, but it is slow at scale.`,
+  },
+  {
+    slug: "pain-point-vs-feature-request",
+    title: "Pain Point vs Feature Request: What's the Difference (and Which to Build For)?",
+    description:
+      "A pain point is the underlying problem; a feature request is one proposed solution. Learn how to tell them apart and why building for pain points leads to better products.",
+    date: "2026-10-24",
+    author: "PainRadar Team",
+    readTime: "4 min read",
+    content: `# Pain Point vs Feature Request
+
+**A pain point is the underlying problem a customer experiences; a feature request is the customer's guess at one solution.** Building for the pain point keeps you flexible, while building every feature request produces a bloated product that may still not solve the problem.
+
+## The Difference at a Glance
+
+| | Pain point | Feature request |
+|---|---|---|
+| What it describes | A problem or frustration | A proposed solution |
+| Example | "I lose hours chasing late invoices" | "Add an automatic reminder button" |
+| Source | Complaints, reviews, workarounds | Support tickets, roadmaps |
+| Best use | Choosing what to build | Prioritizing details |
+
+## How to Turn a Feature Request into a Pain Point
+
+1. Ask what the person is trying to get done.
+2. Ask what they do today instead.
+3. Ask what that costs them in time, money or stress.
+4. Look for the same problem phrased differently elsewhere, for example in [Reddit threads](/blog/validate-saas-idea-with-reddit).
+
+## Why It Matters for New Products
+
+When you start from a feature request you inherit one person's solution. When you start from a pain point you can compare several solutions and pick the simplest. Read [what a customer pain point is](/blog/what-is-a-customer-pain-point) for types and examples.
+
+## FAQ
+
+### Are feature requests useless?
+No. They help prioritize details once you know the pain point is real.
+
+### How do I find pain points without interviewing customers?
+Read public discussions and reviews where people describe problems unprompted. PainRadar automates this; see [features](/features).
+
+### Which should a founder start with?
+Start with pain points to choose what to build, then use feature requests to refine it.`,
+  },
 ];
